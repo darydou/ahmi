@@ -16,4 +16,4 @@ static GLubyte* PixelData;
 #define PICNAME1   "ALPHA1.data"
 #define PICNAME2   "arrow.dds"
 
-U16 * FrameBuffer = new U16[1024 * 768];
+U16 * FrameBuffer = new U16[ImageWidth * ImageHeight];
