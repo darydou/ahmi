@@ -148,7 +148,7 @@ void READTEX::GetTexPixel(U64 *&rominfo)
 		}
 	}
 }
-//判断纹理的格式
+//判断纹理的格式d
 void READTEX::Determine()
 {//ALPHA
 	if ((*filename) == 'A'
