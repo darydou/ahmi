@@ -1,8 +1,6 @@
 #ifndef __JOGGLELAYER
 #define __JOGGLELAYER
 #include "ALLHeader.h"
-#include "SNSDriver.h"
-#include "DNSDriver.h"
 #include "ahmiv2.h"
 #include "MatrixGenerate.h"
 
