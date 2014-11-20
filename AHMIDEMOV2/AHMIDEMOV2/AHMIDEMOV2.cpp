@@ -55,7 +55,7 @@ void start()
 	//与前任一纹理保持一致
 	// GetMatrix(matrix,TEXADD,int num);//num表示第几个纹理
 	/********************************************/
-	//ReadROMinfo(PICNAME0, &rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	MatrixGenerate Matrixgenerate;
 	Matrixgenerate.Tritranslate(((S1_B_4)-100) << 4, ((S1_B_4)-100) << 4);//已测试
 	Matrixgenerate.Triscale(3<<4,3<<4);//本身不为负数 已测试
@@ -66,9 +66,9 @@ void start()
 		Matrixmask,
 		matrix,
 		TEXADD);//获取矩阵
-	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	GetMatrix(matrix, TEXADD, 0);
-	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
+	ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	GetMatrix(matrix, TEXADD, 0);
 	//ADDPurity(tileinfomask,TEXADD,1,125,96,125,1024,768);
 	//GetMatrix(matrix, TEXADD, 0);

@@ -20,7 +20,7 @@ void TileInfoGenrate(TileInfo &tile_info,
 void TileInfoMaskIng(TileInfoMask *&tileinfomask);
 //读取Alpha纹理或*.dds纹理
 void ReadROMinfo(char*filename, 
-	ROMInfo *&rom_info, 
+	ROMInfo &rom_info, 
 	TileInfoMask *&tileinfomask, 
 	U8 &RomAddr, 
 	U8 &TEXADD, 
