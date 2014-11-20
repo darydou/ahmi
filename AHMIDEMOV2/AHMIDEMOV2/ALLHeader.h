@@ -71,7 +71,7 @@ typedef struct _TileInfo{
 	U16 TileIndex[TILEINDEXSIZE];
 	U8 SourceAddr[SOURCEADDRSIZE];
 	U64 TextureIndex[TextureIndexSize];
-	Matrix Matrix[MatrixSize];
+	Matrix matrix[MatrixSize];
 }TileInfo;
 #endif
 

@@ -6,15 +6,15 @@
 
 void start()
 {
-	TileInfo* tile_info = new TileInfo;
-	ROMInfo* rom_info = new ROMInfo;
+	TileInfo  tile_info   ;
+	ROMInfo rom_info  ;
 	/**************驱动必须无需改变****************/
 	TileInfoMask *tileinfomask = new TileInfoMask;
-	MatrixMask *Matrixmask = new MatrixMask;
+	MatrixMask *Matrixmask     = new MatrixMask;
 	U8 *matrix=new U8 [MatrixSize];//纹理标记数组，取值0~256
 	TileInfoMaskIng(tileinfomask);
-	memset(tile_info, 0, sizeof(TileInfo));
-	memset(Matrixmask,0,sizeof(MatrixMask));
+	//memset(tile_info, 0, sizeof(TileInfo));
+	//memset(Matrixmask,0,sizeof(MatrixMask));
 	U8 RomAddr = 0;//记录非纯色纹理的数目
 	U8 TEXADD =  0; //记录全部纹理的数目
 	/********************************************/
@@ -55,20 +55,20 @@ void start()
 	//与前任一纹理保持一致
 	// GetMatrix(matrix,TEXADD,int num);//num表示第几个纹理
 	/********************************************/
-	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
-	MatrixGenerate MatrixGenerate;
-	MatrixGenerate.Tritranslate(((S1_B_4)-100) << 4, ((S1_B_4)-100) << 4);//已测试
-	MatrixGenerate.Triscale(3<<4,3<<4);//本身不为负数 已测试
+	//ReadROMinfo(PICNAME0, &rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	MatrixGenerate Matrixgenerate;
+	Matrixgenerate.Tritranslate(((S1_B_4)-100) << 4, ((S1_B_4)-100) << 4);//已测试
+	Matrixgenerate.Triscale(3<<4,3<<4);//本身不为负数 已测试
 	//MatrixGenerate.Trihorizontal(3);//本身不为负数 已测试
 	//MatrixGenerate.Trivertical(1);//本身不为负数 已测试
-	MatrixGenerate.Trirotate((S16)-45); //已测试
-	MatrixGenerate.GetMatrix(tile_info,
+	Matrixgenerate.Trirotate((S16)-45); //已测试
+	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
 		TEXADD);//获取矩阵
-	ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	GetMatrix(matrix, TEXADD, 0);
-	ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
+	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	GetMatrix(matrix, TEXADD, 0);
 	//ADDPurity(tileinfomask,TEXADD,1,125,96,125,1024,768);
 	//GetMatrix(matrix, TEXADD, 0);
@@ -84,12 +84,10 @@ void start()
 	memset(FrameBuffer, 0, sizeof(U16) * ScreenWidth * ScreenHeight);
 	ahmi  my_ahmi(ScreenWidth, ScreenHeight);
 	ahmi *my_ahmi_p = &my_ahmi;
-	Flush(my_ahmi_p, tile_info, rom_info);
+	Flush(my_ahmi_p, &tile_info, &rom_info);
 	/********************************************************/
 	for (U8 i = 0; i < RomAddr; i++)
-		delete[] rom_info->tex[i].texel;
-	delete tile_info;
-	delete rom_info;
+		delete[] rom_info.tex[i].texel;
 	delete tileinfomask;
 	delete Matrixmask;
 	delete[] matrix;

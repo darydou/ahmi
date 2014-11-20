@@ -10,12 +10,12 @@ extern U16 * FrameBuffer;
 
 
 //更新tileinfo
-void TileInfoGenrate(TileInfo *&tile_info,
+void TileInfoGenrate(TileInfo &tile_info,
 	MatrixMask  *&Matrixmask,
 	U8 *&matrix,
 	TileInfoMask *&tileinfomask,
 	U8 TEXADD,
-	ROMInfo *&rom_info);
+	ROMInfo &rom_info);
 //初始化纹理信息记录结构体
 void TileInfoMaskIng(TileInfoMask *&tileinfomask);
 //读取Alpha纹理或*.dds纹理
