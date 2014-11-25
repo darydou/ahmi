@@ -110,7 +110,9 @@
     <None Include="ALPHA3.data" />
     <None Include="ALPHA4.data" />
     <None Include="ALPHA5.data" />
+    <None Include="diwei.dat" />
     <None Include="dou.data" />
+    <None Include="gaowei.dat" />
     <None Include="songti.dat" />
     <None Include="TEX.data" />
     <None Include="zitiku.data" />

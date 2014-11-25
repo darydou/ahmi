@@ -106,6 +106,12 @@
     <None Include="zitiku.data">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="gaowei.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="diwei.dat">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="arrow.dds">
