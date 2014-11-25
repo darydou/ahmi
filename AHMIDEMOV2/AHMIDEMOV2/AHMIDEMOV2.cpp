@@ -98,19 +98,19 @@ void start()
 	/********************************************/
 	//ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
-	LoadFontlibrary("一三",rom_info,tileinfomask,RomAddr,TEXADD);
+	LoadFontlibrary("我的个天啊哎腰围",rom_info,tileinfomask,RomAddr,TEXADD);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	MatrixGenerate Matrixgenerate;
-	Matrixgenerate.Tritranslate(((S1_B_4)-100) << 4, ((S1_B_4)-100) << 4);//已测试
-	//Matrixgenerate.Triscale(3,3);//本身不为负数 已测试
+	Matrixgenerate.Tritranslate(((S1_B_4)-700) << 4, ((S1_B_4)-300) << 4);//已测试
+	//Matrixgenerate.Triscale(4,4);//本身不为负数 已测试
 	//MatrixGenerate.Trihorizontal(3);//本身不为负数 已测试
 	//MatrixGenerate.Trivertical(1);//本身不为负数 已测试
-	//Matrixgenerate.Trirotate((S16)180); //已测试
+	Matrixgenerate.Trirotate((S16)-180); //已测试
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
 		TEXADD);//获取矩阵
-	ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
+	ADDPurity(tileinfomask, TEXADD, 1, 255, 255, 255, 1024, 768);
 	GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//GetMatrix(matrix, TEXADD, 0);
