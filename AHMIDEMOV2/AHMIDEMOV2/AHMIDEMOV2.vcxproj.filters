@@ -45,6 +45,9 @@
     <ClInclude Include="AHMIDEMOV2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LoadFontlibrary.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -68,6 +71,9 @@
     <ClCompile Include="MatrixGenerate.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadFontlibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ALPHA.data">
@@ -86,6 +92,18 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="TEX.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="dou.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ALPHA5.data">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="songti.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="zitiku.data">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

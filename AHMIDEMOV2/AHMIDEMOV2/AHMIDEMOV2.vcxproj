@@ -84,6 +84,7 @@
     <ClInclude Include="ALLHeader.h" />
     <ClInclude Include="DNSDriver.h" />
     <ClInclude Include="JoggleLayer.h" />
+    <ClInclude Include="LoadFontlibrary.h" />
     <ClInclude Include="MatrixGenerate.h" />
     <ClInclude Include="SNSDriver.h" />
     <ClInclude Include="stdafx.h" />
@@ -100,6 +101,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="LoadFontlibrary.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ALPHA.data" />
@@ -107,7 +109,11 @@
     <None Include="ALPHA2.data" />
     <None Include="ALPHA3.data" />
     <None Include="ALPHA4.data" />
+    <None Include="ALPHA5.data" />
+    <None Include="dou.data" />
+    <None Include="songti.dat" />
     <None Include="TEX.data" />
+    <None Include="zitiku.data" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="arrow.dds" />

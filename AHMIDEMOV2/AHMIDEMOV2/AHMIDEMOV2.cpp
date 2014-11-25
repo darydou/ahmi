@@ -9,15 +9,56 @@ void start()
 	TileInfo  tile_info   ;
 	ROMInfo rom_info  ;
 	/**************驱动必须无需改变****************/
-	TileInfoMask *tileinfomask = new TileInfoMask;
-	MatrixMask *Matrixmask     = new MatrixMask;
-	U8 *matrix=new U8 [MatrixSize];//纹理标记数组，取值0~256
+	TileInfoMask tileinfomask;
+	MatrixMask Matrixmask;
+	U8 matrix[MatrixSize];//纹理标记数组，取值0~256
 	TileInfoMaskIng(tileinfomask);
 	//memset(tile_info, 0, sizeof(TileInfo));
 	//memset(Matrixmask,0,sizeof(MatrixMask));
 	U8 RomAddr = 0;//记录非纯色纹理的数目
 	U8 TEXADD =  0; //记录全部纹理的数目
 	/********************************************/
+	//将字体库装换成64位的数据GB2312
+	ifstream  infile; 
+	infile.open("songti.dat", std::ios::binary);
+	U32 i=0;
+	U64 temp;
+	char * fuck = new char [4];
+	U64 *rominfo = new U64[32712];
+	while (!infile.eof())// && i<Pixellength)
+	{
+		infile.read(fuck, 4 * sizeof(char));
+		temp = ((U64)((U8)fuck[0]) << 56)
+			+ ((U64)((U8)fuck[1]) << 48)
+			+ ((U64)((U8)fuck[2]) << 40)
+			+ ((U64)((U8)fuck[3]) << 32);
+		infile.read(fuck, 4 * sizeof(char));
+		temp = temp + ((U64)((U8)fuck[0]) << 24)
+			+ ((U64)((U8)fuck[1]) << 16)
+			+ ((U64)((U8)fuck[2]) << 8)
+			+ ((U64)((U8)fuck[3]) << 0);
+		*(rominfo + i) = temp;
+		i++;
+	}
+	infile.close();
+	ofstream infilecin("zitiku.data");
+	i = 0;
+	U32 temp1, temp2;
+	while (i<32712)
+	{
+		temp1 = ((U64)(*(rominfo + i) >> 32) & 0xffffffff);
+		infilecin << '0';
+		infilecin << 'x';
+		infilecin << std::hex << temp1;
+		infilecin<<','<< endl;
+		temp2 = (*(rominfo + i) & 0xffffffff);
+		temp = *(rominfo + i);
+		infilecin << '0';
+		infilecin << 'x';
+		infilecin << std::hex << temp2;
+		infilecin << ',' << endl;
+		i++;
+	}
 	/********请依照下述添加纹理及其变换矩阵********/
 	//添加alpha或者*.dds纹理
 	//ReadROMinfo(char*filename, 
@@ -55,22 +96,27 @@ void start()
 	//与前任一纹理保持一致
 	// GetMatrix(matrix,TEXADD,int num);//num表示第几个纹理
 	/********************************************/
-	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	//ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
+	//LoadFontlibrary()
+	ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	MatrixGenerate Matrixgenerate;
 	Matrixgenerate.Tritranslate(((S1_B_4)-100) << 4, ((S1_B_4)-100) << 4);//已测试
-	Matrixgenerate.Triscale(3<<4,3<<4);//本身不为负数 已测试
+	//Matrixgenerate.Triscale(3,3);//本身不为负数 已测试
 	//MatrixGenerate.Trihorizontal(3);//本身不为负数 已测试
 	//MatrixGenerate.Trivertical(1);//本身不为负数 已测试
-	Matrixgenerate.Trirotate((S16)-45); //已测试
+	//Matrixgenerate.Trirotate((S16)180); //已测试
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
 		TEXADD);//获取矩阵
-	ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	GetMatrix(matrix, TEXADD, 0);
-	ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
-	GetMatrix(matrix, TEXADD, 0);
-	//ADDPurity(tileinfomask,TEXADD,1,125,96,125,1024,768);
+	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	//GetMatrix(matrix, TEXADD, 0);
+	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
+	//GetMatrix(matrix, TEXADD, 0);
+	//ADDPurity(tileinfomask,TEXADD,1,255,255,255,1024,768);
 	//GetMatrix(matrix, TEXADD, 0);
 	/*******************更新tile_info信息*********************/
 	TileInfoGenrate(tile_info,
