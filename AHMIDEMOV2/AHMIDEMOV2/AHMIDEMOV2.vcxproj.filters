@@ -48,6 +48,9 @@
     <ClInclude Include="LoadFontlibrary.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WriteChinese.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="LoadFontlibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WriteChinese.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -110,6 +116,9 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="diwei.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="fontlibrary32.dat">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>

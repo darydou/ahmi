@@ -1,39 +1,48 @@
+       //将字体库装换成64位的数据GB2312
 #include "stdafx.h"
 #include "LoadFontlibrary.h"
-void LoadFontlibrary(string word, ROMInfo &rom_info, TileInfoMask &tileinfomask, U8 & RomAddr, U8 &TEXADD)
-{
-	U8 wordlength =(U8)(word.length()) >>1;
-	rom_info.tex[RomAddr].texel = new U64[wordlength * 4];
-	tileinfomask.tileinfomask1[TEXADD].flag = 2;
-	tileinfomask.tileinfomask1[TEXADD].height = 16 ;
-	tileinfomask.tileinfomask1[TEXADD].width = 16 * wordlength;
-	tileinfomask.tileinfomask1[TEXADD].mask = 0;
-	TEXADD++;
-	//缓冲区
-	U16 *buffer = new U16[wordlength * 4 * 4];
-	U16 *bufferend = new U16[wordlength * 4 * 4];
-	for (U8 i = 0; i < wordlength; i++)
-	{
-		U8 TEST = word[i * 2];
-		U8 TEST2 = word[i * 2+1];
-		U16 font_addr = (TEST-0XA1)*(0xff-0xa1)+(TEST2-0xa1);
-		for (U8 j = 0; j < 4; j++)
-		{
-			*(buffer + i * 16 + j * 4     ) = (U16)((ziku[font_addr * 8 + j * 2] >> 16) & 0xffff);
-			*(buffer + i * 16 + j * 4 + 1) = (U16)(ziku[font_addr * 8 + j * 2] & 0xffff);
-			*(buffer + i * 16 + j * 4 + 2) = (U16)((ziku[font_addr * 8 + j * 2 + 1] >> 16)& 0xffff);
-			*(buffer + i * 16 + j * 4 + 3) = (U16)(ziku[font_addr * 8 + j * 2 + 1] & 0xffff);
-			//*(rom_info.tex[RomAddr].texel+i*4+j) = ((U64)ziku[(U32)font_addr * 8 + j * 2] << 32) + (U64)ziku[(U32)font_addr * 8 + j * 2 + 1];
-			//*(rom_info.tex[RomAddr].texel + i * 4 + j) = ((U64)*(buffer + i * 16 + j * 4) << 48) | ((U64)*(buffer + i * 16 + j * 4 + 1) << 32) | ((U64)*(buffer + i * 16 + j * 4 + 2) << 16) | ((U64)*(buffer + i * 16 + j * 4 + 3));
-		}
-	}
 
-	for (U8 j = 0; j < wordlength; j++)
-		for (U8 i = 0; i <4 * 4; i++)
-		{
-		*(bufferend + j * 16 + i) = *(buffer + ((i+j*16)%wordlength)*16 + (i+j*16)/wordlength);
-		}
-	for (U8 i = 0; i < wordlength * 4; i++)
-		*(rom_info.tex[RomAddr].texel + i) = ((U64)*(bufferend + i * 4) << 48) | ((U64)*(bufferend + i * 4 + 1) << 32) | ((U64)*(bufferend + i * 4 + 2) << 16) | (U64)*(bufferend + i * 4 + 3);
-	RomAddr++;
+void  LoadLibrary ( char *filenamein,char *filenameout, U8 size)
+{
+	ifstream  infile;
+	infile.open(filenamein, std::ios::binary);
+	U32 i = 0;
+	U64 temp;
+	char * fuck = new char[4];
+	U16 rominfosize = fontsize * size * size >> 6;
+	U64 *rominfo = new U64[rominfosize];
+	while (!infile.eof())// && i<Pixellength)
+	{
+		infile.read(fuck, 4 * sizeof(char));
+		temp = ((U64)((U8)fuck[0]) << 56)
+			+ ((U64)((U8)fuck[1]) << 48)
+			+ ((U64)((U8)fuck[2]) << 40)
+			+ ((U64)((U8)fuck[3]) << 32);
+		infile.read(fuck, 4 * sizeof(char));
+		temp = temp + ((U64)((U8)fuck[0]) << 24)
+			+ ((U64)((U8)fuck[1]) << 16)
+			+ ((U64)((U8)fuck[2]) << 8)
+			+ ((U64)((U8)fuck[3]) << 0);
+		*(rominfo + i) = temp;
+		i++;
+	}
+	infile.close();
+	ofstream infilecin(filenameout);
+	i = 0;
+	U32 temp1, temp2;
+	while (i < rominfosize)
+	{
+		temp1 = ((U64)(*(rominfo + i) >> 32) & 0xffffffff);
+		infilecin << '0';
+		infilecin << 'x';
+		infilecin << std::hex << temp1;
+		infilecin << ',' << endl;
+		temp2 = (*(rominfo + i) & 0xffffffff);
+		temp = *(rominfo + i);
+		infilecin << '0';
+		infilecin << 'x';
+		infilecin << std::hex << temp2;
+		infilecin << ',' << endl;
+		i++;
+	}
 }
