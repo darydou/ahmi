@@ -5,6 +5,7 @@
 #include "ALLHeader.h"
 #include "JoggleLayer.h"
 #include "WriteChinese.h"
+
 static GLint    ImageWidth = 1024;
 static GLint    ImageHeight = 768;
 static GLint    PixelLength = 1024 * 768 * 3;
