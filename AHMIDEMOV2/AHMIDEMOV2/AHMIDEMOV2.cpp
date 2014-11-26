@@ -6,8 +6,8 @@
 
 void start()
 {
-	TileInfo  tile_info   ;
-	ROMInfo rom_info  ;
+	TileInfo  tile_info;
+	ROMInfo   rom_info  ;
 	/**************驱动必须无需改变****************/
 	TileInfoMask tileinfomask;
 	MatrixMask Matrixmask;
@@ -57,18 +57,27 @@ void start()
 	/********************************************/
 	//ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
-	WriteChinese("撒大家分开撒娇啊手抖啊知道采访爱我去收到法国大使馆的水果防护复合机房公寓有尔阿同仁堂敢达分公司的分公司股份割发代首感受到",rom_info,tileinfomask,RomAddr,TEXADD);
+	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
+	WriteChinese("广告费大概发达噶大概",
+		rom_info,
+		tile_info,
+		Matrixmask,
+		tileinfomask,
+		matrix,
+		RomAddr,
+		TEXADD,
+		255);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
-	MatrixGenerate Matrixgenerate;
+	//MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//已测试
 	//Matrixgenerate.Triscale(2,2);//本身不为负数 已测试
 	//MatrixGenerate.Trihorizontal(3);//本身不为负数 已测试
 	//MatrixGenerate.Trivertical(1);//本身不为负数 已测试
 	//Matrixgenerate.Trirotate((S16)-180); //已测试
-	Matrixgenerate.GetMatrix(tile_info,
-		Matrixmask,
-		matrix,
-		TEXADD);//获取矩阵
+	//Matrixgenerate.GetMatrix(tile_info,
+	//	Matrixmask,
+	//	matrix,
+	//	TEXADD);//获取矩阵
 	ADDPurity(tileinfomask, TEXADD, 1, 255, 255, 255, 1024, 768);
 	GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);

@@ -304,11 +304,11 @@ void MatrixGenerate::GetMatrix(TileInfo &tile_info,
 	//	count++;
 	//} 
 
-	tile_info.matrix[TEXADD - 1].A =(S1_3_4)Matrix[0] ;
-	tile_info.matrix[TEXADD - 1].B =(S1_3_4)Matrix[1] ;
-	tile_info.matrix[TEXADD - 1].C =(S1_3_4)Matrix[3] ;
-	tile_info.matrix[TEXADD - 1].D =(S1_3_4)Matrix[4] ;
-	tile_info.matrix[TEXADD - 1].E =Matrix[6] ;
-	tile_info.matrix[TEXADD - 1].F =Matrix[7] ;
+	tile_info.matrix[TEXADD - 1].A =(S1_3_4)MatrixTemp[0] ;
+	tile_info.matrix[TEXADD - 1].B = (S1_3_4)MatrixTemp[1];
+	tile_info.matrix[TEXADD - 1].C = (S1_3_4)MatrixTemp[3];
+	tile_info.matrix[TEXADD - 1].D = (S1_3_4)MatrixTemp[4];
+	tile_info.matrix[TEXADD - 1].E = MatrixTemp[6];
+	tile_info.matrix[TEXADD - 1].F = MatrixTemp[7];
 	matrix[TEXADD - 1] = TEXADD - 1;
 }
