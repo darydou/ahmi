@@ -117,7 +117,9 @@
     <None Include="diwei.dat" />
     <None Include="dou.data" />
     <None Include="english16.dat" />
+    <None Include="english32.dat" />
     <None Include="englishlibrary16.dat" />
+    <None Include="englishlibrary32.dat" />
     <None Include="fontlibrary32.dat" />
     <None Include="gaowei.dat" />
     <None Include="songti.dat" />

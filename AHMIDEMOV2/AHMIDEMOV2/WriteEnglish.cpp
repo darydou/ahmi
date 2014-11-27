@@ -30,16 +30,16 @@ void WriteEnglish(string word,
 		//缓冲区
 		U16 buffersize = wordlength*fontsize*fontsize * 2 >> 3;
 		U8 *buffer = new U8[buffersize];
-		U16 fontlibrarysize = fontsize * fontsize * 2 >> 5;
+		U16 fontlibrarysize = fontsize * fontsize * 2 >> 5;//计算一个字符占用的U32空间的大小
 		for (U16 i = 0; i < wordlength; i++)
 		{
 			U16 fontaddr = (U8)word[i] * fontlibrarysize;
 			for (U16 j = 0; j < 4; j++)
 			{
-				buffer[i%wordlength + (j * 4)*wordlength]      = (U8)(englishfontlibrary[fontaddr + j] >> 24) & 0xff;
-				buffer[i%wordlength + (j * 4 + 1)*wordlength]  = (U8)(englishfontlibrary[fontaddr + j] >> 16) & 0xff;
-				buffer[i%wordlength + (j * 4 + 2)*wordlength]  = (U8)(englishfontlibrary[fontaddr + j] >> 8 ) & 0xff;
-				buffer[i%wordlength + (j * 4 + 3)*wordlength]  = (U8)(englishfontlibrary[fontaddr + j]      ) & 0xff;
+				buffer[i%wordlength + (j * 4)*wordlength]      = (U8)(englishfontlibrary8[fontaddr + j] >> 24) & 0xff;
+				buffer[i%wordlength + (j * 4 + 1)*wordlength]  = (U8)(englishfontlibrary8[fontaddr + j] >> 16) & 0xff;
+				buffer[i%wordlength + (j * 4 + 2)*wordlength]  = (U8)(englishfontlibrary8[fontaddr + j] >> 8 ) & 0xff;
+				buffer[i%wordlength + (j * 4 + 3)*wordlength]  = (U8)(englishfontlibrary8[fontaddr + j]      ) & 0xff;
 				int m = 0;
 			}
 		}
@@ -53,9 +53,27 @@ void WriteEnglish(string word,
 			| (U64)buffer[i * 8 + 6] << 8
 			| (U64)buffer[i * 8 + 7];
 	}
-	else
+	else if ((fontsize == 16) != 0)
 	{
 		//缓冲区
+		U16 buffersize = wordlength*fontsize*fontsize * 2 >> 4;
+		U16 *buffer = new U16[buffersize];
+		U16 fontlibrarysize = fontsize*fontsize * 2 >> 5;//计算一个字符占用的U32空间的大小
+		for (U16 i = 0; i < wordlength; i++)
+		{
+			U16 fontaddr = (U8)word[i] * fontlibrarysize;
+			for (U8 j = 0; j < 16; j++)
+			{
+				buffer[i%wordlength + (j * 2)*wordlength] = (U16)(englishfontlibrary16[fontaddr + j] >> 16) & 0xffff;
+				buffer[i%wordlength + (j * 2 + 1)*wordlength] = (U16)(englishfontlibrary16[fontaddr + j]) & 0xffff;
+			}
+		}
+		for (U16 i = 0; i < romsize; i++)
+			*(rom_info.tex[RomAddr].texel + i) = (U64)buffer[i * 4] << 48
+			| (U64)buffer[i * 4 + 1] << 32
+			| (U64)buffer[i * 4 + 2] << 16
+			| (U64)buffer[i * 4 + 3];
+
 	}
 	RomAddr++;
 	MatrixGenerate matrixgenerate;

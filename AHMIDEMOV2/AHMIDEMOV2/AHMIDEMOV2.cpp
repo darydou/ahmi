@@ -18,7 +18,7 @@ void start()
 	U8 RomAddr = 0;//记录非纯色纹理的数目
 	U8 TEXADD =  0; //记录全部纹理的数目
 	/********************************************/
-	//LoadEnglishLibrary("english16.dat", "englishlibrary16.dat", 8, 16);
+	//LoadEnglishLibrary("english32.dat", "englishlibrary32.dat", 16, 32);
 	/********请依照下述添加纹理及其变换矩阵********/
 	//添加alpha或者*.dds纹理
 	//ReadROMinfo(char*filename, 
@@ -67,7 +67,7 @@ void start()
 		matrix,
 		RomAddr,
 		TEXADD,
-		8);
+		16);
 	//WriteChinese("广告费大概发达噶大概",
 	//	rom_info,
 	//	tile_info,

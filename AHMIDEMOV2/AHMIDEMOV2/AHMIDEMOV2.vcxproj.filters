@@ -133,6 +133,12 @@
     <None Include="englishlibrary16.dat">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="english32.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="englishlibrary32.dat">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="arrow.dds">
