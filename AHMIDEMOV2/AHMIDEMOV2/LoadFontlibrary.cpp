@@ -8,21 +8,21 @@ void  LoadChineseLibrary ( char *filenamein,char *filenameout, U8 size)
 	infile.open(filenamein, std::ios::binary);
 	U32 i = 0;
 	U64 temp;
-	char * fuck = new char[4];
+	char * buffer = new char[4];
 	U16 rominfosize = chinesefontsize * size * size >> 6;
 	U64 *rominfo = new U64[rominfosize];
 	while (!infile.eof())// && i<Pixellength)
 	{
-		infile.read(fuck, 4 * sizeof(char));
-		temp = ((U64)((U8)fuck[0]) << 56)
-			+ ((U64)((U8)fuck[1]) << 48)
-			+ ((U64)((U8)fuck[2]) << 40)
-			+ ((U64)((U8)fuck[3]) << 32);
-		infile.read(fuck, 4 * sizeof(char));
-		temp = temp + ((U64)((U8)fuck[0]) << 24)
-			+ ((U64)((U8)fuck[1]) << 16)
-			+ ((U64)((U8)fuck[2]) << 8)
-			+ ((U64)((U8)fuck[3]) << 0);
+		infile.read(buffer, 4 * sizeof(char));
+		temp = ((U64)((U8)buffer[0]) << 56)
+			+ ((U64)((U8)buffer[1]) << 48)
+			+ ((U64)((U8)buffer[2]) << 40)
+			+ ((U64)((U8)buffer[3]) << 32);
+		infile.read(buffer, 4 * sizeof(char));
+		temp = temp + ((U64)((U8)buffer[0]) << 24)
+			+ ((U64)((U8)buffer[1]) << 16)
+			+ ((U64)((U8)buffer[2]) << 8)
+			+ ((U64)((U8)buffer[3]) << 0);
 		*(rominfo + i) = temp;
 		i++;
 	}
@@ -45,4 +45,30 @@ void  LoadChineseLibrary ( char *filenamein,char *filenameout, U8 size)
 		infilecin << ',' << endl;
 		i++;
 	}
+	infilecin.close();
+}
+
+void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 width,U8 height)
+{
+	ifstream infile;
+	infile.open(filenamein, std::ios::binary);
+	U32 i = 0;
+	char buffer[4];
+	U16  rominfosize = englishfontsize*width*height >> 5;
+	U32 *rominfobuffer = new U32[rominfosize];
+	while (!infile.eof())
+	{
+		infile.read(buffer, sizeof(char) * 4);
+		*(rominfobuffer + i) = (U32)buffer[0] << 24 | (U32)buffer[1] << 16 | (U32)buffer[2] << 8 | (U32)buffer[3];
+		i++;
+	}
+	infile.close();
+	ofstream outfile(filenameout);
+	i = 0;
+	while (i < rominfosize)
+	{
+		outfile << '0' << 'x' << std::hex << *(rominfobuffer + i) << endl;
+		i++;
+	}
+	outfile.close();
 }
