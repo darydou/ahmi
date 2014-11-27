@@ -90,6 +90,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WriteChinese.h" />
+    <ClInclude Include="WriteEnglish.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AHMIDEMOV2.cpp" />
@@ -104,6 +105,7 @@
     </ClCompile>
     <ClCompile Include="LoadFontlibrary.cpp" />
     <ClCompile Include="WriteChinese.cpp" />
+    <ClCompile Include="WriteEnglish.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ALPHA.data" />

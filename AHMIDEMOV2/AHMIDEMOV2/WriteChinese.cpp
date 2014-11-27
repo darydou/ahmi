@@ -52,6 +52,7 @@ void WriteChinese(string word, ROMInfo &rom_info, TileInfoMask &tileinfomask, U8
 	for (U16 i = 0; i < wordlength * 16; i++)
 		*(rom_info.tex[RomAddr].texel + i) =  (U64)*(buffer + i * 2) << 32  |   (U64)*(buffer + i * 2 + 1);
 	RomAddr++;
+	delete buffer;
 }
 
 void WriteChinese(string word, 
@@ -100,6 +101,7 @@ void WriteChinese(string word,
 			| ((U64)*(buffer + i * 4 + 1) << 32)
 			| ((U64)*(buffer + i * 4 + 2) << 16)
 			| (U64)*(buffer + i * 4 + 3);
+		delete[] buffer;
 	}
 	else
 	{
@@ -116,6 +118,7 @@ void WriteChinese(string word,
 		}
 		for (U16 i = 0; i < wordlength * 16; i++)
 			*(rom_info.tex[RomAddr].texel + i) = (U64)*(buffer + i * 2) << 32 | (U64)*(buffer + i * 2 + 1);
+		delete[] buffer;
 	}
 	RomAddr++;
 	MatrixGenerate matrixgenerate;

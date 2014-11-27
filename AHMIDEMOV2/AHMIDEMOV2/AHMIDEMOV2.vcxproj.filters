@@ -51,6 +51,9 @@
     <ClInclude Include="WriteChinese.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="WriteEnglish.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -78,6 +81,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="WriteChinese.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WriteEnglish.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
