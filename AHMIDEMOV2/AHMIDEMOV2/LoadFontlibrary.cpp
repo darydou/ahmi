@@ -2,14 +2,14 @@
 #include "stdafx.h"
 #include "LoadFontlibrary.h"
 
-void  LoadLibrary ( char *filenamein,char *filenameout, U8 size)
+void  LoadChineseLibrary ( char *filenamein,char *filenameout, U8 size)
 {
 	ifstream  infile;
 	infile.open(filenamein, std::ios::binary);
 	U32 i = 0;
 	U64 temp;
 	char * fuck = new char[4];
-	U16 rominfosize = fontsize * size * size >> 6;
+	U16 rominfosize = chinesefontsize * size * size >> 6;
 	U64 *rominfo = new U64[rominfosize];
 	while (!infile.eof())// && i<Pixellength)
 	{
