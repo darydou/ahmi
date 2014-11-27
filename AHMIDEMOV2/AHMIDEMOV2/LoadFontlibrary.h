@@ -9,4 +9,4 @@ const U16 englishfontsize = 128;
 
 
 void  LoadChineseLibrary(char *filenamein, char *filenameout, U8 size);
-void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 size);
+void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 width, U8 height);

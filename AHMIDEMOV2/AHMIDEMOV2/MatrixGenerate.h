@@ -1,3 +1,5 @@
+#ifndef _MATRIXGENERATE
+#define _MATRIXGENERATE
 #include "ALLHeader.h"
 #define MSize 9
 
@@ -22,3 +24,4 @@ public:
 		U8 TEXADD);
 	~MatrixGenerate();
 };
+#endif

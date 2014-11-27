@@ -59,7 +59,7 @@ void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 width,U8 height
 	while (!infile.eof())
 	{
 		infile.read(buffer, sizeof(char) * 4);
-		*(rominfobuffer + i) = (U32)buffer[0] << 24 | (U32)buffer[1] << 16 | (U32)buffer[2] << 8 | (U32)buffer[3];
+		*(rominfobuffer + i) = (U32)((U8)buffer[0]) << 24 | (U32)((U8)buffer[1]) << 16 | (U32)((U8)buffer[2]) << 8 | (U32)((U8)buffer[3]);
 		i++;
 	}
 	infile.close();
@@ -67,7 +67,7 @@ void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 width,U8 height
 	i = 0;
 	while (i < rominfosize)
 	{
-		outfile << '0' << 'x' << std::hex << *(rominfobuffer + i) << endl;
+		outfile << '0' << 'x' << std::hex << *(rominfobuffer + i) <<','<< endl;
 		i++;
 	}
 	outfile.close();

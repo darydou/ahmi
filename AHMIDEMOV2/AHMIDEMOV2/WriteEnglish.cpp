@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "WriteEnglish.h"
 
 void WriteEnglish(string word,
@@ -35,10 +36,11 @@ void WriteEnglish(string word,
 			U16 fontaddr = (U8)word[i] * fontlibrarysize;
 			for (U16 j = 0; j < 4; j++)
 			{
-				buffer[i%wordlength + (j * 4)*wordlength] = englishfontlibrary[fontaddr + j] >> 24 & 0xff;
-				buffer[i%wordlength + (j * 4 + 1)*wordlength] = englishfontlibrary[fontaddr + j] >> 16 & 0xff;
-				buffer[i%wordlength + (j * 4 + 2)*wordlength] = englishfontlibrary[fontaddr + j] >> 8 & 0xff;
-				buffer[i%wordlength + (j * 4 + 3)*wordlength] = englishfontlibrary[fontaddr + j] & 0xff;
+				buffer[i%wordlength + (j * 4)*wordlength]      = (U8)(englishfontlibrary[fontaddr + j] >> 24) & 0xff;
+				buffer[i%wordlength + (j * 4 + 1)*wordlength]  = (U8)(englishfontlibrary[fontaddr + j] >> 16) & 0xff;
+				buffer[i%wordlength + (j * 4 + 2)*wordlength]  = (U8)(englishfontlibrary[fontaddr + j] >> 8 ) & 0xff;
+				buffer[i%wordlength + (j * 4 + 3)*wordlength]  = (U8)(englishfontlibrary[fontaddr + j]      ) & 0xff;
+				int m = 0;
 			}
 		}
 		for (U16 i = 0; i < romsize; i++)
@@ -56,4 +58,13 @@ void WriteEnglish(string word,
 		//»º³åÇø
 	}
 	RomAddr++;
+	MatrixGenerate matrixgenerate;
+	//matrixgenerate.Trirotate(180);
+	matrixgenerate.Triscale(4 << 4, 4 << 4);
+	matrixgenerate.Tritranslate(((S1_B_4)200) << 4, ((S1_B_4)300) << 4);//ÒÑ²âÊÔ
+	//if (size == 0)
+	//	size = 1;
+	//matrixgenerate.Triscale(4<< 4, 4 << 4);
+	//matrixgenerate.Trirotate(45);
+	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 }

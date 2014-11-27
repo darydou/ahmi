@@ -18,6 +18,7 @@ void start()
 	U8 RomAddr = 0;//记录非纯色纹理的数目
 	U8 TEXADD =  0; //记录全部纹理的数目
 	/********************************************/
+	//LoadEnglishLibrary("english16.dat", "englishlibrary16.dat", 8, 16);
 	/********请依照下述添加纹理及其变换矩阵********/
 	//添加alpha或者*.dds纹理
 	//ReadROMinfo(char*filename, 
@@ -58,7 +59,7 @@ void start()
 	//ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
-	WriteChinese("广告费大概发达噶大概",
+	WriteEnglish("anjsdkfjskajdfhsaklj",
 		rom_info,
 		tile_info,
 		Matrixmask,
@@ -66,7 +67,16 @@ void start()
 		matrix,
 		RomAddr,
 		TEXADD,
-		255);
+		8);
+	//WriteChinese("广告费大概发达噶大概",
+	//	rom_info,
+	//	tile_info,
+	//	Matrixmask,
+	//	tileinfomask,
+	//	matrix,
+	//	RomAddr,
+	//	TEXADD,
+	//	255);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//已测试

@@ -127,6 +127,12 @@
     <None Include="fontlibrary32.dat">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="english16.dat">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="englishlibrary16.dat">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Image Include="arrow.dds">
