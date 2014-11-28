@@ -115,8 +115,8 @@ bool boxtest(TileInfo &tile_info,
 	leftb.y = ((tile_num - ((tile_num >> 5) << 5)) * 32 * (S32)tile_info.matrix[matrix[tex_num]].B
 		+ leftb.y*(S32)tile_info.matrix[matrix[tex_num]].D
 		        + (S32)tile_info.matrix[matrix[tex_num]].F) >>4;
-	if (   leftb.x + 64<0 || leftb.x - 64>tileinfomask.tileinfomask1[tex_num].width
-		|| leftb.y + 64<0 || leftb.y - 64>tileinfomask.tileinfomask1[tex_num].height)
+	if (   leftb.x  <0 || leftb.x  >tileinfomask.tileinfomask1[tex_num].width
+		|| leftb.y  <0 || leftb.y  >tileinfomask.tileinfomask1[tex_num].height)
 		flag = false;
 	else
 		return true;
@@ -124,8 +124,8 @@ bool boxtest(TileInfo &tile_info,
 	Point leftu;
 	leftu.x = leftb.x + ((S32)(31 * (S32)tile_info.matrix[matrix[tex_num]].C) >>4);
 	leftu.y = leftb.y + ((S32)(31 * (S32)tile_info.matrix[matrix[tex_num]].D) >>4);
-	if    (leftu.x+64<0 || leftu.x-64>tileinfomask.tileinfomask1[tex_num].width
-		|| leftu.y+64<0 || leftu.y-64>tileinfomask.tileinfomask1[tex_num].height)
+	if    (leftu.x <0 || leftu.x >tileinfomask.tileinfomask1[tex_num].width
+		|| leftu.y <0 || leftu.y >tileinfomask.tileinfomask1[tex_num].height)
 		flag = false;
 	else
 		return true;
@@ -133,8 +133,8 @@ bool boxtest(TileInfo &tile_info,
 	Point rightb;
 	rightb.x = leftb.x + ((S32)(31 * (S32)tile_info.matrix[matrix[tex_num]].A) >>4);
 	rightb.y = leftb.y + ((S32)(31 * (S32)tile_info.matrix[matrix[tex_num]].B) >>4);
-	if (   rightb.x+64<0 || rightb.x-64>tileinfomask.tileinfomask1[tex_num].width
-		|| rightb.y+64<0 || rightb.y-64>tileinfomask.tileinfomask1[tex_num].height)
+	if (   rightb.x <0 || rightb.x >tileinfomask.tileinfomask1[tex_num].width
+		|| rightb.y <0 || rightb.y >tileinfomask.tileinfomask1[tex_num].height)
 		flag = false;
 	else
 		return true;
@@ -145,8 +145,8 @@ bool boxtest(TileInfo &tile_info,
 	// rightu.x = leftb.x + (int)(31 * (int)tile_info->Matrix[matrix[tex_num]].A) / 16 + (int)(31 * (int)tile_info->Matrix[matrix[tex_num]].C) / 16;
 	// rightu.y = leftb.y + (int)(31 * (int)tile_info->Matrix[matrix[tex_num]].B) / 16 + (int)(31 * (int)tile_info->Matrix[matrix[tex_num]].D) / 16;
 
-	if (   rightu.x+64<0 || rightu.x-64>tileinfomask.tileinfomask1[tex_num].width
-		|| rightu.y+64<0 || rightu.y-64>tileinfomask.tileinfomask1[tex_num].height)
+	if (   rightu.x <0 || rightu.x >tileinfomask.tileinfomask1[tex_num].width
+		|| rightu.y <0 || rightu.y >tileinfomask.tileinfomask1[tex_num].height)
 		flag = false;
 	else
 		return true;

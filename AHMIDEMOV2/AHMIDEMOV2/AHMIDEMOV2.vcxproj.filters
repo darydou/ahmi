@@ -54,6 +54,9 @@
     <ClInclude Include="WriteEnglish.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="circle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -86,6 +89,9 @@
     <ClCompile Include="WriteEnglish.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="circle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="ALPHA.data">
@@ -106,22 +112,13 @@
     <None Include="TEX.data">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="dou.data">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="ALPHA5.data">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="songti.dat">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="zitiku.data">
-      <Filter>Resource Files</Filter>
-    </None>
     <None Include="gaowei.dat">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="diwei.dat">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="fontlibrary32.dat">

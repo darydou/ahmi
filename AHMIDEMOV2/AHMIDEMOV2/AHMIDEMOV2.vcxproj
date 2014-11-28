@@ -82,6 +82,7 @@
     <ClInclude Include="AHMIDEMOV2.h" />
     <ClInclude Include="ahmiv2.h" />
     <ClInclude Include="ALLHeader.h" />
+    <ClInclude Include="circle.h" />
     <ClInclude Include="DNSDriver.h" />
     <ClInclude Include="JoggleLayer.h" />
     <ClInclude Include="LoadFontlibrary.h" />
@@ -95,6 +96,7 @@
   <ItemGroup>
     <ClCompile Include="AHMIDEMOV2.cpp" />
     <ClCompile Include="ahmiv2.cpp" />
+    <ClCompile Include="circle.cpp" />
     <ClCompile Include="DNSDriver.cpp" />
     <ClCompile Include="JoggleLayer.cpp" />
     <ClCompile Include="MatrixGenerate.cpp" />
@@ -114,8 +116,6 @@
     <None Include="ALPHA3.data" />
     <None Include="ALPHA4.data" />
     <None Include="ALPHA5.data" />
-    <None Include="diwei.dat" />
-    <None Include="dou.data" />
     <None Include="english16.dat" />
     <None Include="english32.dat" />
     <None Include="englishlibrary16.dat" />
@@ -124,7 +124,6 @@
     <None Include="gaowei.dat" />
     <None Include="songti.dat" />
     <None Include="TEX.data" />
-    <None Include="zitiku.data" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="arrow.dds" />

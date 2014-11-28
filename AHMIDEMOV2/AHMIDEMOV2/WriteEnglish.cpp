@@ -43,6 +43,7 @@ void WriteEnglish(string word,
 				int m = 0;
 			}
 		}
+
 		for (U16 i = 0; i < romsize; i++)
 			*(rom_info.tex[RomAddr].texel + i) = (U64)buffer[i * 8] << 56
 			| (U64)buffer[i * 8 + 1] << 48
@@ -52,6 +53,8 @@ void WriteEnglish(string word,
 			| (U64)buffer[i * 8 + 5] << 16
 			| (U64)buffer[i * 8 + 6] << 8
 			| (U64)buffer[i * 8 + 7];
+
+		delete[] buffer;
 	}
 	else if ((fontsize == 16) != 0)
 	{
@@ -71,18 +74,24 @@ void WriteEnglish(string word,
 		for (U16 i = 0; i < romsize; i++)
 			*(rom_info.tex[RomAddr].texel + i) = (U64)buffer[i * 4] << 48
 			| (U64)buffer[i * 4 + 1] << 32
-			| (U64)buffer[i * 4 + 2] << 16
+			| (U64)buffer[i * 4 + 2] << 16 
 			| (U64)buffer[i * 4 + 3];
+		delete[] buffer;
 
 	}
 	RomAddr++;
 	MatrixGenerate matrixgenerate;
 	//matrixgenerate.Trirotate(180);
-	matrixgenerate.Triscale(4 << 4, 4 << 4);
-	matrixgenerate.Tritranslate(((S1_B_4)200) << 4, ((S1_B_4)300) << 4);//ÒÑ²âÊÔ
+	//matrixgenerate.Triscale(4 << 4, 4 << 4);
+	matrixgenerate.Tritranslate(((S1_B_4)500) << 4, ((S1_B_4)600) << 4);//ÒÑ²âÊÔ
 	//if (size == 0)
 	//	size = 1;
 	//matrixgenerate.Triscale(4<< 4, 4 << 4);
 	//matrixgenerate.Trirotate(45);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
+}
+
+void DrawCircle(U16 radius, U16 x, U16 y)
+{
+
 }
