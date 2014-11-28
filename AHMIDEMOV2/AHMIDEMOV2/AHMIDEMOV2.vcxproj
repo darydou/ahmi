@@ -87,6 +87,7 @@
     <ClInclude Include="JoggleLayer.h" />
     <ClInclude Include="LoadFontlibrary.h" />
     <ClInclude Include="MatrixGenerate.h" />
+    <ClInclude Include="pointer.h" />
     <ClInclude Include="SNSDriver.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -100,6 +101,7 @@
     <ClCompile Include="DNSDriver.cpp" />
     <ClCompile Include="JoggleLayer.cpp" />
     <ClCompile Include="MatrixGenerate.cpp" />
+    <ClCompile Include="pointer.cpp" />
     <ClCompile Include="SNSDriver.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

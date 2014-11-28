@@ -20,14 +20,14 @@ void DrawCircle(U16 radius, S16 x, S16 y,
 	rom_info.tex[RomAddr].texel = new U64[rominfosize];
 	for (U16 i = 0; i < rominfosize; i++)
 	{
-		*(rom_info.tex[RomAddr].texel + i) = (U64)((U8)circle256_256[i * 8]) << 56
-			| (U64)((U8)circle256_256[i * 8 + 1]) << 48
-			| (U64)((U8)circle256_256[i * 8 + 2]) << 40
-			| (U64)((U8)circle256_256[i * 8 + 3]) << 32
-			| (U64)((U8)circle256_256[i * 8 + 4]) << 24
-			| (U64)((U8)circle256_256[i * 8 + 5]) << 16
-			| (U64)((U8)circle256_256[i * 8 + 6]) << 8
-			| (U64)((U8)circle256_256[i * 8 + 7]);
+		*(rom_info.tex[RomAddr].texel + i) = (U64)((U8)circleB256_256[i * 8]) << 56
+			                               | (U64)((U8)circleB256_256[i * 8 + 1]) << 48
+			                               | (U64)((U8)circleB256_256[i * 8 + 2]) << 40
+			                               | (U64)((U8)circleB256_256[i * 8 + 3]) << 32
+			                               | (U64)((U8)circleB256_256[i * 8 + 4]) << 24
+			                               | (U64)((U8)circleB256_256[i * 8 + 5]) << 16
+			                               | (U64)((U8)circleB256_256[i * 8 + 6]) << 8
+			                               | (U64)((U8)circleB256_256[i * 8 + 7]);
 	}
 	RomAddr++;
 	U8 cx = 0;

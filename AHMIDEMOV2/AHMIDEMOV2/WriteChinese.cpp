@@ -125,6 +125,6 @@ void WriteChinese(string word,
 	//matrixgenerate.Tritranslate(((S1_B_4)100) << 4, ((S1_B_4)300) << 4);//ÒÑ²âÊÔ
 	if (size == 0)
 		size = 1;
-	matrixgenerate.Triscale(size<<4,size<<4);
-	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
+	matrixgenerate.Triscale(1<<4,1<<4);
+	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD); 
 }
