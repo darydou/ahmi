@@ -120,31 +120,31 @@ void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 	}
 }
 //尺度变换
-void MatrixGenerate::Triscale(S1_3_4 cx, S1_3_4 cy)
+void MatrixGenerate::Triscale(S1_3_4 cx,S1_3_4 cy )
 {
-	if (cx == 0 || cy == 0)
+	if (cy == 0 || cx == 0)
 	{
-		//cout << "the cx and cy can not be zero!" << endl;
+		//cout << "the cy and cx can not be zero!" << endl;
 		exit(1);
 	}
 	for (S32 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[0] = (S1_B_4(MatrixCurrent[0] * (S1_B_4)cx))>>4;
-	Matrix[1] = (S1_B_4(MatrixCurrent[1] * (S1_B_4)cy))>>4;
-	Matrix[3] = (S1_B_4(MatrixCurrent[3] * (S1_B_4)cx))>>4;
-	Matrix[4] = (S1_B_4(MatrixCurrent[4] * (S1_B_4)cy))>>4;
-	Matrix[6] = (S32( (S32) MatrixCurrent[6] * (S32)cx))>>4;
-	Matrix[7] = (S32( (S32) MatrixCurrent[7] * (S32)cy))>>4;
+	Matrix[0] = (S1_B_4(MatrixCurrent[0] * (S1_B_4)cy))>>4;
+	Matrix[1] = (S1_B_4(MatrixCurrent[1] * (S1_B_4)cx))>>4;
+	Matrix[3] = (S1_B_4(MatrixCurrent[3] * (S1_B_4)cy))>>4;
+	Matrix[4] = (S1_B_4(MatrixCurrent[4] * (S1_B_4)cx))>>4;
+	Matrix[6] = (S32( (S32) MatrixCurrent[6] * (S32)cy))>>4;
+	Matrix[7] = (S32( (S32) MatrixCurrent[7] * (S32)cx))>>4;
 	for (S32 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = MatrixTemp[i];
-	MatrixTemp[0] = (S32(((S32) MatrixCurrent[0]) << 4) / (S32)cy) ;
-	MatrixTemp[1] = (S32(((S32) MatrixCurrent[1]) << 4) / (S32)cy) ;
-	MatrixTemp[3] = (S32(((S32) MatrixCurrent[3]) << 4) / (S32)cy) ;
-	MatrixTemp[4] = (S32(((S32) MatrixCurrent[4]) << 4) / (S32)cx) ;
-	MatrixTemp[5] = (S32(((S32) MatrixCurrent[5]) << 4) / (S32)cx) ;
-	MatrixTemp[6] = (S32(((S32) MatrixCurrent[6]) << 4) / (S32)(cx*cy)) ;
-	MatrixTemp[7] = (S32(((S32) MatrixCurrent[7]) << 4) / (S32)(cx*cy)) ;
-	MatrixTemp[8] = (S32(((S32) MatrixCurrent[8]) << 4) / (S32)(cx*cy)) ;
+	MatrixTemp[0] = (S32(((S32) MatrixCurrent[0]) << 4) / (S32)cx) ;
+	MatrixTemp[1] = (S32(((S32) MatrixCurrent[1]) << 4) / (S32)cx) ;
+	MatrixTemp[3] = (S32(((S32) MatrixCurrent[3]) << 4) / (S32)cx) ;
+	MatrixTemp[4] = (S32(((S32) MatrixCurrent[4]) << 4) / (S32)cy) ;
+	MatrixTemp[5] = (S32(((S32) MatrixCurrent[5]) << 4) / (S32)cy) ;
+	MatrixTemp[6] = (S32(((S32) MatrixCurrent[6]) << 4) / (S32)(cy*cx)) ;
+	MatrixTemp[7] = (S32(((S32) MatrixCurrent[7]) << 4) / (S32)(cy*cx)) ;
+	MatrixTemp[8] = (S32(((S32) MatrixCurrent[8]) << 4) / (S32)(cy*cx)) ;
 }
 
 //旋转功能
