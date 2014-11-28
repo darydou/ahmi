@@ -129,12 +129,12 @@ void MatrixGenerate::Triscale(S1_3_4 cx,S1_3_4 cy )
 	}
 	for (S32 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[0] = (S1_B_4(MatrixCurrent[0] * (S1_B_4)cy))>>4;
-	Matrix[1] = (S1_B_4(MatrixCurrent[1] * (S1_B_4)cx))>>4;
-	Matrix[3] = (S1_B_4(MatrixCurrent[3] * (S1_B_4)cy))>>4;
-	Matrix[4] = (S1_B_4(MatrixCurrent[4] * (S1_B_4)cx))>>4;
-	Matrix[6] = (S32( (S32) MatrixCurrent[6] * (S32)cy))>>4;
-	Matrix[7] = (S32( (S32) MatrixCurrent[7] * (S32)cx))>>4;
+	Matrix[0] = (S1_B_4(MatrixCurrent[0] * (S1_B_4)cx))>>4;
+	Matrix[1] = (S1_B_4(MatrixCurrent[1] * (S1_B_4)cy))>>4;
+	Matrix[3] = (S1_B_4(MatrixCurrent[3] * (S1_B_4)cx))>>4;
+	Matrix[4] = (S1_B_4(MatrixCurrent[4] * (S1_B_4)cy))>>4;
+	Matrix[6] = (S32( (S32) MatrixCurrent[6] * (S32)cx))>>4;
+	Matrix[7] = (S32( (S32) MatrixCurrent[7] * (S32)cy))>>4;
 	for (S32 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = MatrixTemp[i];
 	MatrixTemp[0] = (S32(((S32) MatrixCurrent[0]) << 4) / (S32)cx) ;
