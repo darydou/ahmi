@@ -95,51 +95,70 @@ static void CORDIC(S16 Radian, S16 &COS, S16 &SIN)
 		}
 	}
 }
-void DrawPointer(U8 width, U8 height, S16 x, S16 y, S16 degrees,
+void DrawPointer(
 	TileInfo &tile_info,
 	ROMInfo &rom_info,
 	MatrixMask &Matrixmask,
 	TileInfoMask &tileinfomask,
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
-	U8 &TEXADD)
+	U8 &TEXADD,
+	S16 x, S16 y, S16 degrees, U16 width, U16 height)
 {
+	const S16 pointerradius = 128;
+	const U16 pointerahplawidth = 256;
+	const U16 pointerahplaheight = 256;
+
 	tileinfomask.tileinfomask1[TEXADD].flag = 2;
-	tileinfomask.tileinfomask1[TEXADD].height = 256;
-	tileinfomask.tileinfomask1[TEXADD].width = 256;
+	tileinfomask.tileinfomask1[TEXADD].height = pointerahplawidth;
+	tileinfomask.tileinfomask1[TEXADD].width = pointerahplaheight;
 	tileinfomask.tileinfomask1[TEXADD].mask = 0;
 	TEXADD++;
-	U16 rominfosize = 256*256 >> 6;
+	U16 rominfosize = pointerahplawidth * pointerahplaheight >> 6;
 	rom_info.tex[RomAddr].texel = new U64[rominfosize];
 	for (U16 i = 0; i < rominfosize; i++)
 	{
-		*(rom_info.tex[RomAddr].texel + i) = (U64)((U8)pointer256_256[i * 8]) << 56
-			                               | (U64)((U8)pointer256_256[i * 8 + 1]) << 48
-			                               | (U64)((U8)pointer256_256[i * 8 + 2]) << 40
-			                               | (U64)((U8)pointer256_256[i * 8 + 3]) << 32
-			                               | (U64)((U8)pointer256_256[i * 8 + 4]) << 24
-			                               | (U64)((U8)pointer256_256[i * 8 + 5]) << 16
-			                               | (U64)((U8)pointer256_256[i * 8 + 6]) << 8
-			                               | (U64)((U8)pointer256_256[i * 8 + 7]);
+		*(rom_info.tex[RomAddr].texel + i) = static_cast<U64>(pointer256_256[i * 8]    ) << 56
+			                               | static_cast<U64>(pointer256_256[i * 8 + 1]) << 48
+			                               | static_cast<U64>(pointer256_256[i * 8 + 2]) << 40
+			                               | static_cast<U64>(pointer256_256[i * 8 + 3]) << 32
+			                               | static_cast<U64>(pointer256_256[i * 8 + 4]) << 24
+			                               | static_cast<U64>(pointer256_256[i * 8 + 5]) << 16
+			                               | static_cast<U64>(pointer256_256[i * 8 + 6]) << 8
+			                               | static_cast<U64>(pointer256_256[i * 8 + 7]);
 	}
 	RomAddr++;
 	U8 cy = 0;
-	if (height>128)
+	if (height>pointerradius)
 	{
-		cy = (U8)(height >> 7);
+		cy = static_cast<U8>(height >> 7);//height/pointerradius
+		y = y * static_cast<S16>(static_cast<U8>(cy));
 		//更改，由于输入的是逆变换矩阵参数，需要转换为正变换矩阵参数
-		U8 buffer[4];
+		U8 buffery1[4];
 		for (U8 i = 0; i < 4; i++)
 		{
-			buffer[i] = cy - (cy >> 1);
-			cy = cy >> 1;
+			buffery1[i] =(cy>>i)&0x1;
 		}
-		cy = (U8)buffer[0] << 3 | (U8)buffer[1] << 2 | (U8)buffer[2] << 1 | (U8)buffer[3];
+		cy =  static_cast<U8>(buffery1[0]) << 4
+			| static_cast<U8>(buffery1[1]) << 3
+			| static_cast<U8>(buffery1[2]) << 2
+			| static_cast<U8>(buffery1[3]) << 1;
 	}
 	else
 	{
-		cy = (U8)(height >> 3);
-		if (height < 8)
+		cy = height;
+		y = y*static_cast<S16>(static_cast<U8>(cy))>>7;
+		U8 buffery2[3];
+		for (U8 i = 0; i < 3&&cy>=0; i++)
+		{
+			buffery2[2-i] = static_cast<U8>(cy) >> (7-i);
+			if (cy>=static_cast<U8>(128 >> i))
+			cy = cy - static_cast<U8>(128 >> i);
+		}
+		cy =  static_cast<U8>(buffery2[0]) << 6
+			| static_cast<U8>(buffery2[1]) << 5
+			| static_cast<U8>(buffery2[2]) << 4;
+		if (height < (pointerradius>>3))
 		{
 			cout << "the height is error" << endl;
 			exit(0);
@@ -148,23 +167,43 @@ void DrawPointer(U8 width, U8 height, S16 x, S16 y, S16 degrees,
 	U8 cx = 0;
 	if (width > 16)
 	{
-		cx = (U8)(width >> 4);
-		cx = cx << 4;
+		cx = static_cast<U8>(width >> 4);//width/16默认的指针宽度
+		x = x*static_cast<S16>(static_cast<U8>(cx));
+		U8 bufferx1[4];
+		for (U8 i = 0; i < 4; i++)
+		{
+			bufferx1[i] = (cx >> i) & 0x1;
+		}
+		cx =  static_cast<U8>(bufferx1[0]) << 4
+			| static_cast<U8>(bufferx1[1]) << 3
+			| static_cast<U8>(bufferx1[2]) << 2
+			| static_cast<U8>(bufferx1[3]) << 1;
 	}
 	else
 	{
-		cx = (U8)width;
-		if (width < 8)
+		cx = width;
+		x = x*static_cast<S16>(static_cast<U8>(cx)) >> 2;
+		U8 bufferx2[3];
+		for (U8 i = 0; i < 3 && cx >= 0; i++)
+		{
+			bufferx2[2 - i] = static_cast<U8>(cx) >> (4 - i);//16的开方为2
+			if (cx >= static_cast<U8>(16 >> i))
+				cx = cx - static_cast<U8>(16 >> i);
+		}
+		cx =  static_cast<U8>(bufferx2[0]) << 6
+			| static_cast<U8>(bufferx2[1]) << 5
+			| static_cast<U8>(bufferx2[2]) << 4;
+		if (width < 2)
 		{
 			cout << "the width is error" << endl;
 			exit(0);
 		}
 	}
-	S16 tx = (S16)(-x +128) << 4;
-	S16 ty = (S16)(-y +128) << 4;
-	S16 R = 181<<4;
+	//以下变换使得可以绕着圆心旋转
+	S16 tx = (S16)(-x + pointerradius) << 4;
+	S16 ty = (S16)(-y + pointerradius) << 4;
+	S16 R = 181<<4;//R=pointerradius/(sqrt(2)/2)
 	MatrixGenerate matrixgenerate;
-	////matrixgenerate.Triscale(cx, cy);
 	S16 COS1 = 1, SIN1 = 0;
 	CORDIC(-225, COS1, SIN1);
 	COS1 = COS1 >> (10 - 4);
@@ -177,9 +216,11 @@ void DrawPointer(U8 width, U8 height, S16 x, S16 y, S16 degrees,
 	SIN2 = SIN2 >> (10 - 4);
 	S16 newx = (R*COS2>>4)&0xfff0;
 	S16 newy = (R*SIN2>>4)&0xfff0;
-	tx = tx - newx + oldx;
-	ty = ty +newy - oldy;
+	tx =  tx - newx + oldx ;
+	ty =  ty + newy - oldy ;
+	matrixgenerate.Triscale(cx, cy);
 	matrixgenerate.Tritranslate(tx, ty);
 	matrixgenerate.Trirotate(degrees);
+	
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 }
