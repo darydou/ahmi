@@ -1,14 +1,13 @@
 #include "ALLHeader.h"
 #include "MatrixGenerate.h"
-void WriteEnglish(string word,
+void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
 	MatrixMask &Matrixmask,
 	TileInfoMask &tileinfomask,
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
-	U8 &TEXADD,
-	U8 size);
+	U8 &TEXADD);
 static U32 englishfontlibrary8[] =
 {
 	0x0,

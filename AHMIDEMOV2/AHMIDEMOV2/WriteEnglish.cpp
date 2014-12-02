@@ -1,15 +1,14 @@
 #include "stdafx.h"
 #include "WriteEnglish.h"
 
-void WriteEnglish(string word,
+void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
 	MatrixMask &Matrixmask,
 	TileInfoMask &tileinfomask,
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
-	U8 &TEXADD,
-	U8 size)
+	U8 &TEXADD)
 {
 	U16 wordlength = word.length();
 	U16 fontsize;
@@ -83,15 +82,10 @@ void WriteEnglish(string word,
 	MatrixGenerate matrixgenerate;
 	//matrixgenerate.Trirotate(180);
 	//matrixgenerate.Triscale(4 << 4, 4 << 4);
-	matrixgenerate.Tritranslate(((S1_B_4)500) << 4, ((S1_B_4)600) << 4);//ÒÑ²âÊÔ
+	matrixgenerate.Tritranslate(((S1_B_4)-tx) << 4, ((S1_B_4)-ty) << 4);//ÒÑ²âÊÔ
 	//if (size == 0)
 	//	size = 1;
 	//matrixgenerate.Triscale(4<< 4, 4 << 4);
 	//matrixgenerate.Trirotate(45);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
-}
-
-void DrawCircle(U16 radius, U16 x, U16 y)
-{
-
 }

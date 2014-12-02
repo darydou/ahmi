@@ -45,10 +45,10 @@ void DrawCircle(U16 radius, S16 x, S16 y,
 			exit(0);
 		}
 	}
-	S16 tx = (x-128) << 4;
-	S16 ty = (y-128) << 4;
+	S16 tx = (-x+128) << 4;
+	S16 ty = (-y+128) << 4;
 	MatrixGenerate matrixgenerate;
-	matrixgenerate.Triscale(cx, cx);
+	//matrixgenerate.Triscale(cx, cx);
 	matrixgenerate.Tritranslate(tx, ty);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 }

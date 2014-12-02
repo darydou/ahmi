@@ -16,7 +16,7 @@ void start()
 	//memset(tile_info, 0, sizeof(TileInfo));
 	//memset(Matrixmask,0,sizeof(MatrixMask));
 	U8 RomAddr = 0;//记录非纯色纹理的数目
-	U8 TEXADD =  0; //记录全部纹理的数目
+	U8 TEXADD =  0;//记录全部纹理的数目
 	/********************************************/
 	//LoadEnglishLibrary("english32.dat", "englishlibrary32.dat", 16, 32);
 	/********请依照下述添加纹理及其变换矩阵********/
@@ -56,27 +56,35 @@ void start()
 	//与前任一纹理保持一致
 	// GetMatrix(matrix,TEXADD,int num);//num表示第几个纹理
 	/********************************************/
-	//ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 1);
+	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
+	MatrixGenerate Matrixgenerate;
+	Matrixgenerate.GetMatrix(tile_info,
+		Matrixmask,
+		matrix,
+		TEXADD);
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
 	
-	//DrawCircle(128, 1000, 600,
-	//	tile_info,
-	//	rom_info,
-	//	Matrixmask,
-	//	tileinfomask,
-	//	matrix,
-	//	RomAddr,
-	//	TEXADD);
-	WriteChinese("广告费大概发达噶大概",
+	 DrawCircle(128, 500, 500,
+	 	tile_info,
+	 	rom_info,
+	 	Matrixmask,
+	 	tileinfomask,
+	 	matrix,
+	 	RomAddr,
+	 	TEXADD);
+	 ADDPurity(tileinfomask, TEXADD, 1, 123, 123, 123, 256, 256);
+	 GetMatrix(matrix, TEXADD, 1);
+	WriteChinese("广告费大概发达噶大概",32,500,500,
 		rom_info,
 		tile_info,
 		Matrixmask,
 		tileinfomask,
 		matrix,
 		RomAddr,
-		TEXADD,
-		255);
+		TEXADD);
+	ADDPurity(tileinfomask, TEXADD, 1, 123, 123, 123, 300, 300);
+	GetMatrix(matrix, TEXADD, 3);
 	//WriteEnglish("anjsdkfjskajdfhsaklj",
 	//	rom_info,
 	//	tile_info,
@@ -86,14 +94,14 @@ void start()
 	//	RomAddr,
 	//	TEXADD,
 	//	16);
-	//DrawPointer(8,128,16, 128,
-	//	tile_info,
-	//	rom_info,
-	//	Matrixmask,
-	//	tileinfomask,
-	//	matrix,
-	//	RomAddr,
-	//	TEXADD);
+	  DrawPointer(16,128,500, 500,360,
+	  	tile_info,
+	  	rom_info,
+	  	Matrixmask,
+	  	tileinfomask,
+	  	matrix,
+	  	RomAddr,
+	  	TEXADD);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//已测试
@@ -105,19 +113,19 @@ void start()
 	//	Matrixmask,
 	//	matrix,
 	//	TEXADD);//获取矩阵
-	ADDPurity(tileinfomask, TEXADD, 1, 255, 255, 255, 1024, 768);
-	MatrixGenerate Matrixgenerate;
-	Matrixgenerate.GetMatrix(tile_info,
-		Matrixmask,
-		matrix,
-		TEXADD);//获取矩阵
+	//ADDPurity(tileinfomask, TEXADD, 1, 123, 123, 123, 1024, 768);
+	//MatrixGenerate Matrixgenerate1;
+	//Matrixgenerate1.GetMatrix(tile_info,
+	//	Matrixmask,
+	//	matrix,
+	//	TEXADD);//获取矩阵
 	//GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	//GetMatrix(matrix, TEXADD, 0);
-	//ADDPurity(tileinfomask,TEXADD,1,255,255,255,1024,768);
-	//GetMatrix(matrix, TEXADD, 0);
+	 ADDPurity(tileinfomask,TEXADD,1,125,125,155,256,256);
+	 GetMatrix(matrix, TEXADD, 5);
 	/*******************更新tile_info信息*********************/
 	TileInfoGenrate(tile_info,
 		Matrixmask,

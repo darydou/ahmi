@@ -32,7 +32,7 @@ void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 	S16 x, y;
 	x = COS;
 	y = SIN;
-	x = x * 1024;
+	x = x * 1024; 
 	y = y * 1024;
 	S32 count_i;
 	S32 coeff1 = 0, coeff2 = 0;

@@ -55,15 +55,14 @@ void WriteChinese(string word, ROMInfo &rom_info, TileInfoMask &tileinfomask, U8
 	delete buffer;
 }
 
-void WriteChinese(string word, 
+void WriteChinese(string word, U8 size,S16 tx,S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
 	MatrixMask &Matrixmask,
 	TileInfoMask &tileinfomask, 
 	U8 (&matrix)[MatrixSize],
 	U8 &RomAddr, 
-	U8 &TEXADD,
-	U8 size)
+	U8 &TEXADD)
 {
 	U16 wordlength = word.length() >> 1;
 	U16  fontsize = 0;
@@ -81,7 +80,6 @@ void WriteChinese(string word,
 	if (fontsize == 16)
 	{
 		//»º³åÇø
-		size = size >> 4;
 		U16 *buffer = new U16[wordlength * 4 * 4];
 		for (U8 i = 0; i < wordlength; i++)
 		{
@@ -105,7 +103,6 @@ void WriteChinese(string word,
 	}
 	else
 	{
-		size = size >> 5;
 		//»º³åÇø
 		U32 *buffer = new U32[wordlength * 32];
 		for (U16 i = 0; i < wordlength; i++)
@@ -121,10 +118,14 @@ void WriteChinese(string word,
 		delete[] buffer;
 	}
 	RomAddr++;
+	U8 cx = 0,cy = 0;
+	//if (size > 32)
+	//{
+	//	 
+	//}
 	MatrixGenerate matrixgenerate;
-	//matrixgenerate.Tritranslate(((S1_B_4)100) << 4, ((S1_B_4)300) << 4);//ÒÑ²âÊÔ
-	if (size == 0)
-		size = 1;
-	matrixgenerate.Triscale(1<<4,1<<4);
+	matrixgenerate.Tritranslate(((S1_B_4)-tx) << 4, ((S1_B_4)-ty) << 4);//ÒÑ²âÊÔ
+	//matrixgenerate.Triscale(cx,cy);
+	matrixgenerate.Trirotate(45);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD); 
 }
