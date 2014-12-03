@@ -58,6 +58,7 @@ void start()
 	/********************************************/
 	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	MatrixGenerate Matrixgenerate;
+	//Matrixgenerate.Trirotate(180);
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
