@@ -50,8 +50,8 @@ void TileInfoGenrate(TileInfo &tile_info,
 	U8 TEXADD,
 	ROMInfo &rom_info)
 {
-	RTLTexIndex(tile_info,matrix,tileinfomask,TEXADD,rom_info);
-	RTLIndxSD(tile_info,Matrixmask,matrix,tileinfomask,TEXADD);
+	LoadTextureIndex(tile_info, matrix, tileinfomask, TEXADD, rom_info);
+	LoadIndexSoueAddr(tile_info,Matrixmask,matrix,tileinfomask,TEXADD);
 }
 void Flush(ahmi *my_ahmi_p, TileInfo *tile_info, ROMInfo *rom_info)
 {

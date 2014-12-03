@@ -217,6 +217,7 @@ void MatrixGenerate::Trihorizontal(S1_3_4 sh)
 	MatrixTemp[2] = MatrixCurrent[2] - (S32(((S1_B_4)sh)*MatrixCurrent[5])>>4);
 }
 //´«µÝ±ä»»¾ØÕó
+//modfied by darydou 14/12/03
 void MatrixGenerate::GetMatrix(TileInfo &tile_info,
 	                          MatrixMask &Matrixmask,
 	                          U8 (&matrix)[MatrixSize],
@@ -310,5 +311,14 @@ void MatrixGenerate::GetMatrix(TileInfo &tile_info,
 	tile_info.matrix[TEXADD - 1].D = (S1_3_4)Matrix [4];
 	tile_info.matrix[TEXADD - 1].E = Matrix [6];
 	tile_info.matrix[TEXADD - 1].F = Matrix [7];
+	
+	Matrixmask.Matrixmask1[TEXADD - 1].matrix = ((U64)MatrixTemp[0] & 0xff) << 56 |
+		((U64)MatrixTemp[1] & 0xff) << 48 |
+		((U64)MatrixTemp[3] & 0xff) << 40 |
+		((U64)MatrixTemp[4] & 0xff) << 32 |
+		((U64)MatrixTemp[6] & 0xffff) << 16 |
+		((U64)MatrixTemp[7] & 0xffff);
+
 	matrix[TEXADD - 1] = TEXADD - 1;
 }
+

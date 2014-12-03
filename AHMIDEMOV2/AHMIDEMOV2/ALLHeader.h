@@ -114,7 +114,7 @@ typedef struct _TileInfoMask
 #define	  __MatrixMask1
 typedef struct _MatrixMask1
 {
-	S1_B_4 Matrix[9];
+	U64 matrix;
 }MatrixMask1;
 #endif
 

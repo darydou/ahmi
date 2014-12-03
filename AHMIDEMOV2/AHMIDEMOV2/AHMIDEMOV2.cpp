@@ -102,7 +102,7 @@ void start()
 	  	matrix,
 	  	RomAddr,
 	  	TEXADD,
-		500, 500, 180,8,128);
+		500, 500, 60);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//ÒÑ²âÊÔ
