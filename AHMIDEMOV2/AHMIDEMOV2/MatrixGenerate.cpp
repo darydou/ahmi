@@ -28,7 +28,7 @@ MatrixGenerate::~MatrixGenerate()
 void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 {
 	S16 Angle[14] = { 5760, 3400, 1797, 912, 458, 229, 115, 57, 29, 14, 7, 4, 2, 1 };             //将上述角度扩大128倍
-	S16 cosine[14] = { 181, 162, 157, 156, 156, 155, 155, 155, 155, 155, 155, 155, 155, 155 };   //cos@的结果乘以256
+	S16 cosine[14] = { 181, 162, 157, 156, 156, 155, 155, 155, 155, 155, 155, 155, 155, 155 };    //cos@的结果乘以256
 	S16 x, y;
 	x = COS;
 	y = SIN;
@@ -119,6 +119,91 @@ void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 		}
 	}
 }
+
+////正矩阵AMX=x;逆矩阵X=M'A'x;A为当前矩阵，M已产生的矩阵，初始M为单位矩阵
+////add by darydou 12.4 to replace the old one
+//void MatrixGenerate::Triscale(S1_3_4 cx, S1_3_4 cy)
+//{
+//	for (U8 i = 0; i < MSize; i++)
+//		MatrixCurrent[i] = Matrix[i];
+//	//ation:use >> means dec is not good solution,if the num is less than zero,the answer will be add one;
+//	Matrix[0] = static_cast<S16>(static_cast<S32>(cx)*static_cast<S32>(MatrixCurrent[0]) >> 4);
+//	Matrix[1] = static_cast<S16>(static_cast<S32>(cx)*static_cast<S32>(MatrixCurrent[1]) >> 4);
+//	Matrix[2] = static_cast<S16>(static_cast<S32>(cx)*static_cast<S32>(MatrixCurrent[2]) >> 4);
+//	Matrix[3] = static_cast<S16>(static_cast<S32>(cy)*static_cast<S32>(MatrixCurrent[3]) >> 4);
+//	Matrix[4] = static_cast<S16>(static_cast<S32>(cy)*static_cast<S32>(MatrixCurrent[4]) >> 4);
+//	Matrix[5] = static_cast<S16>(static_cast<S32>(cy)*static_cast<S32>(MatrixCurrent[5]) >> 4);
+//	for (U8 i = 0; i < MSize; i++)
+//		MatrixCurrent[i] = MatrixTemp[i];
+//	MatrixTemp[0] = static_cast<S16>((static_cast<S32>(MatrixCurrent[0]) << 4) / static_cast<S32>(cy));
+//	MatrixTemp[1] = static_cast<S16>((static_cast<S32>(MatrixCurrent[1]) << 4) / static_cast<S32>(cx));
+//	MatrixTemp[2] = static_cast<S16>((static_cast<S32>(MatrixCurrent[2]) << 8) / static_cast<S32>(cx*cy));
+//	MatrixTemp[3] = static_cast<S16>((static_cast<S32>(MatrixCurrent[3]) << 4) / static_cast<S32>(cy));
+//	MatrixTemp[4] = static_cast<S16>((static_cast<S32>(MatrixCurrent[4]) << 4) / static_cast<S32>(cx));
+//	MatrixTemp[5] = static_cast<S16>((static_cast<S32>(MatrixCurrent[5]) << 8) / static_cast<S32>(cx*cy));
+//	MatrixTemp[6] = static_cast<S16>((static_cast<S32>(MatrixCurrent[6]) << 4) / static_cast<S32>(cy));
+//	MatrixTemp[7] = static_cast<S16>((static_cast<S32>(MatrixCurrent[7]) << 4) / static_cast<S32>(cx));
+//	MatrixTemp[8] = static_cast<S16>((static_cast<S32>(MatrixCurrent[8]) << 8) / static_cast<S32>(cx*cy));
+//}
+////正矩阵AMX=x;逆矩阵X=M'A'x;A为当前矩阵，M已产生的矩阵，初始M为单位矩阵
+////add by darydou 12.4 to replace the old one
+//void MatrixGenerate::Trirotate(S16 degrees)
+//{
+//	S16 COS = 1, SIN = 0;
+//	CORDIC(degrees, COS, SIN);
+//	//ation:use >> means dec is not good solution,if the num is less than zero,the answer will be add one;
+//	S1_B_4 cos = COS >> (10 - 4);
+//	S1_B_4 sin = SIN >> (10 - 4);
+//	for (U8 i = 0; i < MSize; i++)
+//		MatrixCurrent[i] = Matrix[i];
+//	Matrix[0] = static_cast<S16>(static_cast<S32>(cos)*static_cast<S32>(MatrixCurrent[0])
+//		+ static_cast<S32>(sin)*static_cast<S32>(MatrixCurrent[3]) >> 4);
+//	Matrix[1] = static_cast<S16>(static_cast<S32>(cos)*static_cast<S32>(MatrixCurrent[1])
+//		+ static_cast<S32>(sin)*static_cast<S32>(MatrixCurrent[4]) >> 4);
+//	Matrix[2] = static_cast<S16>(static_cast<S32>(cos)*static_cast<S32>(MatrixCurrent[2])
+//		+ static_cast<S32>(sin)*static_cast<S32>(MatrixCurrent[5]) << 4);
+//	Matrix[3] = static_cast<S16>(static_cast<S32>(-sin)*static_cast<S32>(MatrixCurrent[0])
+//		+ static_cast<S32>(cos)*static_cast<S32>(MatrixCurrent[3]) >> 4);
+//	Matrix[4] = static_cast<S16>(static_cast<S32>(-sin)*static_cast<S32>(MatrixCurrent[1])
+//		+ static_cast<S32>(cos)*static_cast<S32>(MatrixCurrent[4]) >> 4);
+//	Matrix[5] = static_cast<S16>(static_cast<S32>(-sin)*static_cast<S32>(MatrixCurrent[2])
+//		+ static_cast<S32>(cos)*static_cast<S32>(MatrixCurrent[5]) << 4);
+//	for (U8 i = 0; i < MSize; i++)
+//		MatrixCurrent[i] = MatrixTemp[i];
+//	MatrixTemp[0] = static_cast<S16>(static_cast<S32>(MatrixCurrent[0])*static_cast<S32>(cos)
+//		+static_cast<S32>(MatrixCurrent[1])* static_cast<S32>(sin) >> 4);
+//	MatrixTemp[1] = static_cast<S16>(static_cast<S32>(MatrixCurrent[0])*static_cast<S32>(-sin)
+//		+ static_cast<S32>(MatrixCurrent[1])*static_cast<S32>(cos) >> 4);
+//	MatrixTemp[3] = static_cast<S16>(static_cast<S32>(MatrixCurrent[3])*static_cast<S32>(cos)
+//		+static_cast<S32>(MatrixCurrent[4])* static_cast<S32>(sin) >> 4);
+//	MatrixTemp[4] = static_cast<S16>(static_cast<S32>(MatrixCurrent[3])*static_cast<S32>(-sin)
+//		+ static_cast<S32>(MatrixCurrent[4])*static_cast<S32>(cos) >> 4);
+//	MatrixTemp[6] = static_cast<S16>(static_cast<S32>(MatrixCurrent[6])*static_cast<S32>(cos)
+//		+static_cast<S32>(MatrixCurrent[7])* static_cast<S32>(sin) >> 4);
+//	MatrixTemp[7] = static_cast<S16>(static_cast<S32>(MatrixCurrent[6])*static_cast<S32>(-sin)
+//		+ static_cast<S32>(MatrixCurrent[7])*static_cast<S32>(cos) >> 4);
+//}
+////正矩阵AMX=x;逆矩阵X=M'A'x;A为当前矩阵，M已产生的矩阵，初始M为单位矩阵
+////add by darydou 12.4 to replace the old one
+//void MatrixGenerate::Tritranslate(S1_B_4 tx, S1_B_4 ty)
+//{
+//	for (U8 i = 0; i < MSize; i++)
+//		MatrixCurrent[i] = Matrix[i];
+//	Matrix[6] = static_cast<S16>(static_cast<S32>(tx)*static_cast<S32>(MatrixCurrent[0]) + static_cast<S32>(ty)*static_cast<S32>(MatrixCurrent[3]) >> 4)
+//		+ MatrixCurrent[6];
+//	Matrix[7] = static_cast<S16>(static_cast<S32>(tx)*static_cast<S32>(MatrixCurrent[1]) + static_cast<S32>(ty)*static_cast<S32>(MatrixCurrent[4]) >> 4)
+//		+ MatrixCurrent[7];
+//	Matrix[8] = static_cast<S16>(static_cast<S32>(tx)*static_cast<S32>(MatrixCurrent[2]) + static_cast<S32>(ty)*static_cast<S32>(MatrixCurrent[5]) >> 4)
+//		+ MatrixCurrent[8];
+//	for (U8 i = 0; i < MSize; i++)
+//		MatrixCurrent[i] = MatrixTemp[i];
+//	MatrixTemp[0] = MatrixCurrent[0] + static_cast<S16>(static_cast<S32>(MatrixCurrent[2])*static_cast<S32>(-tx) << 4);
+//	MatrixTemp[1] = MatrixCurrent[1] + static_cast<S16>(static_cast<S32>(MatrixCurrent[2])*static_cast<S32>(-ty) << 4);
+//	MatrixTemp[3] = MatrixCurrent[3] + static_cast<S16>(static_cast<S32>(MatrixCurrent[5])*static_cast<S32>(-tx) << 4);
+//	MatrixTemp[4] = MatrixCurrent[4] + static_cast<S16>(static_cast<S32>(MatrixCurrent[5])*static_cast<S32>(-ty) << 4);
+//	MatrixTemp[6] = MatrixCurrent[6] + static_cast<S16>(static_cast<S32>(MatrixCurrent[8])*static_cast<S32>(-tx) << 4);
+//	MatrixTemp[7] = MatrixCurrent[7] + static_cast<S16>(static_cast<S32>(MatrixCurrent[8])*static_cast<S32>(-ty) << 4);
+//}
 //尺度变换
 void MatrixGenerate::Triscale(S1_3_4 cx,S1_3_4 cy )
 {
@@ -171,6 +256,7 @@ void MatrixGenerate::Trirotate(S16 degrees)
 	MatrixTemp[4] = (sin*MatrixCurrent[1] + cos*MatrixCurrent[4])>>4;
 	MatrixTemp[5] = (sin*MatrixCurrent[2] + cos*MatrixCurrent[5])>>4;
 }
+
 //平移功能
 void MatrixGenerate::Tritranslate(S1_B_4 tx, S1_B_4 ty)
 {

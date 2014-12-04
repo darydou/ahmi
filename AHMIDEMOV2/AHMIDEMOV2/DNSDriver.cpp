@@ -53,10 +53,10 @@ void LoadTextureIndex(TileInfo &tile_info,
 		leftb.y = 0;
 		leftb.x = static_cast<S32>(/*leftb.x*static_cast<S32>(A)+leftb.y*static_cast<S32>(C)+*/static_cast<S32>(E)) >> 4;
 		leftb.y = static_cast<S32>(static_cast<S32>(F)) >> 4;
-		leftu.x = leftb.x +  (static_cast<S32>(tileinfomask.tileinfomask1[i].height * (S32)C) >> 4);
-		leftu.y = leftb.y +  (static_cast<S32>(tileinfomask.tileinfomask1[i].height * (S32)D) >> 4);
-		rightb.x = leftb.x + (static_cast<S32>(tileinfomask.tileinfomask1[i].width * (S32)A) >> 4);
-		rightb.y = leftb.y + (static_cast<S32>(tileinfomask.tileinfomask1[i].width * (S32)B) >> 4);
+		leftu.x = leftb.x + (static_cast<S32>(tileinfomask.tileinfomask1[i].height * static_cast<S32>(C)) >> 4);
+		leftu.y = leftb.y + (static_cast<S32>(tileinfomask.tileinfomask1[i].height * static_cast<S32>(D)) >> 4);
+		rightb.x = leftb.x + (static_cast<S32>(tileinfomask.tileinfomask1[i].width * static_cast<S32>(A)) >> 4);
+		rightb.y = leftb.y + (static_cast<S32>(tileinfomask.tileinfomask1[i].width * static_cast<S32>(B)) >> 4);
 		rightu.x = rightb.x + leftu.x - leftb.x;
 		rightu.y = rightb.y + leftu.y - leftb.y;
 		Point min, max;
@@ -67,9 +67,9 @@ void LoadTextureIndex(TileInfo &tile_info,
 		min.x = min.x < rightu.x ? min.x : rightu.x;
 		max.x = max.x > rightu.x ? max.x : rightu.x;
 		min.x = min.x > 0 ? min.x : 0;
-		min.x = min.x < SCREENWIDTH ? min.x : (SCREENWIDTH-1);
+		min.x = min.x < SCREENWIDTH ? min.x : (SCREENWIDTH - 1);
 		max.x = max.x > 0 ? max.x : 0;		   
-		max.x = max.x < SCREENWIDTH ? max.x : (SCREENWIDTH-1);
+		max.x = max.x < SCREENWIDTH ? max.x : (SCREENWIDTH - 1);
 
 		min.y = leftb.y < leftu.y ? leftb.y : leftu.y;
 		max.y = leftb.y > leftu.y ? leftb.y : leftu.y;
@@ -78,9 +78,9 @@ void LoadTextureIndex(TileInfo &tile_info,
 		min.y = min.y < rightu.y ? min.y : rightu.y;
 		max.y = max.y > rightu.y ? max.y : rightu.y;
 		min.y = min.y > 0 ? min.y : 0;
-		min.y = min.y < SCREENHEIGHT ? min.y : (SCREENHEIGHT-1);
+		min.y = min.y < SCREENHEIGHT ? min.y : (SCREENHEIGHT - 1);
 		max.y = max.y > 0 ? max.y : 0;		  
-		max.y = max.y < SCREENHEIGHT ? max.y : (SCREENHEIGHT-1);
+		max.y = max.y < SCREENHEIGHT ? max.y : (SCREENHEIGHT - 1);
 
 		//计算最大值和最小值对应的tile块
 		//5 means tilesize is 32 pixels
@@ -110,13 +110,7 @@ void LoadTextureIndex(TileInfo &tile_info,
 		}
 	}
  }
- bool boxtest(Point(&min)[TextureIndexSize],
-	 Point(&max)[TextureIndexSize],
-	 U16 &tile_num,
-	 U16 &tex_num)
- {
-	 return true;
- }
+ 
  //bool boxtest(TileInfo &tile_info,
  //	int &tile_num,
  //	MatrixMask  &Matrixmask,

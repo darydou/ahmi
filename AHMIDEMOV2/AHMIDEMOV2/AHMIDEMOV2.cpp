@@ -58,7 +58,10 @@ void start()
 	/********************************************/
 	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	MatrixGenerate Matrixgenerate;
-	//Matrixgenerate.Trirotate(180);
+	
+	//Matrixgenerate.Tritranslate(100 << 4, 100 << 4);
+	Matrixgenerate.Trirotate(45);
+	
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
@@ -66,26 +69,26 @@ void start()
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
 	
-	 DrawCircle(128, 500, 500,
-	 	tile_info,
-	 	rom_info,
-	 	Matrixmask,
-	 	tileinfomask,
-	 	matrix,
-	 	RomAddr,
-	 	TEXADD);
-	 ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
-	 GetMatrix(matrix, TEXADD, 1);
-	WriteChinese("广告费大概发达噶大概",32,500,500,
-		rom_info,
-		tile_info,
-		Matrixmask,
-		tileinfomask,
-		matrix,
-		RomAddr,
-		TEXADD);
-	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 300, 300);
-	GetMatrix(matrix, TEXADD, 3);
+	// DrawCircle(128, 500, 500,
+	// 	tile_info,
+	// 	rom_info,
+	// 	Matrixmask,
+	// 	tileinfomask,
+	// 	matrix,
+	// 	RomAddr,
+	// 	TEXADD);
+	// ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
+	// GetMatrix(matrix, TEXADD, 1);
+	//WriteChinese("广告费大概发达噶大该书给客户结构",32,500,500,
+	//	rom_info,
+	//	tile_info,
+	//	Matrixmask,
+	//	tileinfomask,
+	//	matrix,
+	//	RomAddr,
+	//	TEXADD);
+	//ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 700, 700);
+	//GetMatrix(matrix, TEXADD, 3);
 	//WriteEnglish("anjsdkfjskajdfhsaklj",
 	//	rom_info,
 	//	tile_info,
@@ -95,15 +98,15 @@ void start()
 	//	RomAddr,
 	//	TEXADD,
 	//	16);
-	DrawPointer(
-	  	tile_info,
-	  	rom_info,
-	  	Matrixmask,
-	  	tileinfomask,
-	  	matrix,
-	  	RomAddr,
-	  	TEXADD,
-		500, 500, 60);
+	//DrawPointer(
+	//  	tile_info,
+	//  	rom_info,
+	//  	Matrixmask,
+	//  	tileinfomask,
+	//  	matrix,
+	//  	RomAddr,
+	//  	TEXADD,
+	//	500, 500, 30);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//已测试
@@ -126,8 +129,8 @@ void start()
 	//GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	//GetMatrix(matrix, TEXADD, 0);
-	 ADDPurity(tileinfomask,TEXADD,1,0,0,0,256,256);
-	 GetMatrix(matrix, TEXADD, 5);
+	//ADDPurity(tileinfomask,TEXADD,1,0,0,0,256,256);
+	//GetMatrix(matrix, TEXADD, 5);
 	/*******************更新tile_info信息*********************/
 	TileInfoGenrate(tile_info,
 		Matrixmask,
