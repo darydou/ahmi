@@ -59,8 +59,8 @@ void start()
 	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Triscale(255, 255);
-	//Matrixgenerate.Tritranslate(100 << 4, 100 << 4);
-	Matrixgenerate.Trirotate(34);
+	Matrixgenerate.Tritranslate(100 << 4, 100 << 4);
+	//Matrixgenerate.Trirotate(34);
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,

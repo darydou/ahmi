@@ -212,6 +212,8 @@ void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 //仅能放大
 void MatrixGenerate::Triscale(S16 cx,S16 cy )
 {
+	cx = cx << 6;
+	cy = cy << 6;
 	//修改，使之符合人性化输入
 	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
@@ -291,6 +293,8 @@ void MatrixGenerate::Trirotate(S16 degrees)
 //平移功能
 void MatrixGenerate::Tritranslate(S1_B_4 tx, S1_B_4 ty)
 {
+	tx = tx << 4;
+	ty = ty << 4;
 	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
 	//MatrixCurrent[0]~MatrixCurrent[4]为.6的定点数，tx为.4的定点数

@@ -50,20 +50,24 @@ void LoadTextureIndex(TileInfo &tile_info,
 		S16 F = Matrixmask.Matrixmask1[matrix[i]].matrixEF & 0xffff;
 		//È¥³ýÎó²î
 		U16 widthcurrent = 0, heightcurrent = 0;
-		widthcurrent = static_cast<U16>(static_cast<S32>((U16)tileinfomask.tileinfomask1[i].width)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].A)
+		widthcurrent = static_cast<U16>
+			(static_cast<S32>((U16)tileinfomask.tileinfomask1[i].width)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].A)
 			+ static_cast<S32>((U16)tileinfomask.tileinfomask1[i].height)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].C)
 			>> 6)
 			+ static_cast<U16>(tile_info.matrix[matrix[i]].E >> 4);
-		heightcurrent = static_cast<U16>(static_cast<S32>((U16)tileinfomask.tileinfomask1[i].width)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].B)
+		heightcurrent = static_cast<U16>
+			(static_cast<S32>((U16)tileinfomask.tileinfomask1[i].width)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].B)
 			+ static_cast<S32>((U16)tileinfomask.tileinfomask1[i].height)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].D)
 			>> 6)
 			+ static_cast<U16>(tile_info.matrix[matrix[i]].F >> 4);
 		U16 width=0,height = 0;
-		width = static_cast<U16>(static_cast<S32>((U16)widthcurrent)*static_cast<S32>((S16)A)
+		width = static_cast<U16>
+			(static_cast<S32>((U16)widthcurrent)*static_cast<S32>((S16)A)
 			+ static_cast<S32>((U16)heightcurrent)*static_cast<S32>((S16)C)
 			>> 6)
 			+ static_cast<U16>(E >> 4);
-		height = static_cast<U16>(static_cast<S32>((U16)widthcurrent)*static_cast<S32>((S16)B)
+		height = static_cast<U16>
+			(static_cast<S32>((U16)widthcurrent)*static_cast<S32>((S16)B)
 			+ static_cast<S32>((U16)heightcurrent)*static_cast<S32>((S16)D)
 			>> 6)
 			+ static_cast<U16>(F >> 4);
