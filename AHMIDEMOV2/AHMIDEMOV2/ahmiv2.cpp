@@ -296,8 +296,8 @@ void ahmi::TexRaster(Tile* tile,Matrix* matrix,Texture* texture,U16 tex_width,U1
 	TexType = (texture_ctrl & 0x6) >> 1;
 	mask_alpha = (texture_ctrl&0x1);
 	//u£¨x£¬y£©=Ax + Cy + E£»v£¨x£¬y£©= Bx + Dy +F
-	u0 = (matrix->A * tile->x + matrix->C * tile->y)/16 + matrix->E;
-	v0 = (matrix->B * tile->x + matrix->D * tile->y)/16 + matrix->F;
+	u0 = (matrix->A * tile->x + matrix->C * tile->y)/64 + matrix->E;
+	v0 = (matrix->B * tile->x + matrix->D * tile->y)/64 + matrix->F;
 	//u0 = (MUL(matrix->A , tile->x) + MUL(matrix->C , tile->y))/16 + matrix->E;
 	//v0 = (MUL(matrix->B , tile->x) + MUL(matrix->D , tile->y))/16 + matrix->F;
 	switch(TexType)
@@ -316,8 +316,8 @@ void ahmi::TexRaster(Tile* tile,Matrix* matrix,Texture* texture,U16 tex_width,U1
 				int block_row;
 				x=i%32;
 				y=i/32;
-				u=u0+matrix->A * x + matrix->C * y;
-				v=v0+matrix->B * x + matrix->D * y;
+				u = u0 + (matrix->A * x + matrix->C * y) / 4;
+				v = v0 + (matrix->B * x + matrix->D * y) / 4;
 				block_row = tex_width/4+(((tex_width&0x3)==0)?0:1);
 				if((u+32<=0)||(u/16>tex_width-1)||(v+32<=0)||(v/16>tex_height-1))
 				{
@@ -395,8 +395,8 @@ void ahmi::TexRaster(Tile* tile,Matrix* matrix,Texture* texture,U16 tex_width,U1
 				int block_row;
 				x=i%32;
 				y=i/32;
-				u=u0+matrix->A * x + matrix->C * y;
-				v=v0+matrix->B * x + matrix->D * y;
+				u = u0 + (matrix->A * x + matrix->C * y) / 4;
+				v = v0 + (matrix->B * x + matrix->D * y) / 4;
 				block_row = tex_width/4+(((tex_width&0x3)==0)?0:1);
 				if((u+32<=0)||(u/16>tex_width-1)||(v+32<=0)||(v/16>tex_height-1))
 				{
@@ -477,8 +477,8 @@ void ahmi::TexRaster(Tile* tile,Matrix* matrix,Texture* texture,U16 tex_width,U1
 				unsigned int alpha[4];
 				x=i%32;
 				y=i/32;
-				u=u0+matrix->A * x + matrix->C * y;
-				v=v0+matrix->B * x + matrix->D * y;
+				u = u0 + (matrix->A * x + matrix->C * y) / 4;
+				v = v0 + (matrix->B * x + matrix->D * y) / 4;
 				int xx = 0;
 				if((u+48<=0)||(u/16>tex_width-1)||(v+48<=0)||(v/16>tex_height-1))
 				{

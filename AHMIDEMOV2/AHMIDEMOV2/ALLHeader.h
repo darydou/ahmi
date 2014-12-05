@@ -24,7 +24,7 @@ using namespace std;
 
 
 typedef short S1_B_4;//定点数1.11.4:1符号位，11整数位，4小数位
-typedef char  S1_3_4;//定点数1.3.4：1符号位，3整数位，4小数位
+typedef char  S1_1_6;//定点数1.3.4：1符号位，3整数位，4小数位
 typedef unsigned short U16;//无符号16位
 typedef unsigned char  U8 ;//无符号 8位
 typedef unsigned long long U64;//无符号64位
@@ -56,10 +56,10 @@ typedef long long S2_8_11_11_1_24_7;
 #ifndef __Matrix
 #define __Matrix
 typedef struct _Matrix{
-	S1_3_4  A;
-	S1_3_4  B;
-	S1_3_4  C;
-	S1_3_4  D;
+	S1_1_6  A;
+	S1_1_6  B;
+	S1_1_6  C;
+	S1_1_6  D;
 	S1_B_4 E;
 	S1_B_4 F;
 } Matrix;
@@ -114,7 +114,8 @@ typedef struct _TileInfoMask
 #define	  __MatrixMask1
 typedef struct _MatrixMask1
 {
-	U64 matrix;
+	U64 matrix;//保存ABCD扩展到了16位；
+	U32 matrixEF;//保存EF，16位；
 }MatrixMask1;
 #endif
 

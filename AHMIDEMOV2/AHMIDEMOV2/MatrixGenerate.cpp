@@ -3,15 +3,18 @@
 //构造函数
 MatrixGenerate::MatrixGenerate()
 {
-	Matrix[0] = 1<<4;
+	//Matrix[0]~Matrix[5]为1.1.6定点数
+	//Matrix[6]~Matrix[7]为1.11.4定点数
+	Matrix[0] = 1<<6;
 	Matrix[1] = 0;
 	Matrix[2] = 0;
 	Matrix[3] = 0;
-	Matrix[4] = 1<<4;
+	Matrix[4] = 1<<6;
 	Matrix[5] = 0;
 	Matrix[6] = 0;
 	Matrix[7] = 0;
-	Matrix[8] = 1<<4;
+	Matrix[8] = 1<<6;
+
 	for (S32 i = 0; i < MSize; i++)
 	{
 		MatrixTemp[i] = Matrix[i];
@@ -122,7 +125,7 @@ void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 
 ////正矩阵AMX=x;逆矩阵X=M'A'x;A为当前矩阵，M已产生的矩阵，初始M为单位矩阵
 ////add by darydou 12.4 to replace the old one
-//void MatrixGenerate::Triscale(S1_3_4 cx, S1_3_4 cy)
+//void MatrixGenerate::Triscale(S1_1_6 cx, S1_1_6 cy)
 //{
 //	for (U8 i = 0; i < MSize; i++)
 //		MatrixCurrent[i] = Matrix[i];
@@ -204,32 +207,46 @@ void MatrixGenerate::CORDIC(S16 &Radian, S16 &COS, S16 &SIN)
 //	MatrixTemp[6] = MatrixCurrent[6] + static_cast<S16>(static_cast<S32>(MatrixCurrent[8])*static_cast<S32>(-tx) << 4);
 //	MatrixTemp[7] = MatrixCurrent[7] + static_cast<S16>(static_cast<S32>(MatrixCurrent[8])*static_cast<S32>(-ty) << 4);
 //}
+
 //尺度变换
-void MatrixGenerate::Triscale(S1_3_4 cx,S1_3_4 cy )
+//仅能放大
+void MatrixGenerate::Triscale(S16 cx,S16 cy )
 {
-	if (cy == 0 || cx == 0)
-	{
-		//cout << "the cy and cx can not be zero!" << endl;
-		exit(1);
-	}
-	for (S32 i = 0; i < MSize; i++)
+	//修改，使之符合人性化输入
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[0] = (S1_B_4(MatrixCurrent[0] * (S1_B_4)cx))>>4;
-	Matrix[1] = (S1_B_4(MatrixCurrent[1] * (S1_B_4)cy))>>4;
-	Matrix[3] = (S1_B_4(MatrixCurrent[3] * (S1_B_4)cx))>>4;
-	Matrix[4] = (S1_B_4(MatrixCurrent[4] * (S1_B_4)cy))>>4;
-	Matrix[6] = (S32( (S32) MatrixCurrent[6] * (S32)cx))>>4;
-	Matrix[7] = (S32( (S32) MatrixCurrent[7] * (S32)cy))>>4;
-	for (S32 i = 0; i < MSize; i++)
-		MatrixCurrent[i] = MatrixTemp[i];
-	MatrixTemp[0] = (S32(((S32) MatrixCurrent[0]) << 4) / (S32)cx) ;
-	MatrixTemp[1] = (S32(((S32) MatrixCurrent[1]) << 4) / (S32)cx) ;
-	MatrixTemp[3] = (S32(((S32) MatrixCurrent[3]) << 4) / (S32)cx) ;
-	MatrixTemp[4] = (S32(((S32) MatrixCurrent[4]) << 4) / (S32)cy) ;
-	MatrixTemp[5] = (S32(((S32) MatrixCurrent[5]) << 4) / (S32)cy) ;
-	MatrixTemp[6] = (S32(((S32) MatrixCurrent[6]) << 4) / (S32)(cy*cx)) ;
-	MatrixTemp[7] = (S32(((S32) MatrixCurrent[7]) << 4) / (S32)(cy*cx)) ;
-	MatrixTemp[8] = (S32(((S32) MatrixCurrent[8]) << 4) / (S32)(cy*cx)) ;
+	Matrix[0] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[0]) * static_cast<S32>((S16)cx)) >> 6);//1.9.6*1.1.6=24.12>>6
+	Matrix[1] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[1]) * static_cast<S32>((S16)cy)) >> 6);//1.9.6*1.1.6=24.12>>6
+	Matrix[3] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[3]) * static_cast<S32>((S16)cx)) >> 6);//1.9.6*1.1.6=24.12>>6 
+	Matrix[4] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[4]) * static_cast<S32>((S16)cy)) >> 6);//1.9.6*1.1.6=24.12>>6
+	Matrix[6] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[6]) * static_cast<S32>((S16)cx)) >> 6);//1.11.4*1.1.6=24.10>>6
+	Matrix[7] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[7]) * static_cast<S32>((S16)cy)) >> 6);//1.11.4*1.1.6=24.10>>6
+	for (U8 i = 0; i < MSize; i++)
+		MatrixCurrent[i] = MatrixTemp[i]; 
+	MatrixTemp[0] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[0]) << 6) / static_cast<S32>((S16)cx));//1.9.6/1.1.6=1<<6
+	MatrixTemp[1] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[1]) << 6) / static_cast<S32>((S16)cx));//1.9.6/1.1.6=1<<6
+	MatrixTemp[2] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[2]) << 6) / static_cast<S32>((S16)cx));//1.9.6/1.1.6=1<<6
+	MatrixTemp[3] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[3]) << 6) / static_cast<S32>((S16)cy));//1.9.6/1.1.6=1<<6 
+	MatrixTemp[4] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[4]) << 6) / static_cast<S32>((S16)cy));//1.9.6/1.1.6=1<<6
+	MatrixTemp[5] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[5]) << 6) / static_cast<S32>((S16)cy));//1.9.6/1.1.6=1<<6
+	MatrixTemp[6] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[6]) << 14) / static_cast<S32>(static_cast<S16>((S16)cx)*static_cast<S16>((S16)cy)));//1.11.4/(1.1.6*1.1.6)=1.-8<<8+6=14
+	MatrixTemp[7] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[7]) << 14) / static_cast<S32>(static_cast<S16>((S16)cx)*static_cast<S16>((S16)cy)));//1.11.4/(1.1.6*1.1.6)=1.-8<<8+6=14
+	MatrixTemp[8] = static_cast<S16>
+		((static_cast<S32>((S16)MatrixCurrent[8]) << 12) / static_cast<S32>(static_cast<S16>((S16)cx)*static_cast<S16>((S16)cy)));//1.9.6/(1.1.6*1.1.6)=1.-6<<6+6=12
 }
 
 //旋转功能
@@ -237,70 +254,91 @@ void MatrixGenerate::Trirotate(S16 degrees)
 {
 	S16 COS = 1, SIN = 0;
 	CORDIC(degrees, COS,SIN);
-	S1_B_4 cos = COS >>(10-4);
-	S1_B_4 sin = SIN >>(10-4);
-	for (int i = 0; i < MSize; i++)
+	//cos求出的值为扩大1024倍的值，计算时只需要1.1.6定点数故缩小16倍
+	S16 cos = COS >>(10-6);
+	S16 sin = SIN >>(10-6);
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[0] = (MatrixCurrent[0] * cos - MatrixCurrent[1] * sin)>>4;
-	Matrix[1] = (MatrixCurrent[0] * sin + MatrixCurrent[1] * cos)>>4;
-	Matrix[3] = (MatrixCurrent[3] * cos - MatrixCurrent[4] * sin)>>4;
-	Matrix[4] = (MatrixCurrent[3] * sin + MatrixCurrent[4] * cos)>>4;
-	Matrix[6] = ((S32)(MatrixCurrent[6] * cos) - (S32)(MatrixCurrent[7] * sin))>>4;
-	Matrix[7] = ((S32)(MatrixCurrent[6] * sin) + (S32)(MatrixCurrent[7] * cos))>>4;
-	for (int i = 0; i < MSize; i++)
+	//.6*.6=.12<<6为.6
+	Matrix[0] = static_cast<S16>
+		(static_cast<S32>((S16)MatrixCurrent[0])*static_cast<S32>((S16)cos) - static_cast<S32>((S16)MatrixCurrent[1])*static_cast<S32>((S16)sin) >> 6);
+	Matrix[1] = static_cast<S16>
+		(static_cast<S32>((S16)MatrixCurrent[0])*static_cast<S32>((S16)sin) + static_cast<S32>((S16)MatrixCurrent[1])*static_cast<S32>((S16)cos) >> 6);
+	Matrix[3] = static_cast<S16>
+		(static_cast<S32>((S16)MatrixCurrent[3])*static_cast<S32>((S16)cos) - static_cast<S32>((S16)MatrixCurrent[4])*static_cast<S32>((S16)sin) >> 6);
+	Matrix[4] = static_cast<S16>
+		(static_cast<S32>((S16)MatrixCurrent[3])*static_cast<S32>((S16)sin) + static_cast<S32>((S16)MatrixCurrent[4])*static_cast<S32>((S16)cos) >> 6);
+	Matrix[6] = static_cast<S16>
+		(static_cast<S32>((S16)MatrixCurrent[6])*static_cast<S32>((S16)cos) - static_cast<S32>((S16)MatrixCurrent[7])*static_cast<S32>((S16)sin) >> 6);
+	Matrix[7] = static_cast<S16>
+		(static_cast<S32>((S16)MatrixCurrent[6])*static_cast<S32>((S16)sin) + static_cast<S32>((S16)MatrixCurrent[7])*static_cast<S32>((S16)cos) >> 6);
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = MatrixTemp[i];
-	MatrixTemp[0] = (cos*MatrixCurrent[0] - sin*MatrixCurrent[3])>>4;
-	MatrixTemp[1] = (cos*MatrixCurrent[1] - sin*MatrixCurrent[4])>>4;
-	MatrixTemp[2] = (cos*MatrixCurrent[2] - sin*MatrixCurrent[5])>>4;
-	MatrixTemp[3] = (sin*MatrixCurrent[0] + cos*MatrixCurrent[3])>>4;
-	MatrixTemp[4] = (sin*MatrixCurrent[1] + cos*MatrixCurrent[4])>>4;
-	MatrixTemp[5] = (sin*MatrixCurrent[2] + cos*MatrixCurrent[5])>>4;
+	MatrixTemp[0] = static_cast<S16>
+		(static_cast<S32>((S16)cos)*static_cast<S32>((S16)MatrixCurrent[0]) - static_cast<S32>((S16)sin)*static_cast<S32>((S16)MatrixCurrent[3]) >> 6);
+	MatrixTemp[1] = static_cast<S16>
+		(static_cast<S32>((S16)cos)*static_cast<S32>((S16)MatrixCurrent[1]) - static_cast<S32>((S16)sin)*static_cast<S32>((S16)MatrixCurrent[4]) >> 6);
+	MatrixTemp[2] = static_cast<S16>
+		(static_cast<S32>((S16)cos)*static_cast<S32>((S16)MatrixCurrent[2]) - static_cast<S32>((S16)sin)*static_cast<S32>((S16)MatrixCurrent[5]) >> 6);
+	MatrixTemp[3] = static_cast<S16>
+		(static_cast<S32>((S16)sin)*static_cast<S32>((S16)MatrixCurrent[0]) + static_cast<S32>((S16)cos)*static_cast<S32>((S16)MatrixCurrent[3]) >> 6);
+	MatrixTemp[4] = static_cast<S16>										
+		(static_cast<S32>((S16)sin)*static_cast<S32>((S16)MatrixCurrent[1]) + static_cast<S32>((S16)cos)*static_cast<S32>((S16)MatrixCurrent[4]) >> 6);
+	MatrixTemp[5] = static_cast<S16>										
+		(static_cast<S32>((S16)sin)*static_cast<S32>((S16)MatrixCurrent[2]) + static_cast<S32>((S16)cos)*static_cast<S32>((S16)MatrixCurrent[5]) >> 6);
 }
 
 //平移功能
 void MatrixGenerate::Tritranslate(S1_B_4 tx, S1_B_4 ty)
 {
-	for (int i = 0; i < MSize; i++)
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[0] = MatrixCurrent[0] + ((MatrixCurrent[2] * tx)>>4);
-	Matrix[1] = MatrixCurrent[1] + ((MatrixCurrent[2] * ty)>>4);
-	Matrix[3] = MatrixCurrent[3] + ((MatrixCurrent[5] * tx)>>4);
-	Matrix[4] = MatrixCurrent[4] + ((MatrixCurrent[5] * ty)>>4);
-	Matrix[6] = MatrixCurrent[6] + (((S32)(MatrixCurrent[8] * tx))>>4);
-	Matrix[7] = MatrixCurrent[7] + (((S32)(MatrixCurrent[8] * ty))>>4);
-	for (int i = 0; i < MSize; i++)
+	//MatrixCurrent[0]~MatrixCurrent[4]为.6的定点数，tx为.4的定点数
+	Matrix[0] = static_cast<S16>(MatrixCurrent[0]) + ((static_cast<S32>((S16)MatrixCurrent[2])* static_cast<S32>((S16)tx)) >> 4);
+	Matrix[1] = static_cast<S16>(MatrixCurrent[1]) + ((static_cast<S32>((S16)MatrixCurrent[2])* static_cast<S32>((S16)ty)) >> 4);
+	Matrix[3] = static_cast<S16>(MatrixCurrent[3]) + ((static_cast<S32>((S16)MatrixCurrent[5])* static_cast<S32>((S16)tx)) >> 4);
+	Matrix[4] = static_cast<S16>(MatrixCurrent[4]) + ((static_cast<S32>((S16)MatrixCurrent[5])* static_cast<S32>((S16)ty)) >> 4);
+	Matrix[6] = MatrixCurrent[6] + static_cast<S16>(static_cast<S32>((S16)MatrixCurrent[8]) * static_cast<S32>((S16)tx) >> 6);
+	Matrix[7] = MatrixCurrent[7] + static_cast<S16>(static_cast<S32>((S16)MatrixCurrent[8]) * static_cast<S32>((S16)ty) >> 6);
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = MatrixTemp[i];
-	MatrixTemp[6] = (S32(-(S32)tx*(S32)MatrixCurrent[0] - (S32)ty*(S32)MatrixCurrent[3])>>4) + MatrixCurrent[6];
-	MatrixTemp[7] = (S32(-(S32)tx*(S32)MatrixCurrent[1] - (S32)ty*(S32)MatrixCurrent[4])>>4) + MatrixCurrent[7];
-	MatrixTemp[8] = (S32(-(S32)tx*(S32)MatrixCurrent[2] - (S32)ty*(S32)MatrixCurrent[5])>>4) + MatrixCurrent[8];
+	MatrixTemp[6] = static_cast<S16>(-static_cast<S32>(tx)*static_cast<S32>(MatrixCurrent[0]) - static_cast<S32>(ty)*static_cast<S32>(MatrixCurrent[3]) >> 6) + MatrixCurrent[6];
+	MatrixTemp[7] = static_cast<S16>(-static_cast<S32>(tx)*static_cast<S32>(MatrixCurrent[1]) - static_cast<S32>(ty)*static_cast<S32>(MatrixCurrent[4]) >> 6) + MatrixCurrent[7];
+	MatrixTemp[8] = static_cast<S16>(-static_cast<S32>(tx)*static_cast<S32>(MatrixCurrent[2]) - static_cast<S32>(ty)*static_cast<S32>(MatrixCurrent[5]) >> 4) + MatrixCurrent[8];
 }
 //水平偏移
-void MatrixGenerate::Trivertical(S1_3_4 sv)
+void MatrixGenerate::Trivertical(S1_1_6 sv)
 {
-	for (int i = 0; i < MSize; i++)
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[0] = MatrixCurrent[0] + ((MatrixCurrent[1] * ((S1_B_4)sv))>>4);
-	Matrix[3] = MatrixCurrent[3] + ((MatrixCurrent[4] * ((S1_B_4)sv))>>4);
-	Matrix[6] = MatrixCurrent[6] + ((S32(MatrixCurrent[7] * ((S1_B_4)sv)))>>4);
-	for (int i = 0; i < MSize; i++)
+	//1.1.6
+	Matrix[0] = MatrixCurrent[0] + static_cast<S16>(static_cast<S32>((S16)MatrixCurrent[1]) * static_cast<S32>((S16)sv) >> 6);
+	Matrix[3] = MatrixCurrent[3] + static_cast<S16>(static_cast<S32>((S16)MatrixCurrent[4]) * static_cast<S32>((S16)sv) >> 6);
+	//12.4
+	Matrix[6] = MatrixCurrent[6] + ((static_cast<S32>((S16)MatrixCurrent[7]) * static_cast<S32>((S16)sv)) >> 6);
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = MatrixTemp[i];
-	MatrixTemp[3] = (S32(-(S1_B_4)sv*MatrixCurrent[0]) >> 4) + MatrixCurrent[3];
-	MatrixTemp[4] = (S32(-(S1_B_4)sv*MatrixCurrent[1]) >> 4) + MatrixCurrent[4];
-	MatrixTemp[5] = (S32(-(S1_B_4)sv*MatrixCurrent[2]) >> 4) + MatrixCurrent[5];
+	//1.1.6
+	MatrixTemp[3] = static_cast<S16>(static_cast<S32>((S16)-sv)*static_cast<S32>(MatrixCurrent[0]) >> 6) + MatrixCurrent[3];
+	MatrixTemp[4] = static_cast<S16>(static_cast<S32>((S16)-sv)*static_cast<S32>(MatrixCurrent[1]) >> 6) + MatrixCurrent[4];
+	MatrixTemp[5] = static_cast<S16>(static_cast<S32>((S16)-sv)*static_cast<S32>(MatrixCurrent[2]) >> 6) + MatrixCurrent[5];
 }
 //垂直偏移
-void MatrixGenerate::Trihorizontal(S1_3_4 sh)
+void MatrixGenerate::Trihorizontal(S1_1_6 sh)
 {
-	for (int i = 0; i < MSize; i++)
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = Matrix[i];
-	Matrix[1] = ((MatrixCurrent[0] * ((S1_B_4)sh))>>4) + MatrixCurrent[1];
-	Matrix[4] = ((MatrixCurrent[3] * ((S1_B_4)sh))>>4) + MatrixCurrent[4];
-	Matrix[7] = ((S32(MatrixCurrent[6] * ((S1_B_4)sh))>>4)) + MatrixCurrent[7];
-	for (int i = 0; i < MSize; i++)
+	//1.1.6
+	Matrix[1] = static_cast<S16>(static_cast<S32>(MatrixCurrent[0]) * static_cast<S32>((S16)sh) >> 6) + MatrixCurrent[1];
+	Matrix[4] = static_cast<S16>(static_cast<S32>(MatrixCurrent[3]) * static_cast<S32>((S16)sh) >> 6) + MatrixCurrent[4];
+	//12.4
+	Matrix[7] = static_cast<S16>(static_cast<S32>((S16)MatrixCurrent[6]) * static_cast<S32>((S16)sh) >> 6) + MatrixCurrent[7];
+	for (U8 i = 0; i < MSize; i++)
 		MatrixCurrent[i] = MatrixTemp[i];
-	MatrixTemp[0] = MatrixCurrent[0] - (S32(((S1_B_4)sh)*MatrixCurrent[3])>>4);
-	MatrixTemp[1] = MatrixCurrent[1] - (S32(((S1_B_4)sh)*MatrixCurrent[4])>>4);
-	MatrixTemp[2] = MatrixCurrent[2] - (S32(((S1_B_4)sh)*MatrixCurrent[5])>>4);
+	//1.1.6
+	MatrixTemp[0] = MatrixCurrent[0] - (static_cast<S32>((S16)sh)*static_cast<S32>((S16)MatrixCurrent[3]) >> 6);
+	MatrixTemp[1] = MatrixCurrent[1] - (static_cast<S32>((S16)sh)*static_cast<S32>((S16)MatrixCurrent[4]) >> 6);
+	MatrixTemp[2] = MatrixCurrent[2] - (static_cast<S32>((S16)sh)*static_cast<S32>((S16)MatrixCurrent[5]) >> 6);
 }
 //传递变换矩阵
 //modfied by darydou 14/12/03
@@ -390,21 +428,20 @@ void MatrixGenerate::GetMatrix(TileInfo &tile_info,
 	//	}
 	//	count++;
 	//} 
-
-	tile_info.matrix[TEXADD - 1].A = (S1_3_4)Matrix [0] ;
-	tile_info.matrix[TEXADD - 1].B = (S1_3_4)Matrix [1];
-	tile_info.matrix[TEXADD - 1].C = (S1_3_4)Matrix [3];
-	tile_info.matrix[TEXADD - 1].D = (S1_3_4)Matrix [4];
-	tile_info.matrix[TEXADD - 1].E = Matrix [6];
-	tile_info.matrix[TEXADD - 1].F = Matrix [7];
 	
-	Matrixmask.Matrixmask1[TEXADD - 1].matrix = ((U64)MatrixTemp[0] & 0xff) << 56 |
-		((U64)MatrixTemp[1] & 0xff) << 48 |
-		((U64)MatrixTemp[3] & 0xff) << 40 |
-		((U64)MatrixTemp[4] & 0xff) << 32 |
-		((U64)MatrixTemp[6] & 0xffff) << 16 |
-		((U64)MatrixTemp[7] & 0xffff);
-
+	tile_info.matrix[TEXADD - 1].A = (S1_1_6)MatrixTemp [0];
+	tile_info.matrix[TEXADD - 1].B = (S1_1_6)MatrixTemp [1];
+	tile_info.matrix[TEXADD - 1].C = (S1_1_6)MatrixTemp [3];
+	tile_info.matrix[TEXADD - 1].D = (S1_1_6)MatrixTemp [4];
+	tile_info.matrix[TEXADD - 1].E = MatrixTemp [6];
+	tile_info.matrix[TEXADD - 1].F = MatrixTemp [7];
+	
+	Matrixmask.Matrixmask1[TEXADD - 1].matrix = ((U64)Matrix[0] & 0xffff) << 48 |
+		((U64)Matrix[1] & 0xffff) << 32 |
+		((U64)Matrix[3] & 0xffff) << 16 |
+		((U64)Matrix[4] & 0xffff);
+	Matrixmask.Matrixmask1[TEXADD - 1].matrixEF = ((U32)Matrix[6] & 0xffff) << 16 |
+		((U32)Matrix[7] & 0xffff);
 	matrix[TEXADD - 1] = TEXADD - 1;
 }
 
