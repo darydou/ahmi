@@ -1,8 +1,8 @@
 #ifndef _MATRIXGENERATE
 #define _MATRIXGENERATE
 #include "ALLHeader.h"
-const U8 MSize = 9;
-
+static const U8 MSize = 9;
+const U16 magnitude=7;
 class MatrixGenerate
 {
 private:

@@ -53,23 +53,23 @@ void LoadTextureIndex(TileInfo &tile_info,
 		widthcurrent = static_cast<U16>
 			(static_cast<S32>((U16)tileinfomask.tileinfomask1[i].width)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].A)
 			+ static_cast<S32>((U16)tileinfomask.tileinfomask1[i].height)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].C)
-			>> 6)
+			>> magnitude1)
 			+ static_cast<U16>(tile_info.matrix[matrix[i]].E >> 4);
 		heightcurrent = static_cast<U16>
 			(static_cast<S32>((U16)tileinfomask.tileinfomask1[i].width)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].B)
 			+ static_cast<S32>((U16)tileinfomask.tileinfomask1[i].height)*static_cast<S32>((S8)tile_info.matrix[matrix[i]].D)
-			>> 6)
+			>> magnitude1)
 			+ static_cast<U16>(tile_info.matrix[matrix[i]].F >> 4);
 		U16 width=0,height = 0;
 		width = static_cast<U16>
 			(static_cast<S32>((U16)widthcurrent)*static_cast<S32>((S16)A)
 			+ static_cast<S32>((U16)heightcurrent)*static_cast<S32>((S16)C)
-			>> 6)
+			>> magnitude1)
 			+ static_cast<U16>(E >> 4);
 		height = static_cast<U16>
 			(static_cast<S32>((U16)widthcurrent)*static_cast<S32>((S16)B)
 			+ static_cast<S32>((U16)heightcurrent)*static_cast<S32>((S16)D)
-			>> 6)
+			>> magnitude1)
 			+ static_cast<U16>(F >> 4);
 		width = tileinfomask.tileinfomask1[i].width - width;
 		height = tileinfomask.tileinfomask1[i].height - height;
@@ -78,10 +78,10 @@ void LoadTextureIndex(TileInfo &tile_info,
 		leftb.y = 0;
 		leftb.x = static_cast<S32>(/*leftb.x*static_cast<S32>(A)+leftb.y*static_cast<S32>(C)+*/static_cast<S32>(E)) >> 4;
 		leftb.y = static_cast<S32>(static_cast<S32>(F)) >> 4;
-		leftu.x = leftb.x + (static_cast<S32> (static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(C)) >> 6);
-		leftu.y = leftb.y + (static_cast<S32> (static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(D)) >> 6);
-		rightb.x = leftb.x + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width+width ) * static_cast<S32>(A)) >> 6);
-		rightb.y = leftb.y + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width+width ) * static_cast<S32>(B)) >> 6);
+		leftu.x = leftb.x + (static_cast<S32> (static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(C)) >> magnitude1);
+		leftu.y = leftb.y + (static_cast<S32> (static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(D)) >> magnitude1);
+		rightb.x = leftb.x + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width +width) *  static_cast<S32>(A)) >> magnitude1);
+		rightb.y = leftb.y + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width +width) *  static_cast<S32>(B)) >> magnitude1);
 		rightu.x = rightb.x + leftu.x - leftb.x;
 		rightu.y = rightb.y + leftu.y - leftb.y;
 		Point min, max;
