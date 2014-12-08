@@ -53,6 +53,11 @@ typedef long long S2_8_11_11_1_32;
 //7位保留
 typedef long long S2_8_11_11_1_24_7;
 
+//矩阵的数量级
+
+const U16 magnitude = 7;
+
+
 #ifndef __Matrix
 #define __Matrix
 typedef struct _Matrix{

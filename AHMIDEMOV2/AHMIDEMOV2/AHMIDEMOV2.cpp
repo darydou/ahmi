@@ -59,8 +59,8 @@ void start()
 	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Triscale(2, 2);
-	Matrixgenerate.Tritranslate(100, 100);
-	Matrixgenerate.Trirotate(45);
+	//Matrixgenerate.Tritranslate(100, 100);
+	//Matrixgenerate.Trirotate(10);
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
@@ -68,16 +68,16 @@ void start()
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
 	
-	// DrawCircle(128, 500, 500,
-	// 	tile_info,
-	// 	rom_info,
-	// 	Matrixmask,
-	// 	tileinfomask,
-	// 	matrix,
-	// 	RomAddr,
-	// 	TEXADD);
-	//ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
-	//GetMatrix(matrix, TEXADD, 1);
+	 DrawCircle(128, 500, 500,
+	 	tile_info,
+	 	rom_info,
+	 	Matrixmask,
+	 	tileinfomask,
+	 	matrix,
+	 	RomAddr,
+	 	TEXADD);
+	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
+	GetMatrix(matrix, TEXADD, 1);
 	//WriteChinese("广告费大概发达噶大该书给客户结构",32,500,500,
 	//	rom_info,
 	//	tile_info,

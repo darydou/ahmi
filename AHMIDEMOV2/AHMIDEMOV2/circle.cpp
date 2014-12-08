@@ -34,19 +34,21 @@ void DrawCircle(U16 radius, S16 x, S16 y,
 	if (radius>128)
 	{
 		cx = (U8)(radius >> 7);
-		cx = cx << 4;
 	}
 	else
 	{
-		cx = (U8)(radius >> 3);
-		if (radius < 8)
-		{
-			cout << "the radius is error" << endl;
-			exit(0);
-		}
+		//更改矩阵后只能进行放大操作
+		cx = 1;
+		//cx = (U8)(radius >> 3);
+		//if (radius < 8)
+		//{
+		//	cout << "the radius is error" << endl;
+		//	exit(0);
+		//}
 	}
-	S16 tx = (-x+128) << 4;
-	S16 ty = (-y+128) << 4;
+	//进行微调整，使之偏移到圆心位置。
+	S16 tx = x-128;
+	S16 ty = y-128;
 	MatrixGenerate matrixgenerate;
 	//matrixgenerate.Triscale(cx, cx);
 	matrixgenerate.Tritranslate(tx, ty);

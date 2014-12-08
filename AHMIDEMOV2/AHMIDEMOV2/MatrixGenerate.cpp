@@ -405,13 +405,14 @@ void MatrixGenerate::GetMatrix(TileInfo &tile_info,
 	//	}
 	//	count++;
 	//} 
-	
+	for (U8 i = 0; i < 6; i++)
+		MatrixTemp[i] = MatrixTemp[i] >= 128 ? 127 : MatrixTemp[i];
 	tile_info.matrix[TEXADD - 1].A = (S1_1_6)MatrixTemp [0];
 	tile_info.matrix[TEXADD - 1].B = (S1_1_6)MatrixTemp [1];
 	tile_info.matrix[TEXADD - 1].C = (S1_1_6)MatrixTemp [3];
 	tile_info.matrix[TEXADD - 1].D = (S1_1_6)MatrixTemp [4];
 	tile_info.matrix[TEXADD - 1].E = MatrixTemp [6];
-	tile_info.matrix[TEXADD - 1].F = MatrixTemp [7];
+	tile_info.matrix[TEXADD - 1].F = MatrixTemp [7]; 
 	
 	Matrixmask.Matrixmask1[TEXADD - 1].matrix = ((U64)Matrix[0] & 0xffff) << 48 |
 		((U64)Matrix[1] & 0xffff) << 32 |
