@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include "pointer.h"
+#include "DrawPointer.h"
 #include "MatrixGenerate.h"
 
 void DrawPointer(
@@ -13,12 +13,12 @@ void DrawPointer(
 	S16 x, S16 y, S16 degrees, U16 width, U16 height)
 {
 	const S16 pointerradius = 128;
-	const U16 pointerahplawidth = 256;
+	const U16 pointerahplawidth  = 256;
 	const U16 pointerahplaheight = 256;
 	static S16 score4[] = { 16, 8, 5, 4, 3 };
 	tileinfomask.tileinfomask1[TEXADD].flag = 2;//flag=2是指ahpla颜色，mask为0代表着是1bit,1代表着8bits
-	tileinfomask.tileinfomask1[TEXADD].height = pointerahplawidth;
-	tileinfomask.tileinfomask1[TEXADD].width = pointerahplaheight;
+	tileinfomask.tileinfomask1[TEXADD].height = pointerahplaheight;
+	tileinfomask.tileinfomask1[TEXADD].width = pointerahplawidth;
 	tileinfomask.tileinfomask1[TEXADD].mask = 0;
 	TEXADD++;
 	U16 rominfosize = pointerahplawidth * pointerahplaheight >> 6;
@@ -35,6 +35,24 @@ void DrawPointer(
 			                               | static_cast<U64>(pointer256_256[i * 8 + 7]);
 	}
 	RomAddr++;
+	//进行放缩处理
+	U16 cx, cy;
+	if (width >= 16)
+	{
+		cx = (width << magnitude) >> 4;
+	}
+	else
+	{
+		cx = 1 << 7;
+	}
+	if (height >= pointerradius)
+	{
+		cy = (height << magnitude) >> 7;
+	}
+	else
+	{
+		cy = 1 << 7;
+	}
 	//U8 cy = 0;
 	//if (height>pointerradius)
 	//{
@@ -129,11 +147,45 @@ void DrawPointer(
 	//tx =  tx - newx + oldx ;
 	//ty =  ty + newy - oldy ;
 	//matrixgenerate.Triscale(cx, cy);
+	
+	//先进行放缩和旋转操作，最后进行平移操作；
 	MatrixGenerate matrixgenerate;
-	
-	//matrixgenerate.Tritranslate( -500<<4, -500<<4);
-	
-	matrixgenerate.Triscale(16, 16);
-	matrixgenerate.Trirotate(30);
+	matrixgenerate.Triscale(cx, cy);
+	matrixgenerate.Trirotate(degrees);
+	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
+	U16 circlex = 128, circley = 128;
+	S16 A = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix >> 48 & 0xffff;
+	S16 B = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix >> 32 & 0xffff;
+	S16 C = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix >> 16 & 0xffff;
+	S16 D = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix & 0xffff;
+	S16 E = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrixEF >> 16 & 0xffff;
+	S16 F = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrixEF & 0xffff;
+	//去除误差
+	S16 circlexcurrent = 0, circleycurrent = 0;
+	circlexcurrent = static_cast<S16>
+		 (static_cast<S32>(circlex)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].A)
+		+ static_cast<S32>(circley)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].C)
+		>> magnitude);
+	circleycurrent = static_cast<S16>
+		 (static_cast<S32>(circlex)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].B)
+		+ static_cast<S32>(circley)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].D)
+		>> magnitude);
+	S16 circlexnow = 0, circleynow = 0;
+	circlexnow = static_cast<S16>
+		 (static_cast<S32>(circlexcurrent)*static_cast<S32>((S16)A)
+		+ static_cast<S32>(circleycurrent)*static_cast<S32>((S16)C)
+		>> magnitude);
+	circleynow = static_cast<S16>
+		 (static_cast<S32>(circlexcurrent)*static_cast<S32>((S16)B)
+		+ static_cast<S32>(circleycurrent)*static_cast<S32>((S16)D)
+		>> magnitude);
+	circlex = circlex * 2 - circlexnow;
+	circley = circley * 2 - circleynow;
+	/*****************************************************************************/
+	circlexnow = static_cast<S16>(static_cast<S32>(circlex)*static_cast<S32>(A)+static_cast<S32>(circley)*static_cast<S32>(C) >> magnitude);
+	circleynow = static_cast<S16>(static_cast<S32>(circlex)*static_cast<S32>(B)+static_cast<S32>(circley)*static_cast<S32>(D) >> magnitude);
+	x = x - circlexnow;
+	y = y - circleynow;
+	matrixgenerate.Tritranslate(x, y);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 }

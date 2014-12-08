@@ -68,7 +68,7 @@ void start()
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
 	
-	 DrawCircle(200, 500, 500,
+	 DrawCircle(256, 500, 500,
 	 	tile_info,
 	 	rom_info,
 	 	Matrixmask,
@@ -106,15 +106,14 @@ void start()
 		TEXADD);
 	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
 	GetMatrix(matrix, TEXADD, 5);
-	//DrawPointer(
-	//  	tile_info,
-	//  	rom_info,
-	//  	Matrixmask,
-	//  	tileinfomask,
-	//  	matrix,
-	//  	RomAddr,
-	//  	TEXADD,
-	//	500, 500, 30);
+	DrawPointer(tile_info,
+	  	rom_info,
+	  	Matrixmask,
+	  	tileinfomask,
+	  	matrix, 
+	  	RomAddr,
+	  	TEXADD,
+		500, 500, 90,32,256);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
 	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//已测试
@@ -126,13 +125,8 @@ void start()
 	//	Matrixmask,
 	//	matrix,
 	//	TEXADD);//获取矩阵
-	//ADDPurity(tileinfomask, TEXADD, 1, 123, 123, 123, 1024, 768);
-	//MatrixGenerate Matrixgenerate1;
-	//Matrixgenerate1.GetMatrix(tile_info,
-	//	Matrixmask,
-	//	matrix,
-	//	TEXADD);//获取矩阵
-	//GetMatrix(matrix, TEXADD, 0);
+	ADDPurity(tileinfomask, TEXADD, 1, 123, 123, 123, 256, 256);
+	GetMatrix(matrix, TEXADD, 7);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);

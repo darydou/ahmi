@@ -6,8 +6,8 @@
 #include "JoggleLayer.h"
 #include "WriteChinese.h"
 #include "WriteEnglish.h"
-#include "circle.h"
-#include "pointer.h"
+#include "DrawCircle.h"
+#include "DrawPointer.h"
 
 static GLint    ImageWidth = 1024;
 static GLint    ImageHeight = 768;

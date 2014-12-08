@@ -54,10 +54,10 @@
     <ClInclude Include="WriteEnglish.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="circle.h">
+    <ClInclude Include="DrawCircle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="pointer.h">
+    <ClInclude Include="DrawPointer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -92,10 +92,10 @@
     <ClCompile Include="WriteEnglish.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="circle.cpp">
+    <ClCompile Include="DrawCircle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pointer.cpp">
+    <ClCompile Include="DrawPointer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
