@@ -66,10 +66,18 @@ void WriteChinese(string word, U8 size,S16 tx,S16 ty,
 {
 	U16 wordlength = word.length() >> 1;
 	U16  fontsize = 0;
-	if (size > 24)
+	U16 cx = 0  ;
+	if (size >= 32)
+	{
 		fontsize = 32;
+		cx = (size << magnitude) >> 5;
+	}
 	else
+	{
 		fontsize = 16;
+		cx = (size << magnitude) >> 4;
+	}
+		
 	U16 romsize = wordlength*fontsize*fontsize >> 6;
 	rom_info.tex[RomAddr].texel = new U64[romsize];
 	tileinfomask.tileinfomask1[TEXADD].flag = 2;
@@ -118,14 +126,8 @@ void WriteChinese(string word, U8 size,S16 tx,S16 ty,
 		delete[] buffer;
 	}
 	RomAddr++;
-	U8 cx = 0,cy = 0;
-	//if (size > 32)
-	//{
-	//	 
-	//}
 	MatrixGenerate matrixgenerate;
-	matrixgenerate.Tritranslate(((S1_B_4)-tx) << 4, ((S1_B_4)-ty) << 4);//ÒÑ²âÊÔ
-	//matrixgenerate.Triscale(cx,cy);
-	matrixgenerate.Trirotate(45);
+	matrixgenerate.Triscale(cx, cx);
+	matrixgenerate.Tritranslate(tx, ty);//ÒÑ²âÊÔ
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD); 
 }

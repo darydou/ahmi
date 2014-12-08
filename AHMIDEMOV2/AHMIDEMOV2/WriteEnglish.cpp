@@ -12,10 +12,17 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 {
 	U16 wordlength = word.length();
 	U16 fontsize;
-	if (size > 12)
+	U16 cx = 0;
+	if (size >=32)
+	{
 		fontsize = 16;
+		cx = (size << magnitude) >> 5;
+	}
 	else
+	{
 		fontsize = 8;
+		cx = (size << magnitude) >> 4;
+	}
 	U16 romsize = wordlength*fontsize*fontsize * 2 >> 6;
 	rom_info.tex[RomAddr].texel = new U64[romsize];
 	tileinfomask.tileinfomask1[TEXADD].flag = 2;
@@ -80,12 +87,7 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	}
 	RomAddr++;
 	MatrixGenerate matrixgenerate;
-	//matrixgenerate.Trirotate(180);
-	//matrixgenerate.Triscale(4 << 4, 4 << 4);
-	matrixgenerate.Tritranslate(((S1_B_4)-tx) << 4, ((S1_B_4)-ty) << 4);//ÒÑ²âÊÔ
-	//if (size == 0)
-	//	size = 1;
-	//matrixgenerate.Triscale(4<< 4, 4 << 4);
-	//matrixgenerate.Trirotate(45);
+	matrixgenerate.Triscale(cx, cx);
+	matrixgenerate.Tritranslate(tx, ty);//ÒÑ²âÊÔ
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 }
