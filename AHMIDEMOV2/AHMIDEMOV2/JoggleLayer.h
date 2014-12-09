@@ -6,8 +6,8 @@
 #include "ahmiv2.h"
 #include "MatrixGenerate.h"
 #include "LoadFontlibrary.h"
-extern U16 * FrameBuffer;
 
+extern U16 * FrameBuffer;
 
 //更新tileinfo
 void TileInfoGenrate(TileInfo &tile_info,
@@ -25,21 +25,15 @@ void ReadROMinfo(char*filename,
 	U8 &RomAddr, 
 	U8 &TEXADD, 
 	BOOL mask);
-//添加纯色纹理
-void ADDPurity(TileInfoMask &tileinfomask,
-	U8 &TEXADD,
-	BOOL mask,
-	U8 r,
-	U8 g,
-	U8 b,
-	U16 width,
-	U16 height);
+
+
+
+
+
 //调用核心层
 void Flush(ahmi *my_ahmi_p, TileInfo *tile_info, ROMInfo *rom_info);
 //当不产生新矩阵时更新矩阵记录数组
 //void MatrixIng(TileInfo *&tile_info,
 //	MatrixMask *&Matrixmask);
-void GetMatrix(U8 (&matrix)[MatrixSize],
-	U8 TEXADD,
-	U8 num);
+
 #endif

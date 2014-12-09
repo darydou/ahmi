@@ -60,6 +60,9 @@
     <ClInclude Include="DrawPointer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="DrawTool.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -96,6 +99,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DrawPointer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

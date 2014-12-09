@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "DrawCircle.h"
 #include "MatrixGenerate.h"
+#include "DrawTool.h"
 
 void DrawCircle(U16 radius, S16 x, S16 y,
 	TileInfo &tile_info,
@@ -85,4 +86,7 @@ void DrawCircle(U16 radius, S16 x, S16 y,
 	y = y - circleynow;
 	matrixgenerate.Tritranslate(x, y);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
+	//为文字添加颜色
+	TOOL::ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, tileinfomask.tileinfomask1[TEXADD-1].width, tileinfomask.tileinfomask1[TEXADD-1].height);
+	TOOL::GetMatrix(matrix, TEXADD, TEXADD - 2);
 }

@@ -84,6 +84,7 @@
     <ClInclude Include="ALLHeader.h" />
     <ClInclude Include="DrawCircle.h" />
     <ClInclude Include="DNSDriver.h" />
+    <ClInclude Include="DrawTool.h" />
     <ClInclude Include="JoggleLayer.h" />
     <ClInclude Include="LoadFontlibrary.h" />
     <ClInclude Include="MatrixGenerate.h" />
@@ -99,6 +100,7 @@
     <ClCompile Include="ahmiv2.cpp" />
     <ClCompile Include="DrawCircle.cpp" />
     <ClCompile Include="DNSDriver.cpp" />
+    <ClCompile Include="DrawTool.cpp" />
     <ClCompile Include="JoggleLayer.cpp" />
     <ClCompile Include="MatrixGenerate.cpp" />
     <ClCompile Include="DrawPointer.cpp" />

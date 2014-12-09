@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "WriteEnglish.h"
+#include "DrawTool.h"
 
 void WriteNum(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
@@ -107,4 +108,8 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	matrixgenerate.Triscale(cx, cx);
 	matrixgenerate.Tritranslate(tx, ty);//已测试
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
+
+	//为文字添加颜色
+	TOOL::ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, tileinfomask.tileinfomask1[TEXADD - 1].width, tileinfomask.tileinfomask1[TEXADD - 1].height);
+	TOOL::GetMatrix(matrix, TEXADD, TEXADD - 2);
 }

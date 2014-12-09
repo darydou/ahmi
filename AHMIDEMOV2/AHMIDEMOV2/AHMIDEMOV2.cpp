@@ -58,15 +58,19 @@ void start()
 	/********************************************/
 	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	TOOL::MatrixGenerate Matrixgenerate;
+
 	//Matrixgenerate.Triscale(2, 2);
 	//Matrixgenerate.Tritranslate(100, 100);
 	//Matrixgenerate.Trirotate(10);
+
 	Matrixgenerate.GetMatrix(tile_info,
 		Matrixmask,
 		matrix,
 		TEXADD);
+
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("´ó",rom_info,tileinfomask,RomAddr,TEXADD);
+
 	 DrawCircle(256, 500, 500,
 	 	tile_info,
 	 	rom_info,
@@ -75,8 +79,7 @@ void start()
 	 	matrix,
 	 	RomAddr,
 	 	TEXADD);
-	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
-	GetMatrix(matrix, TEXADD, TEXADD-2);
+
 	WriteChinese("ËÙ¶È", 16, 430, 700,
 		rom_info,
 		tile_info,
@@ -85,8 +88,7 @@ void start()
 		matrix,
 		RomAddr,
 		TEXADD);
-	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 100, 100);
-	GetMatrix(matrix, TEXADD, TEXADD - 2);
+
 	WriteEnglish("km/h", 16, 520, 700,
 		rom_info,
 		tile_info,
@@ -95,8 +97,7 @@ void start()
 		matrix,
 		RomAddr,
 		TEXADD);
-	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
-	GetMatrix(matrix, TEXADD, TEXADD - 2);
+
 
 	//void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	//	ROMInfo &rom_info,
@@ -106,7 +107,8 @@ void start()
 	//	U8(&matrix)[MatrixSize],
 	//	U8 &RomAddr,
 	//	U8 &TEXADD)
-	WriteNum("123.00",16,470,700,
+
+	WriteNum("999.00",16,470,700,
 		rom_info,
 		tile_info,
 		Matrixmask,
@@ -114,16 +116,17 @@ void start()
 		matrix,
 		RomAddr,
 		TEXADD);
+
+
 	DrawPointer(tile_info,
-	  	rom_info,
-	  	Matrixmask,
-	  	tileinfomask,
-	  	matrix, 
+	  	rom_info     ,
+	  	Matrixmask   ,
+	  	tileinfomask ,
+	  	matrix , 
 	  	RomAddr,
-	  	TEXADD,
+	  	TEXADD ,
 		500, 500, 0,16,256);
-	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 255, 256, 256);
-	GetMatrix(matrix, TEXADD, TEXADD - 2);
+
 
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
