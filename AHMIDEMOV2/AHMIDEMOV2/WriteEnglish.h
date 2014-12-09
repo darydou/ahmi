@@ -1,5 +1,14 @@
 #include "ALLHeader.h"
 #include "MatrixGenerate.h"
+
+void WriteNum(string word, U8 size, S16 tx, S16 ty,
+	ROMInfo &rom_info,
+	TileInfo &tile_info,
+	MatrixMask &Matrixmask,
+	TileInfoMask &tileinfomask,
+	U8(&matrix)[MatrixSize],
+	U8 &RomAddr,
+	U8 &TEXADD);
 void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,

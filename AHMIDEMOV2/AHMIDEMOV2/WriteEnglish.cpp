@@ -1,6 +1,24 @@
 #include "stdafx.h"
 #include "WriteEnglish.h"
 
+void WriteNum(string word, U8 size, S16 tx, S16 ty,
+	ROMInfo &rom_info,
+	TileInfo &tile_info,
+	MatrixMask &Matrixmask,
+	TileInfoMask &tileinfomask,
+	U8(&matrix)[MatrixSize],
+	U8 &RomAddr,
+	U8 &TEXADD)
+{
+	WriteEnglish(word ,size,tx,ty,
+		rom_info,
+		tile_info,
+		Matrixmask,
+		tileinfomask,
+		matrix,
+		RomAddr,
+		TEXADD);
+}
 void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
@@ -85,7 +103,7 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 		delete[] buffer;
 	}
 	RomAddr++;
-	MatrixGenerate matrixgenerate;
+	TOOL::MatrixGenerate matrixgenerate;
 	matrixgenerate.Triscale(cx, cx);
 	matrixgenerate.Tritranslate(tx, ty);//“—≤‚ ‘
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);

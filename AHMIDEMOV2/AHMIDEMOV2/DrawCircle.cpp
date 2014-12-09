@@ -47,7 +47,7 @@ void DrawCircle(U16 radius, S16 x, S16 y,
 		//}
 	}
 	//进行微调整，使之偏移到圆心位置。
-	MatrixGenerate matrixgenerate;
+	TOOL::MatrixGenerate matrixgenerate;
 	matrixgenerate.Triscale(cx, cx);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 	U16 circlex = 128, circley = 128;

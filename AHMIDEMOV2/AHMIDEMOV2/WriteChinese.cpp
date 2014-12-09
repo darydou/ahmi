@@ -126,7 +126,7 @@ void WriteChinese(string word, U8 size,S16 tx,S16 ty,
 		delete[] buffer;
 	}
 	RomAddr++;
-	MatrixGenerate matrixgenerate;
+	TOOL::MatrixGenerate matrixgenerate;
 	matrixgenerate.Triscale(cx, cx);
 	matrixgenerate.Tritranslate(tx, ty);//“—≤‚ ‘
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD); 

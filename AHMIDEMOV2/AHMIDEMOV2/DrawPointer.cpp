@@ -149,7 +149,7 @@ void DrawPointer(
 	//matrixgenerate.Triscale(cx, cy);
 	
 	//先进行放缩和旋转操作，最后进行平移操作；
-	MatrixGenerate matrixgenerate;
+	TOOL::MatrixGenerate matrixgenerate;
 	matrixgenerate.Triscale(cx, cy);
 	degrees = degrees - 180;
 	matrixgenerate.Trirotate(degrees);
