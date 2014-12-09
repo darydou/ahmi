@@ -83,7 +83,6 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 			| (U64)buffer[i * 4 + 2] << 16 
 			| (U64)buffer[i * 4 + 3];
 		delete[] buffer;
-
 	}
 	RomAddr++;
 	MatrixGenerate matrixgenerate;

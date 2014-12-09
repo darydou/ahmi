@@ -78,7 +78,7 @@ void start()
 	 	TEXADD);
 	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, 256, 256);
 	GetMatrix(matrix, TEXADD, 1);
-	WriteChinese("广告费大概发达噶大该书给客户结构",40,300,300,
+	WriteChinese("速度",16,430,700,
 		rom_info,
 		tile_info,
 		Matrixmask,
@@ -96,7 +96,7 @@ void start()
 	//	U8(&matrix)[MatrixSize],
 	//	U8 &RomAddr,
 	//	U8 &TEXADD)
-	WriteEnglish("dsadfsafasdfsa", 40, 500, 500,
+	WriteEnglish("km/h", 16, 520, 700,
 		rom_info,
 		tile_info,
 		Matrixmask,
@@ -125,7 +125,7 @@ void start()
 	//	Matrixmask,
 	//	matrix,
 	//	TEXADD);//获取矩阵
-	ADDPurity(tileinfomask, TEXADD, 1, 123, 123, 123, 256, 256);
+	ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 255, 256, 256);
 	GetMatrix(matrix, TEXADD, 7);
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//GetMatrix(matrix, TEXADD, 0);
@@ -188,9 +188,8 @@ void display(void)
 int main(int argc, char* argv[])
 {
 	//_CrtSetBreakAlloc(168);
-	int i, j, addr, k = 0;
+	int i, j, addr, k=0 ;
 	PixelData = (GLubyte*)malloc(PixelLength);
-	
 	//运行主程序产生所需的数据
 	start();
 
@@ -225,7 +224,7 @@ int main(int argc, char* argv[])
 	for (i = 0; i<768; i++)
 		for (j = 0; j<1024; j++)
 		{
-		addr = i * 1024 + j;
+		addr = (767-i) * 1024 + j;
 		*(PixelData + k) = GLubyte(((*(FrameBuffer + addr)) & 0x7C00) >> 7);
 		*(PixelData + k + 1) = GLubyte(((*(FrameBuffer + addr)) & 0x03E0) >> 2);
 		*(PixelData + k + 2) = GLubyte(((*(FrameBuffer + addr)) & 0x001F) << 3);

@@ -151,6 +151,7 @@ void DrawPointer(
 	//先进行放缩和旋转操作，最后进行平移操作；
 	MatrixGenerate matrixgenerate;
 	matrixgenerate.Triscale(cx, cy);
+	degrees = degrees - 180;
 	matrixgenerate.Trirotate(degrees);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 	U16 circlex = 128, circley = 128;
