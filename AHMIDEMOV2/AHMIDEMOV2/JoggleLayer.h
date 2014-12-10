@@ -16,8 +16,10 @@ void TileInfoGenrate(TileInfo &tile_info,
 	TileInfoMask &tileinfomask,
 	U8 TEXADD,
 	ROMInfo &rom_info);
+
 //初始化纹理信息记录结构体
 void TileInfoMaskIng(TileInfoMask &tileinfomask);
+
 //读取Alpha纹理或*.dds纹理
 void ReadROMinfo(char*filename, 
 	ROMInfo &rom_info, 
@@ -25,10 +27,6 @@ void ReadROMinfo(char*filename,
 	U8 &RomAddr, 
 	U8 &TEXADD, 
 	BOOL mask);
-
-
-
-
 
 //调用核心层
 void Flush(ahmi *my_ahmi_p, TileInfo *tile_info, ROMInfo *rom_info);

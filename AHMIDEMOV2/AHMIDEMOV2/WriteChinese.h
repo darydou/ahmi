@@ -1,6 +1,5 @@
 #include "ALLHeader.h"
 
-void WriteChinese(string word, ROMInfo &rom_info, TileInfoMask &tileinfomask, U8 & RomAddr, U8 &TEXADD);
 void WriteChinese(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
@@ -8,7 +7,7 @@ void WriteChinese(string word, U8 size, S16 tx, S16 ty,
 	TileInfoMask &tileinfomask,
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
-	U8 &TEXADD);
+	U8 &TEXADD,U8 r = 0,U8 g=0,U8 b=0);
 static U64 ziku16[] = {
 	0x0,
 	0x0,

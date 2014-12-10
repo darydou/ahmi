@@ -72,7 +72,7 @@ void LoadTextureIndex(TileInfo &tile_info,
 			+ static_cast<S32>((U16)heightcurrent)*static_cast<S32>((S16)D)
 			>> magnitude)
 			+ static_cast<U16>(F >> 4);
-		width = tileinfomask.tileinfomask1[i].width - width;
+		width  = tileinfomask.tileinfomask1[i].width -  width ;
 		height = tileinfomask.tileinfomask1[i].height - height;
 		/*****************************************************************************/
 		Point leftb, leftu, rightb, rightu;
@@ -80,10 +80,10 @@ void LoadTextureIndex(TileInfo &tile_info,
 		leftb.y = 0;
 		leftb.x = static_cast<S32>(/*leftb.x*static_cast<S32>(A)+leftb.y*static_cast<S32>(C)+*/static_cast<S32>(E)) >> 4;
 		leftb.y = static_cast<S32>(static_cast<S32>(F)) >> 4;
-		leftu.x = leftb.x + (static_cast<S32> (static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(C)) >> magnitude);
-		leftu.y = leftb.y + (static_cast<S32> (static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(D)) >> magnitude);
-		rightb.x = leftb.x + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width +width) *  static_cast<S32>(A)) >> magnitude);
-		rightb.y = leftb.y + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width +width) *  static_cast<S32>(B)) >> magnitude);
+		leftu.x = leftb.x +  (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(C)) >> magnitude);
+		leftu.y = leftb.y +  (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].height+height) * static_cast<S32>(D)) >> magnitude);
+		rightb.x = leftb.x + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width + width) * static_cast<S32>(A)) >> magnitude);
+		rightb.y = leftb.y + (static_cast<S32>(static_cast<S32>(tileinfomask.tileinfomask1[i].width + width) * static_cast<S32>(B)) >> magnitude);
 		rightu.x = rightb.x + leftu.x - leftb.x;
 		rightu.y = rightb.y + leftu.y - leftb.y;
 		Point min, max;
@@ -118,11 +118,11 @@ void LoadTextureIndex(TileInfo &tile_info,
 	U16 sourceindexadd = 0;
 	for (U16 tile_num = 0; tile_num < TILEINDEXSIZE; tile_num++)
 	{
+		U16 tilerow = tile_num >> 5;
+		U16 tilecolumn = tile_num - ((tile_num >> 5) << 5);
 		tile_info.TileIndex[tile_num] = indexadd;
 		for (U16 tex_num = 0; tex_num < TEXADD; tex_num++)
 		{
-			U16 tilerow = tile_num >> 5;
-			U16 tilecolumn = tile_num - ((tile_num >> 5) << 5);
 			U16 rowmin = mintile_num[tex_num] >> 5;
 			U16 columnmin = mintile_num[tex_num] - ((mintile_num[tex_num] >> 5) << 5);
 			U16 rowmax = maxtile_num[tex_num] >> 5;

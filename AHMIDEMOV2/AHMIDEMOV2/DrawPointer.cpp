@@ -11,7 +11,7 @@ void DrawPointer(
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
 	U8 &TEXADD,
-	S16 x, S16 y, S16 degrees, U16 width, U16 height)
+	S16 x, S16 y, S16 degrees, U16 width, U16 height, U8 r, U8 g, U8 b)
 {
 	const S16 pointerradius = 128;
 	const U16 pointerahplawidth  = 256;
@@ -193,7 +193,7 @@ void DrawPointer(
 	//添加纯色纹理
 	//为文字添加颜色
 	TOOL::ADDPurity(tileinfomask, TEXADD, 
-		1, 255, 0, 0,
+		1, r, g, b,
 		tileinfomask.tileinfomask1[TEXADD - 1].width,
 		tileinfomask.tileinfomask1[TEXADD - 1].height);
 	TOOL::GetMatrix(matrix, TEXADD, TEXADD - 2);

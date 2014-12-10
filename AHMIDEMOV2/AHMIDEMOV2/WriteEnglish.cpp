@@ -9,7 +9,7 @@ void WriteNum(string word, U8 size, S16 tx, S16 ty,
 	TileInfoMask &tileinfomask,
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
-	U8 &TEXADD)
+	U8 &TEXADD, U8 r, U8 g, U8 b)
 {
 	WriteEnglish(word ,size,tx,ty,
 		rom_info,
@@ -18,7 +18,7 @@ void WriteNum(string word, U8 size, S16 tx, S16 ty,
 		tileinfomask,
 		matrix,
 		RomAddr,
-		TEXADD);
+		TEXADD,r,g,b);
 }
 void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
@@ -27,7 +27,7 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	TileInfoMask &tileinfomask,
 	U8(&matrix)[MatrixSize],
 	U8 &RomAddr,
-	U8 &TEXADD)
+	U8 &TEXADD, U8 r, U8 g, U8 b)
 {
 	U16 wordlength = word.length();
 	U16 fontsize;
@@ -110,6 +110,6 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 
 	//为文字添加颜色
-	TOOL::ADDPurity(tileinfomask, TEXADD, 1, 0, 0, 0, tileinfomask.tileinfomask1[TEXADD - 1].width, tileinfomask.tileinfomask1[TEXADD - 1].height);
+	TOOL::ADDPurity(tileinfomask, TEXADD, 1, r, g, b, tileinfomask.tileinfomask1[TEXADD - 1].width, tileinfomask.tileinfomask1[TEXADD - 1].height);
 	TOOL::GetMatrix(matrix, TEXADD, TEXADD - 2);
 }
