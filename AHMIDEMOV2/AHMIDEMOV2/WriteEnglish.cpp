@@ -2,7 +2,7 @@
 #include "WriteEnglish.h"
 #include "DrawTool.h"
 
-void WriteNum(string word, U8 size, S16 tx, S16 ty,
+void WriteNum(int value, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
 	MatrixMask &Matrixmask,
@@ -11,6 +11,62 @@ void WriteNum(string word, U8 size, S16 tx, S16 ty,
 	U8 &RomAddr,
 	U8 &TEXADD, U8 r, U8 g, U8 b)
 {
+	string word;
+	if (value == 0)
+	{
+		word.append("0.00");
+	}
+	else
+	{
+		char a[10];
+		for (int i = 0; i < 10&&value; i++)
+		{
+			a[i] = static_cast<U8>(value % 10);
+			value = value / 10;
+			switch (a[i])
+			{
+			case 0:
+				word.append("0");
+				break;
+			case 1:
+				word.append("1");
+				break;
+			case 2:
+				word.append("2");
+				break;
+			case 3:
+				word.append("3");
+				break;
+			case 4:
+				word.append("4");
+				break;
+			case 5:
+				word.append("5");
+				break;
+			case 6:
+				word.append("6");
+				break;
+			case 7:
+				word.append("7");
+				break;
+			case 8:
+				word.append("8");
+				break;
+			case 9:
+				word.append("9");
+				break;
+			}
+		}
+		word.insert(0, "00.");
+		int wordsize = word.length();
+		for (int i = 0; i < wordsize/2; i++)
+		{
+			char a = word[i];
+			word[i] = word[wordsize - 1 - i];
+			word[wordsize - 1 - i] = a;
+		}
+		int j = 0;
+	}
 	WriteEnglish(word ,size,tx,ty,
 		rom_info,
 		tile_info,

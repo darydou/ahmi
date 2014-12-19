@@ -166,7 +166,7 @@ void DrawPointer(
 	S16 circlexcurrent = 0, circleycurrent = 0;
 	circlexcurrent = static_cast<S16>
 		 (static_cast<S32>(circlex)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].A)
-		+ static_cast<S32>(circley)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].C)
+		+ static_cast<S32>(circley)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].C)  
 		>> magnitude);
 	circleycurrent = static_cast<S16>
 		 (static_cast<S32>(circlex)*static_cast<S32>(tile_info.matrix[matrix[TEXADD-1]].B)

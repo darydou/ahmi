@@ -30,7 +30,6 @@ void LoadTextureIndex(TileInfo &tile_info,
 				+ count;//移植到硬件时只需将此count改为texture_addr
 			count++;
 		}
-			
 	}
 }
  void LoadIndexSoueAddr(TileInfo &tile_info,
@@ -113,6 +112,7 @@ void LoadTextureIndex(TileInfo &tile_info,
 		//5 means tilesize is 32 pixels
 		mintile_num[i] = ((min.y >> 5) << 5) + (min.x >> 5);
 		maxtile_num[i] = ((max.y >> 5) << 5) + (max.x >> 5);
+		//根据所求的最大最小tilenum，可以计算出所对应的行和列
  	}
     U16 indexadd = 0;
 	U16 sourceindexadd = 0;

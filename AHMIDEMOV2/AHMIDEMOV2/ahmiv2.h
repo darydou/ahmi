@@ -76,4 +76,5 @@ class ahmi{
 };
 
 void start();
+void start(int a=0);
 #endif

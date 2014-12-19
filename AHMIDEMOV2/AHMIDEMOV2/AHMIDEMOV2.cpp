@@ -1,33 +1,33 @@
-// AHMIDEMOV2.cpp : Defines the entry point for the console application.
+ï»¿// AHMIDEMOV2.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
 #include "AHMIDEMOV2.h"
-
-void start()
+static int theonlyone = 0;
+void start(int a)
 {
 	TileInfo  tile_info;
 	ROMInfo   rom_info ;
-	/**************Çı¶¯±ØĞëÎŞĞè¸Ä±ä****************/
+	/**************é©±åŠ¨å¿…é¡»æ— éœ€æ”¹å˜****************/
 	TileInfoMask tileinfomask;
 	MatrixMask Matrixmask;
-	U8 matrix[MatrixSize];//ÎÆÀí±ê¼ÇÊı×é£¬È¡Öµ0~256
+	U8 matrix[MatrixSize];//çº¹ç†æ ‡è®°æ•°ç»„ï¼Œå–å€¼0~256
 	TileInfoMaskIng(tileinfomask);
 	//memset(tile_info, 0, sizeof(TileInfo));
 	//memset(Matrixmask,0,sizeof(MatrixMask));
-	U8 RomAddr = 0;//¼ÇÂ¼·Ç´¿É«ÎÆÀíµÄÊıÄ¿
-	U8 TEXADD =  0;//¼ÇÂ¼È«²¿ÎÆÀíµÄÊıÄ¿
+	U8 RomAddr = 0;//è®°å½•éçº¯è‰²çº¹ç†çš„æ•°ç›®
+	U8 TEXADD =  0;//è®°å½•å…¨éƒ¨çº¹ç†çš„æ•°ç›®
 	/********************************************/
 	//LoadEnglishLibrary("english32.dat", "englishlibrary32.dat", 16, 32);
-	/********ÇëÒÀÕÕÏÂÊöÌí¼ÓÎÆÀí¼°Æä±ä»»¾ØÕó********/
-	//Ìí¼Óalpha»òÕß*.ddsÎÆÀí
+	/********è¯·ä¾ç…§ä¸‹è¿°æ·»åŠ çº¹ç†åŠå…¶å˜æ¢çŸ©é˜µ********/
+	//æ·»åŠ alphaæˆ–è€…*.ddsçº¹ç†
 	//ReadROMinfo(char*filename, 
 	//	        rom_info, 
 	//			tileinfomask, 
 	//			RomAddr, 
 	//			TEXADD, 
 	//           int mask);
-	//Ìí¼Ó´¿É«ÎÆÀí
+	//æ·»åŠ çº¯è‰²çº¹ç†
 	//ADDPurity(tileinfomask,
 	//	        TEXADD,
 	//	        int mask,
@@ -36,25 +36,25 @@ void start()
 	//	        unsigned char b,
 	//	        unsigned short width,
 	//	        unsigned short height);
-	//Ìí¼Ó±ä»»¾ØÕó
+	//æ·»åŠ å˜æ¢çŸ©é˜µ
 	//MatrixGenerate MatrixGenerate;
-	//MatrixGenerate.Triscale(float cx, float cy);//³ß¶È±ä»»
-	//MatrixGenerate.Trirotate(int degrees);//Ğı×ª½Ç¶È
-	//MatrixGenerate.Tritranslate(short tx, short ty);//Æ½ÒÆ
-	//MatrixGenerate.Trihorizontal(char sh);//Ë®Æ½Æ«ÒÆ
-	//MatrixGenerate.Trivertical(char sv);//´¹Ö±Æ«ÒÆ
+	//MatrixGenerate.Triscale(float cx, float cy);//å°ºåº¦å˜æ¢
+	//MatrixGenerate.Trirotate(int degrees);//æ—‹è½¬è§’åº¦
+	//MatrixGenerate.Tritranslate(short tx, short ty);//å¹³ç§»
+	//MatrixGenerate.Trihorizontal(char sh);//æ°´å¹³åç§»
+	//MatrixGenerate.Trivertical(char sv);//å‚ç›´åç§»
 	//MatrixGenerate.GetMatrix(tile_info, 
 	//                        Matrixmask, 
 	//			              matrix, 
-	//			              TEXADD);//»ñÈ¡¾ØÕó
-	//²»Ìí¼Ó±ä»»¾ØÕó
+	//			              TEXADD);//è·å–çŸ©é˜µ
+	//ä¸æ·»åŠ å˜æ¢çŸ©é˜µ
 	//MatrixGenerate MatrixGenerate;
 	//MatrixGenerate.GetMatrix(tile_info, 
 	//                        Matrixmask, 
 	//                        matrix, 
-	//                        TEXADD);//»ñÈ¡¾ØÕó
-	//ÓëÇ°ÈÎÒ»ÎÆÀí±£³ÖÒ»ÖÂ
-	// GetMatrix(matrix,TEXADD,int num);//num±íÊ¾µÚ¼¸¸öÎÆÀí
+	//                        TEXADD);//è·å–çŸ©é˜µ
+	//ä¸å‰ä»»ä¸€çº¹ç†ä¿æŒä¸€è‡´
+	// GetMatrix(matrix,TEXADD,int num);//numè¡¨ç¤ºç¬¬å‡ ä¸ªçº¹ç†
 	/********************************************/
 	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	TOOL::MatrixGenerate Matrixgenerate;
@@ -69,9 +69,9 @@ void start()
 		TEXADD);
 
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
-	//WriteChinese("´ó",rom_info,tileinfomask,RomAddr,TEXADD);
+	//WriteChinese("å¤§",rom_info,tileinfomask,RomAddr,TEXADD);
 
-	 DrawCircle(256, 500, 500,
+	 DrawCircle(128, 500, 500,
 	 	tile_info,
 	 	rom_info,
 	 	Matrixmask,
@@ -80,7 +80,7 @@ void start()
 	 	RomAddr,
 	 	TEXADD);
 
-	WriteChinese("ËÙ¶È", 16, 430, 700,
+	WriteChinese("é€Ÿåº¦", 16, 430, 700,
 		rom_info,
 		tile_info,
 		Matrixmask,
@@ -107,8 +107,8 @@ void start()
 	//	U8(&matrix)[MatrixSize],
 	//	U8 &RomAddr,
 	//	U8 &TEXADD)
-
-	WriteNum("999.00",16,470,700,
+	int value = (a % 360) * 250 / 360;
+	WriteNum(value,16,470,700,
 		rom_info,
 		tile_info,
 		Matrixmask,
@@ -117,7 +117,6 @@ void start()
 		RomAddr,
 		TEXADD);
 
-
 	DrawPointer(tile_info,
 	  	rom_info     ,
 	  	Matrixmask   ,
@@ -125,26 +124,26 @@ void start()
 	  	matrix , 
 	  	RomAddr,
 	  	TEXADD ,
-		500, 500, 0,16,256);
+		500, 500, a, 8, 128);
 
 
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
 	//MatrixGenerate Matrixgenerate;
-	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//ÒÑ²âÊÔ
-	//Matrixgenerate.Triscale(2,2);//±¾Éí²»Îª¸ºÊı ÒÑ²âÊÔ
-	//MatrixGenerate.Trihorizontal(3);//±¾Éí²»Îª¸ºÊı ÒÑ²âÊÔ
-	//MatrixGenerate.Trivertical(1);//±¾Éí²»Îª¸ºÊı ÒÑ²âÊÔ
-	//Matrixgenerate.Trirotate((S16)-180); //ÒÑ²âÊÔ
+	//Matrixgenerate.Tritranslate(((S1_B_4)-1000) << 4, ((S1_B_4)-300) << 4);//å·²æµ‹è¯•
+	//Matrixgenerate.Triscale(2,2);//æœ¬èº«ä¸ä¸ºè´Ÿæ•° å·²æµ‹è¯•
+	//MatrixGenerate.Trihorizontal(3);//æœ¬èº«ä¸ä¸ºè´Ÿæ•° å·²æµ‹è¯•
+	//MatrixGenerate.Trivertical(1);//æœ¬èº«ä¸ä¸ºè´Ÿæ•° å·²æµ‹è¯•
+	//Matrixgenerate.Trirotate((S16)-180); //å·²æµ‹è¯•
 	//Matrixgenerate.GetMatrix(tile_info,
 	//	Matrixmask,
 	//	matrix,
-	//	TEXADD);//»ñÈ¡¾ØÕó
+	//	TEXADD);//è·å–çŸ©é˜µ
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD, 1);
 	//GetMatrix(matrix, TEXADD, 0);
 	//ReadROMinfo(PICNAME2, rom_info, tileinfomask, RomAddr, TEXADD, 0);
 	//GetMatrix(matrix, TEXADD, 0);
 	
-	/*******************¸üĞÂtile_infoĞÅÏ¢*********************/
+	/*******************æ›´æ–°tile_infoä¿¡æ¯*********************/
 	TileInfoGenrate(tile_info,
 		Matrixmask,
 		matrix,
@@ -164,22 +163,43 @@ void start()
 
 void display(void)
 {
-	// Çå³ıÆÁÄ»²¢²»±ØÒª
-	// Ã¿´Î»æÖÆÊ±£¬»­Ãæ¶¼¸²¸ÇÕû¸öÆÁÄ»
-	// Òò´ËÎŞÂÛÊÇ·ñÇå³ıÆÁÄ»£¬½á¹û¶¼Ò»Ñù
+	// æ¸…é™¤å±å¹•å¹¶ä¸å¿…è¦
+	// æ¯æ¬¡ç»˜åˆ¶æ—¶ï¼Œç”»é¢éƒ½è¦†ç›–æ•´ä¸ªå±å¹•
+	// å› æ­¤æ— è®ºæ˜¯å¦æ¸…é™¤å±å¹•ï¼Œç»“æœéƒ½ä¸€æ ·
 	// glClear(GL_COLOR_BUFFER_BIT);
 
-	// »æÖÆÏñËØ
+	// ç»˜åˆ¶åƒç´ 
 	glDrawPixels(ImageWidth, ImageHeight,
 		GL_BGR_EXT, GL_UNSIGNED_BYTE, PixelData);
 
-	// Íê³É»æÖÆ
+	// å®Œæˆç»˜åˆ¶
 	glutSwapBuffers();
+}
+
+void myIdle(void)
+{
+	///*Â æ–°çš„å‡½æ•°ï¼Œåœ¨ç©ºé—²æ—¶è°ƒç”¨ï¼Œä½œç”¨æ˜¯æŠŠæ—¥æœŸå¾€åç§»åŠ¨ä¸€å¤©å¹¶é‡æ–°ç»˜åˆ¶ï¼Œè¾¾åˆ°åŠ¨ç”»æ•ˆæœÂ */
+	//++day;
+	//if (dayÂ  >= 360)
+	//	dayÂ  = 0;
+	++theonlyone;
+	start(theonlyone);
+	int k = 0;
+	for (int i = 0; i<768; i++)
+		for (int j = 0; j<1024; j++)
+		{
+		int addr = (767 - i) * 1024 + j;
+		*(PixelData + k) = GLubyte(((*(FrameBuffer + addr)) & 0x7C00) >> 7);
+		*(PixelData + k + 1) = GLubyte(((*(FrameBuffer + addr)) & 0x03E0) >> 2);
+		*(PixelData + k + 2) = GLubyte(((*(FrameBuffer + addr)) & 0x001F) << 3);
+		k = k + 3;
+		}
+	display();
 }
 //void mouse_move(int x, int y)
 //{
 //	//_CrtSetBreakAlloc(2754);
-//	/*************²âÊÔÒ»¶Î´úÂëÊ±¼ä***************/
+//	/*************æµ‹è¯•ä¸€æ®µä»£ç æ—¶é—´***************/
 //	//unsigned long ticks1,ticks2;
 //	//ticks1 = GetTickCount();
 //	//start(x, y);
@@ -193,6 +213,17 @@ void display(void)
 //	//	*(PixelData + i * 3 + 1) = GLubyte(((*(FrameBuffer + i)) & 0x03E0) >> 2);
 //	//	*(PixelData + i * 3 + 2) = GLubyte(((*(FrameBuffer + i)) & 0x001F) << 3);
 //	//}
+//	start(x+y);
+//	int k = 0;
+//	for (int i = 0; i<768; i++)
+//		for (int j = 0; j<1024; j++)
+//		{
+//		int addr = (767 - i) * 1024 + j;
+//		*(PixelData + k) = GLubyte(((*(FrameBuffer + addr)) & 0x7C00) >> 7);
+//		*(PixelData + k + 1) = GLubyte(((*(FrameBuffer + addr)) & 0x03E0) >> 2);
+//		*(PixelData + k + 2) = GLubyte(((*(FrameBuffer + addr)) & 0x001F) << 3);
+//		k = k + 3;
+//		}
 //	display();
 //	glutPostRedisplay();
 //	printf("%d %d\n", x, 768 - y);
@@ -202,37 +233,37 @@ int main(int argc, char* argv[])
 	//_CrtSetBreakAlloc(168);
 	int i, j, addr, k=0 ;
 	PixelData = (GLubyte*)malloc(PixelLength);
-	//ÔËĞĞÖ÷³ÌĞò²úÉúËùĞèµÄÊı¾İ
-	start();
+	//è¿è¡Œä¸»ç¨‹åºäº§ç”Ÿæ‰€éœ€çš„æ•°æ®
+	start(0);
 
-	_CrtDumpMemoryLeaks();//±¨¸æÄÚ´æĞ¹Â¶º¯Êı
-	// ´ò¿ªÎÄ¼ş
+	_CrtDumpMemoryLeaks();//æŠ¥å‘Šå†…å­˜æ³„éœ²å‡½æ•°
+	// æ‰“å¼€æ–‡ä»¶
 	//FILE* pFile = fopen("Bliss.bmp", "rb");
 	//if( pFile == 0 )
 	//    exit(0);
 
-	// ¶ÁÈ¡Í¼ÏóµÄ´óĞ¡ĞÅÏ¢
+	// è¯»å–å›¾è±¡çš„å¤§å°ä¿¡æ¯
 	//fseek(pFile, 0x0012, SEEK_SET);
 	//fread(&ImageWidth, sizeof(ImageWidth), 1, pFile);
 	//fread(&ImageHeight, sizeof(ImageHeight), 1, pFile);
 
-	// ¼ÆËãÏñËØÊı¾İ³¤¶È
+	// è®¡ç®—åƒç´ æ•°æ®é•¿åº¦
 	//PixelLength = ImageWidth * 3;
 	//while( PixelLength % 4 != 0 )
 	//    ++PixelLength;
 	//PixelLength *= ImageHeight;
 
-	// ¶ÁÈ¡ÏñËØÊı¾İ
+	// è¯»å–åƒç´ æ•°æ®
 	//if( PixelData == 0 )
 	//    exit(0);
 
 	//fseek(pFile, 54, SEEK_SET);
 	//fread(PixelData, PixelLength, 1, pFile);
 
-	// ¹Ø±ÕÎÄ¼ş
+	// å…³é—­æ–‡ä»¶
 	//fclose(pFile);
 
-	//½«²úÉúµÄÊı¾İÇ¿ÖÆ×ª»»²¢±£´æµ½PixelDataÖĞ
+	//å°†äº§ç”Ÿçš„æ•°æ®å¼ºåˆ¶è½¬æ¢å¹¶ä¿å­˜åˆ°PixelDataä¸­
 	for (i = 0; i<768; i++)
 		for (j = 0; j<1024; j++)
 		{
@@ -243,20 +274,21 @@ int main(int argc, char* argv[])
 		k = k + 3;
 		}
 
-	// ³õÊ¼»¯GLUT²¢ÔËĞĞ
+	// åˆå§‹åŒ–GLUTå¹¶è¿è¡Œ
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(100, 100);
 	glutInitWindowSize(ImageWidth, ImageHeight);
 	glutCreateWindow(FileName);
 	glutDisplayFunc(&display);
-//	glutPassiveMotionFunc(mouse_move);
+	glutIdleFunc(&myIdle);//Â æ–°åŠ å…¥äº†è¿™å¥
+	//glutPassiveMotionFunc(mouse_move);
 	glutMainLoop();
 
-	// ÊÍ·ÅÄÚ´æ
-	// Êµ¼ÊÉÏ£¬glutMainLoopº¯ÊıÓÀÔ¶²»»á·µ»Ø£¬ÕâÀïÒ²ÓÀÔ¶²»»áµ½´ï
-	// ÕâÀïĞ´ÊÍ·ÅÄÚ´æÖ»ÊÇ³öÓÚÒ»ÖÖ¸öÈËÏ°¹ß
-	// ²»ÓÃµ£ĞÄÄÚ´æÎŞ·¨ÊÍ·Å¡£ÔÚ³ÌĞò½áÊøÊ±²Ù×÷ÏµÍ³»á×Ô¶¯»ØÊÕËùÓĞÄÚ´æ
+	// é‡Šæ”¾å†…å­˜
+	// å®é™…ä¸Šï¼ŒglutMainLoopå‡½æ•°æ°¸è¿œä¸ä¼šè¿”å›ï¼Œè¿™é‡Œä¹Ÿæ°¸è¿œä¸ä¼šåˆ°è¾¾
+	// è¿™é‡Œå†™é‡Šæ”¾å†…å­˜åªæ˜¯å‡ºäºä¸€ç§ä¸ªäººä¹ æƒ¯
+	// ä¸ç”¨æ‹…å¿ƒå†…å­˜æ— æ³•é‡Šæ”¾ã€‚åœ¨ç¨‹åºç»“æŸæ—¶æ“ä½œç³»ç»Ÿä¼šè‡ªåŠ¨å›æ”¶æ‰€æœ‰å†…å­˜
 	free(PixelData);
 
 	return 0;

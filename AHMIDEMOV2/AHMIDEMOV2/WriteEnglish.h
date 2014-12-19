@@ -1,7 +1,7 @@
 #include "ALLHeader.h"
 #include "MatrixGenerate.h"
 
-void WriteNum(string word, U8 size, S16 tx, S16 ty,
+void WriteNum(int value, U8 size, S16 tx, S16 ty,
 	ROMInfo &rom_info,
 	TileInfo &tile_info,
 	MatrixMask &Matrixmask,
