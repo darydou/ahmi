@@ -2,7 +2,7 @@
 #include "stdafx.h"
 #include "LoadFontlibrary.h"
 
-void  LoadChineseLibrary ( char *filenamein,char *filenameout, U8 size)
+void  LoadChineseLibrary(std::string  filenamein, std::string filenameout, U8 size)
 {
 	ifstream  infile;
 	infile.open(filenamein, std::ios::binary);
@@ -11,6 +11,7 @@ void  LoadChineseLibrary ( char *filenamein,char *filenameout, U8 size)
 	char * buffer = new char[4];
 	U16 rominfosize = chinesefontsize * size * size >> 6;
 	U64 *rominfo = new U64[rominfosize];
+	
 	while (!infile.eof())// && i<Pixellength)
 	{
 		infile.read(buffer, 4 * sizeof(char));
@@ -22,7 +23,7 @@ void  LoadChineseLibrary ( char *filenamein,char *filenameout, U8 size)
 		temp = temp + ((U64)((U8)buffer[0]) << 24)
 			+ ((U64)((U8)buffer[1]) << 16)
 			+ ((U64)((U8)buffer[2]) << 8)
-			+ ((U64)((U8)buffer[3]) << 0);
+			+ ((U64)((U8)buffer[3]) << 0); 
 		*(rominfo + i) = temp;
 		i++;
 	}
@@ -59,7 +60,10 @@ void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 width,U8 height
 	while (!infile.eof())
 	{
 		infile.read(buffer, sizeof(char) * 4);
-		*(rominfobuffer + i) = (U32)((U8)buffer[0]) << 24 | (U32)((U8)buffer[1]) << 16 | (U32)((U8)buffer[2]) << 8 | (U32)((U8)buffer[3]);
+		*(rominfobuffer + i) = static_cast<U32>(static_cast<U8>(buffer[0])) << 24 | 
+			static_cast<U32>(static_cast<U8>(buffer[1])) << 16 | 
+			static_cast<U32>(static_cast<U8>(buffer[2])) << 8  | 
+			static_cast<U32>(static_cast<U8>(buffer[3]));
 		i++;
 	}
 	infile.close();
