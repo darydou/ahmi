@@ -49,7 +49,7 @@ void  LoadChineseLibrary(std::string  filenamein, std::string filenameout, U8 si
 	infilecin.close();
 }
 
-void  LoadEnglishLibrary(char *filenamein, char *filenameout, U8 width,U8 height)
+void  LoadEnglishLibrary(std::string filenamein, std::string filenameout, U8 width, U8 height)
 {
 	ifstream infile;
 	infile.open(filenamein, std::ios::binary);

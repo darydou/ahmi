@@ -65,7 +65,6 @@ void WriteNum(int value, U8 size, S16 tx, S16 ty,
 			word[i] = word[wordsize - 1 - i];
 			word[wordsize - 1 - i] = a;
 		}
-		int j = 0;
 	}
 	WriteEnglish(word ,size,tx,ty,
 		rom_info,
@@ -116,11 +115,11 @@ void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 		{
 			U16 fontaddr = (U8)word[i] * fontlibrarysize;
 			for (U16 j = 0; j < 4; j++)
-			{
-				buffer[i%wordlength + (j * 4)*wordlength]      = (U8)(englishfontlibrary8[fontaddr + j] >> 24) & 0xff;
-				buffer[i%wordlength + (j * 4 + 1)*wordlength]  = (U8)(englishfontlibrary8[fontaddr + j] >> 16) & 0xff;
-				buffer[i%wordlength + (j * 4 + 2)*wordlength]  = (U8)(englishfontlibrary8[fontaddr + j] >> 8 ) & 0xff;
-				buffer[i%wordlength + (j * 4 + 3)*wordlength]  = (U8)(englishfontlibrary8[fontaddr + j]      ) & 0xff;
+			{//modified by darydou ,change the fontlibrary + st(means songti)
+				buffer[i%wordlength + (j * 4)*wordlength]      = (U8)(englishfontlibrary8st[fontaddr + j] >> 24) & 0xff;
+				buffer[i%wordlength + (j * 4 + 1)*wordlength]  = (U8)(englishfontlibrary8st[fontaddr + j] >> 16) & 0xff;
+				buffer[i%wordlength + (j * 4 + 2)*wordlength]  = (U8)(englishfontlibrary8st[fontaddr + j] >> 8 ) & 0xff;
+				buffer[i%wordlength + (j * 4 + 3)*wordlength]  = (U8)(englishfontlibrary8st[fontaddr + j]      ) & 0xff;
 				int m = 0;
 			}
 		}

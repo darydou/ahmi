@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "AHMIDEMOV2.h"
 static int theonlyone = 0;
+static int flag = 0;
 void start(int a)
 {
 	TileInfo  tile_info;
@@ -18,6 +19,7 @@ void start(int a)
 	U8 RomAddr = 0;//记录非纯色纹理的数目
 	U8 TEXADD =  0;//记录全部纹理的数目
 	/********************************************/
+	LoadEnglishLibrary("songtienglish16.dat","fym1.dat",8,16);
 	//LoadEnglishLibrary("english32.dat", "englishlibrary32.dat", 16, 32);
 	/********请依照下述添加纹理及其变换矩阵********/
 	//添加alpha或者*.dds纹理
@@ -56,29 +58,47 @@ void start(int a)
 	//与前任一纹理保持一致
 	// GetMatrix(matrix,TEXADD,int num);//num表示第几个纹理
 	/********************************************/
-	ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
-	TOOL::MatrixGenerate Matrixgenerate;
+	//ReadROMinfo(PICNAME0, rom_info, tileinfomask, RomAddr, TEXADD, 0);
+	//TOOL::MatrixGenerate Matrixgenerate;
 
 	//Matrixgenerate.Triscale(2, 2);
 	//Matrixgenerate.Tritranslate(100, 100);
 	//Matrixgenerate.Trirotate(10);
 
-	Matrixgenerate.GetMatrix(tile_info,
-		Matrixmask,
-		matrix,
-		TEXADD);
+	//Matrixgenerate.GetMatrix(tile_info,
+	//	Matrixmask,
+	//	matrix,
+	//	TEXADD);
 
 	//ADDPurity(tileinfomask, TEXADD, 1, 125, 96, 125, 1024, 768);
 	//WriteChinese("大",rom_info,tileinfomask,RomAddr,TEXADD);
 
-	 DrawCircle(128, 500, 500,
+	DrawCircle(128, 200, 200,
+		tile_info,
+		rom_info,
+		Matrixmask,
+		tileinfomask,
+		matrix,
+		RomAddr,
+		TEXADD, 255, 255, 255);
+
+	DrawPointer(tile_info,
+		rom_info,
+		Matrixmask,
+		tileinfomask,
+		matrix,
+		RomAddr,
+		TEXADD,
+		200, 200, a, 100);
+
+	 DrawCircle(190, 500, 500,
 	 	tile_info,
 	 	rom_info,
 	 	Matrixmask,
 	 	tileinfomask,
 	 	matrix,
 	 	RomAddr,
-	 	TEXADD);
+	 	TEXADD,255,255,255);
 
 	WriteChinese("速度", 16, 430, 700,
 		rom_info,
@@ -87,7 +107,7 @@ void start(int a)
 		tileinfomask,
 		matrix,
 		RomAddr,
-		TEXADD);
+		TEXADD,255,255,255);
 
 	WriteEnglish("km/h", 16, 520, 700,
 		rom_info,
@@ -96,9 +116,7 @@ void start(int a)
 		tileinfomask,
 		matrix,
 		RomAddr,
-		TEXADD);
-
-
+		TEXADD,255,255,255);
 	//void WriteEnglish(string word, U8 size, S16 tx, S16 ty,
 	//	ROMInfo &rom_info,
 	//	TileInfo &tile_info,
@@ -115,7 +133,7 @@ void start(int a)
 		tileinfomask,
 		matrix,
 		RomAddr,
-		TEXADD);
+		TEXADD,255,255,255);
 
 	DrawPointer(tile_info,
 	  	rom_info     ,
@@ -124,7 +142,7 @@ void start(int a)
 	  	matrix , 
 	  	RomAddr,
 	  	TEXADD ,
-		500, 500, a, 8, 128);
+		500, 500, a,181);
 
 
 	//ReadROMinfo(PICNAME1, rom_info, tileinfomask, RomAddr, TEXADD,0);
@@ -178,11 +196,18 @@ void display(void)
 
 void myIdle(void)
 {
-	///* 新的函数，在空闲时调用，作用是把日期往后移动一天并重新绘制，达到动画效果 */
+	///* 新的函数，在空闲时调用，作用是把指针旋转一度并重新绘制，达到动画效果 */
 	//++day;
 	//if (day  >= 360)
 	//	day  = 0;
-	++theonlyone;
+	if (theonlyone >= 359)
+		flag=1;
+	else if (theonlyone <= 0)
+		flag=0;
+	if (flag == 0)
+		++theonlyone;
+	else if (flag == 1)
+		--theonlyone;
 	start(theonlyone);
 	int k = 0;
 	for (int i = 0; i<768; i++)
@@ -198,35 +223,35 @@ void myIdle(void)
 }
 //void mouse_move(int x, int y)
 //{
-//	//_CrtSetBreakAlloc(2754);
-//	/*************测试一段代码时间***************/
-//	//unsigned long ticks1,ticks2;
-//	//ticks1 = GetTickCount();
-//	//start(x, y);
-//	//ticks2 = GetTickCount();
-//	//printf("The Start count num is %d\nThe start run time is %d \n", 
-//	//	    ++count, ticks2 - ticks1);
-//	/******************************************/
-//	//for (int i = 0; i<ImageWidth*ImageHeight; i++)
-//	//{
-//	//	*(PixelData + i * 3) = GLubyte(((*(FrameBuffer + i)) & 0x7C00) >> 7);
-//	//	*(PixelData + i * 3 + 1) = GLubyte(((*(FrameBuffer + i)) & 0x03E0) >> 2);
-//	//	*(PixelData + i * 3 + 2) = GLubyte(((*(FrameBuffer + i)) & 0x001F) << 3);
-//	//}
-//	start(x+y);
-//	int k = 0;
-//	for (int i = 0; i<768; i++)
-//		for (int j = 0; j<1024; j++)
-//		{
-//		int addr = (767 - i) * 1024 + j;
-//		*(PixelData + k) = GLubyte(((*(FrameBuffer + addr)) & 0x7C00) >> 7);
-//		*(PixelData + k + 1) = GLubyte(((*(FrameBuffer + addr)) & 0x03E0) >> 2);
-//		*(PixelData + k + 2) = GLubyte(((*(FrameBuffer + addr)) & 0x001F) << 3);
-//		k = k + 3;
-//		}
-//	display();
-//	glutPostRedisplay();
-//	printf("%d %d\n", x, 768 - y);
+	//_CrtSetBreakAlloc(2754);
+	/*************测试一段代码时间***************/
+	//unsigned long ticks1,ticks2;
+	//ticks1 = GetTickCount();
+	//start(x, y);
+	//ticks2 = GetTickCount();
+	//printf("The Start count num is %d\nThe start run time is %d \n", 
+	//	    ++count, ticks2 - ticks1);
+	/******************************************/
+	//for (int i = 0; i<ImageWidth*ImageHeight; i++)
+	//{
+	//	*(PixelData + i * 3) = GLubyte(((*(FrameBuffer + i)) & 0x7C00) >> 7);
+	//	*(PixelData + i * 3 + 1) = GLubyte(((*(FrameBuffer + i)) & 0x03E0) >> 2);
+	//	*(PixelData + i * 3 + 2) = GLubyte(((*(FrameBuffer + i)) & 0x001F) << 3);
+	//}
+	//start(x+y);
+	//int k = 0;
+	//for (int i = 0; i<768; i++)
+	//	for (int j = 0; j<1024; j++)
+	//	{
+	//	int addr = (767 - i) * 1024 + j;
+	//	*(PixelData + k) = GLubyte(((*(FrameBuffer + addr)) & 0x7C00) >> 7);
+	//	*(PixelData + k + 1) = GLubyte(((*(FrameBuffer + addr)) & 0x03E0) >> 2);
+	//	*(PixelData + k + 2) = GLubyte(((*(FrameBuffer + addr)) & 0x001F) << 3);
+	//	k = k + 3;
+	//	}
+	//display();
+	//glutPostRedisplay();
+//	printf("%d %d\n", x, y);
 //}
 int main(int argc, char* argv[])
 {
@@ -273,7 +298,6 @@ int main(int argc, char* argv[])
 		*(PixelData + k + 2) = GLubyte(((*(FrameBuffer + addr)) & 0x001F) << 3);
 		k = k + 3;
 		}
-
 	// 初始化GLUT并运行
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
@@ -289,6 +313,7 @@ int main(int argc, char* argv[])
 	// 实际上，glutMainLoop函数永远不会返回，这里也永远不会到达
 	// 这里写释放内存只是出于一种个人习惯
 	// 不用担心内存无法释放。在程序结束时操作系统会自动回收所有内存
+
 	free(PixelData);
 
 	return 0;
