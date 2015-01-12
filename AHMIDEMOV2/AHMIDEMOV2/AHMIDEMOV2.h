@@ -11,7 +11,7 @@
 
 static GLint    ImageWidth = 1024;
 static GLint    ImageHeight = 768;
-static GLint    PixelLength = 1024 * 768 * 3;
+static GLint    PixelLength = ImageWidth * ImageHeight * 3;
 static GLubyte* PixelData;
 #define FileName "Show.bmp"
 
@@ -19,8 +19,9 @@ static GLubyte* PixelData;
 #define PICNAME0   "test.dds"
 #define PICNAME1   "ALPHA5.data"
 #define PICNAME2   "arrow.dds"
+#define PICNAME3   "gauge-back.dds"
+#define PICNAME4	"1111.dds"
+#define PICNAME5	"2222.dds"
 
 
-
-
-U16 * FrameBuffer = new U16[1024 * 768];
+U16 * FrameBuffer = new U16[ImageWidth * ImageHeight];

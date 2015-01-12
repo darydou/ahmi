@@ -551,8 +551,6 @@ void ahmi::Write_Frame(FinalTile *finaltile,Color16 * FrameBuffer)
 			address=((int)(*finaltile).y/16+j)*1024+(*finaltile).x/16+i;
 			*(FrameBuffer+address)=(Color16)(((*finaltile).TileBuffer[j*32+i].r)<<10)&0x7C00 | (((*finaltile).TileBuffer[j*32+i].g)<<5)&0x03E0 | (((*finaltile).TileBuffer[j*32+i].b))&0x001F;
 		}
-
-
 }
 
 void ahmi::DrawFrame(TileInfo* tileinfo,ROMInfo* rominfo,Color16* FrameBuffer)

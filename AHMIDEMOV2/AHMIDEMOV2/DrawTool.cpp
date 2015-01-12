@@ -13,7 +13,7 @@ namespace TOOL{
 		tileinfomask.tileinfomask1[TEXADD].flag = 3;
 		tileinfomask.tileinfomask1[TEXADD].height = height;
 		tileinfomask.tileinfomask1[TEXADD].width = width;
-		tileinfomask.tileinfomask1[TEXADD].PixelLength = (U64)((U8)b << 10 & 0x7c00) + (U64)((U8)g << 5 & 0x3e0) + (U64)((U8)r >> 3 & 0x1f);
+		tileinfomask.tileinfomask1[TEXADD].PixelLength = (U64)((U8)r << 10 & 0x7c00) + (U64)((U8)g << 5 & 0x3e0) + (U64)((U8)b >> 3 & 0x1f);
 		tileinfomask.tileinfomask1[TEXADD].mask = mask;
 		TEXADD++;
 	}

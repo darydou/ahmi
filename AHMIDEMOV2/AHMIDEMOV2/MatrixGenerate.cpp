@@ -415,7 +415,8 @@ namespace TOOL{
 		tile_info.matrix[TEXADD - 1].D = (S1_1_6)MatrixTemp[4];
 		tile_info.matrix[TEXADD - 1].E = MatrixTemp[6];
 		tile_info.matrix[TEXADD - 1].F = MatrixTemp[7];
-
+		//std::cout << MatrixTemp[0] << MatrixTemp[4]<< endl;
+		//std::cout << MatrixTemp[1] << MatrixTemp[3] << endl;
 		Matrixmask.Matrixmask1[TEXADD - 1].matrix = ((U64)Matrix[0] & 0xffff) << 48 |
 			((U64)Matrix[1] & 0xffff) << 32 |
 			((U64)Matrix[3] & 0xffff) << 16 |
@@ -423,6 +424,8 @@ namespace TOOL{
 		Matrixmask.Matrixmask1[TEXADD - 1].matrixEF = ((U32)Matrix[6] & 0xffff) << 16 |
 			((U32)Matrix[7] & 0xffff);
 		matrix[TEXADD - 1] = TEXADD - 1;
+		//std::cout << Matrix[0] << Matrix[4] << endl;
+		//std::cout << Matrix[1] << Matrix[3] << endl;
 	}
 }
 

@@ -76,5 +76,9 @@ class ahmi{
 };
 
 void start();
-void start(int a=0);
+void start(int a);
+void start(int a ,int b );
+void start(int c, int a, int b );
+void globalstart(int a , int b );
+void globalstart(int c, int a , int b );
 #endif

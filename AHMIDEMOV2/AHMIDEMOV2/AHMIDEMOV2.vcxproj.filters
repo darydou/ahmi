@@ -156,5 +156,14 @@
     <Image Include="test.dds">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="gaugeback.dds">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="1111.dds">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="2222.dds">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
 </Project>

@@ -24,20 +24,21 @@ void DrawPointer(
 		pointerahplaheight = 128;
 		pointerflag = 0;
 	}
-	else if (radius >= 90)
+	else// if (radius >= 90)
 	{
 		pointerradius = 90;
 		pointerahplawidth  = 64;
 		pointerahplaheight = 64;
 		pointerflag = 1;
 	}
-	else 
-	{
-		pointerradius = 45;
-		pointerahplawidth = 32;
-		pointerahplaheight = 32;
-		pointerflag = 2;
-	}
+
+	//else 
+	//{
+	//	pointerradius = 45;
+	//	pointerahplawidth = 32;
+	//	pointerahplaheight = 32;
+	//	pointerflag = 2;
+	//}
 
 	tileinfomask.tileinfomask1[TEXADD].flag = 2;//flag=2是指ahpla颜色，mask为0代表着是1bit,1代表着8bits
 	tileinfomask.tileinfomask1[TEXADD].height = pointerahplaheight;
@@ -48,8 +49,8 @@ void DrawPointer(
 	rom_info.tex[RomAddr].texel = new U64[rominfosize];
 	if (pointerflag == 0)
 	{
-		for (U16 i = 0; i < rominfosize; i++)
-		{
+	    for (U16 i = 0; i < rominfosize; i++)
+	    {
 			*(rom_info.tex[RomAddr].texel + i) = static_cast<U64>(pointer128_1281[i * 8]) << 56
 				| static_cast<U64>(pointer128_1281[i * 8 + 1]) << 48
 				| static_cast<U64>(pointer128_1281[i * 8 + 2]) << 40
@@ -58,36 +59,37 @@ void DrawPointer(
 				| static_cast<U64>(pointer128_1281[i * 8 + 5]) << 16
 				| static_cast<U64>(pointer128_1281[i * 8 + 6]) << 8
 				| static_cast<U64>(pointer128_1281[i * 8 + 7]);
-		}
+	    }
 	}
 	else if (pointerflag == 1)
 	{
 		for (U16 i = 0; i < rominfosize; i++)
 		{
 			*(rom_info.tex[RomAddr].texel + i) = static_cast<U64>(pointer64_64[i * 8]) << 56
-				                               | static_cast<U64>(pointer64_64[i * 8 + 1]) << 48
-				                               | static_cast<U64>(pointer64_64[i * 8 + 2]) << 40
-				                               | static_cast<U64>(pointer64_64[i * 8 + 3]) << 32
-				                               | static_cast<U64>(pointer64_64[i * 8 + 4]) << 24
-				                               | static_cast<U64>(pointer64_64[i * 8 + 5]) << 16
-				                               | static_cast<U64>(pointer64_64[i * 8 + 6]) << 8
-				                               | static_cast<U64>(pointer64_64[i * 8 + 7]);
+				| static_cast<U64>(pointer64_64[i * 8 + 1]) << 48
+				| static_cast<U64>(pointer64_64[i * 8 + 2]) << 40
+				| static_cast<U64>(pointer64_64[i * 8 + 3]) << 32
+				| static_cast<U64>(pointer64_64[i * 8 + 4]) << 24
+				| static_cast<U64>(pointer64_64[i * 8 + 5]) << 16
+				| static_cast<U64>(pointer64_64[i * 8 + 6]) << 8
+				| static_cast<U64>(pointer64_64[i * 8 + 7]);
 		}
 	}
-	else if (pointerflag == 2)
-	{
-		for (U16 i = 0; i < rominfosize; i++)
-		{
-			*(rom_info.tex[RomAddr].texel + i) = static_cast<U64>(pointer128_1281[i * 8]) << 56
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 1]) << 48
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 2]) << 40
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 3]) << 32
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 4]) << 24
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 5]) << 16
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 6]) << 8
-				                               | static_cast<U64>(pointer128_1281[i * 8 + 7]);
-		}
-	}
+
+	//else if (pointerflag == 2)
+	//{
+	//	for (U16 i = 0; i < rominfosize; i++)
+	//	{
+	//		*(rom_info.tex[RomAddr].texel + i) = static_cast<U64>(pointer128_1281[i * 8]) << 56
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 1]) << 48
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 2]) << 40
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 3]) << 32
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 4]) << 24
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 5]) << 16
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 6]) << 8
+	//			                               | static_cast<U64>(pointer128_1281[i * 8 + 7]);
+	//	}
+	//}
 	RomAddr++;
 
 	//进行放缩处理
@@ -99,9 +101,9 @@ void DrawPointer(
 	}
 	else
 	{
-		cy=cx = 1 << magnitude;
+	    cy=cx = 1 << magnitude;
 	}
-
+	/*
 	//if (width >= 16)
 	//{
 	//	cx = (width << magnitude) >> 4;
@@ -118,7 +120,6 @@ void DrawPointer(
 	//{
 	//	cy = 1 << 7;
 	//}
-
 	//U8 cy = 0;
 	//if (height>pointerradius)
 	//{
@@ -213,25 +214,55 @@ void DrawPointer(
 	//tx =  tx - newx + oldx ;
 	//ty =  ty + newy - oldy ;
 	//matrixgenerate.Triscale(cx, cy);
-	
-	//先进行放缩和旋转操作，最后进行平移操作；
+	*/
 
+	//先进行放缩和旋转操作，最后进行平移操作；
 	TOOL::MatrixGenerate matrixgenerate;
+	//matrixgenerate.Tritranslate(1,1 );
 	matrixgenerate.Triscale(cx, cy);
 	degrees = degrees - 315;
 	matrixgenerate.Trirotate(degrees);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
-	//U16 circlex = 128, circley = 128;
+	
+	//绕定点旋转 方法二 add by darydou
+	//S16 A = Matrixmask.Matrixmask1[matrix[TEXADD - 1]].matrix >> 48 & 0xffff;
+	//S16 B = Matrixmask.Matrixmask1[matrix[TEXADD - 1]].matrix >> 32 & 0xffff;
+	//S16 C = Matrixmask.Matrixmask1[matrix[TEXADD - 1]].matrix >> 16 & 0xffff;
+	//S16 D = Matrixmask.Matrixmask1[matrix[TEXADD - 1]].matrix & 0xffff;
+	//S16 E = Matrixmask.Matrixmask1[matrix[TEXADD - 1]].matrixEF >> 16 & 0xffff;
+	//S16 F = Matrixmask.Matrixmask1[matrix[TEXADD - 1]].matrixEF & 0xffff;
+	//S16 widthcurrent, heightcurrent;
+	//widthcurrent =static_cast<S16>
+	//	(static_cast<S32>(pointerahplawidth)*static_cast<S32>(tile_info.matrix[matrix[TEXADD - 1]].A)
+	//	+ static_cast<S32>(pointerahplaheight)*static_cast<S32>(tile_info.matrix[matrix[TEXADD - 1]].C)
+	//	>> magnitude);
+	//heightcurrent=static_cast<S16>
+	//	(static_cast<S32>(pointerahplawidth)*static_cast<S32>(tile_info.matrix[matrix[TEXADD - 1]].B)
+	//		+ static_cast<S32>(pointerahplaheight)*static_cast<S32>(tile_info.matrix[matrix[TEXADD - 1]].D)
+	//		>> magnitude);
+	//
+	//
+	//S16 circlexcurrent = widthcurrent / 2, circleycurrent = heightcurrent / 2;
+	
+	//S16 circlexnow, circleynow;
+	//circlexnow = static_cast<S16>
+	//	(static_cast<S32>(circlexcurrent)*static_cast<S32>((S16)A)
+	//	+ static_cast<S32>(circleycurrent)*static_cast<S32>((S16)C)
+	//	>> magnitude);
+	//circleynow = static_cast<S16>
+	//	(static_cast<S32>(circlexcurrent)*static_cast<S32>((S16)B)
+	//	+ static_cast<S32>(circleycurrent)*static_cast<S32>((S16)D)
+	//	>> magnitude);
+
+	//绕定点旋转 modified by darydou 14.12.25
+	//U16 circlex = pointerahplawidth/2, circley = pointerahplaheight/2;
 	//S16 A = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix >> 48 & 0xffff;
 	//S16 B = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix >> 32 & 0xffff;
 	//S16 C = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix >> 16 & 0xffff;
 	//S16 D = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrix & 0xffff;
 	//S16 E = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrixEF >> 16 & 0xffff;
 	//S16 F = Matrixmask.Matrixmask1[matrix[TEXADD-1]].matrixEF & 0xffff;
-
-	//
-	//去除误差
-	
+	//  //去除误差
 	//S16 circlexcurrent = 0, circleycurrent = 0;
 	//S16 circlexnow = 0, circleynow = 0;
 	//circlexcurrent = static_cast<S16>
@@ -250,22 +281,63 @@ void DrawPointer(
 	//	 (static_cast<S32>(circlexcurrent)*static_cast<S32>((S16)B)
 	//	+ static_cast<S32>(circleycurrent)*static_cast<S32>((S16)D)
 	//	>> magnitude);
-	//circlex = circlex * 2 - circlexnow;
-	//circley = circley * 2 - circleynow;
-	///*****************************************************************************/
-	//circlexnow = static_cast<S16>(static_cast<S32>(circlex)*static_cast<S32>(A)+static_cast<S32>(circley)*static_cast<S32>(C) >> magnitude);
-	//circleynow = static_cast<S16>(static_cast<S32>(circlex)*static_cast<S32>(B)+static_cast<S32>(circley)*static_cast<S32>(D) >> magnitude);
-	//x = x - circlexnow;
-	//y = y - circleynow;
+	////circlex = circlex * 2 - circlexnow;
+	////circley = circley * 2 - circleynow;
+	//    /***************************/
+	//S16 circlexcurrent1, circleycurrent1;
+	//circlexcurrent1 = static_cast<S16>(static_cast<S32>(circlex)*static_cast<S32>(A)+static_cast<S32>(circley)*static_cast<S32>(C) >> magnitude);
+	//circleycurrent1 = static_cast<S16>(static_cast<S32>(circlex)*static_cast<S32>(B)+static_cast<S32>(circley)*static_cast<S32>(D) >> magnitude);
+	//x = x - circlexcurrent1;
+	//y = y - circleycurrent1;
+
 	matrixgenerate.Tritranslate(x, y);
 	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, TEXADD);
 
 	//添加纯色纹理
-	//为文字添加颜色
+	//为指针添加颜色
 
 	TOOL::ADDPurity(tileinfomask, TEXADD, 
 		1, r, g, b,
 		tileinfomask.tileinfomask1[TEXADD - 1].width,
 		tileinfomask.tileinfomask1[TEXADD - 1].height);
 	TOOL::GetMatrix(matrix, TEXADD, TEXADD - 2);
+}
+
+void DrawPointer(
+	TileInfo &tile_info,
+	ROMInfo &rom_info,
+	MatrixMask &Matrixmask,
+	TileInfoMask &tileinfomask,
+	U8(&matrix)[MatrixSize],
+	U8 texadd,
+	S16 x, S16 y, S16 degrees, U8 radius)
+{
+	S16 pointerradius;
+	if (radius >= 181)
+	{
+		pointerradius = 181;
+	}
+	else// if (radius >= 90)
+	{
+		pointerradius = 90;
+	}
+	U16 cx, cy;
+	if (radius>pointerradius)
+	{
+		cy = cx = (radius << magnitude) / pointerradius;
+	}
+	else
+	{
+		cy = cx = 1 << magnitude;
+	}
+	//先进行放缩和旋转操作，最后进行平移操作；
+	TOOL::MatrixGenerate matrixgenerate;
+	matrixgenerate.Triscale(cx, cy);
+	degrees = degrees - 315;
+	matrixgenerate.Trirotate(degrees);
+	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, texadd);
+	matrixgenerate.Tritranslate(x, y);
+	matrixgenerate.GetMatrix(tile_info, Matrixmask, matrix, texadd);
+	//添加纯色纹理
+	//为指针添加颜色
 }
